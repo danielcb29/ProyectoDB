@@ -59,7 +59,8 @@ CREATE TABLE Enfermera(
 CREATE TABLE Habilidades_Enfermera(
 	identificacion VARCHAR(35) NOT NULL,
 	habilidad VARCHAR(40) NOT NULL,
-	CONSTRAINT pk_habilidades PRIMARY KEY(identificacion, habilidad)
+	CONSTRAINT pk_habilidades PRIMARY KEY(identificacion, habilidad),
+	CONSTRAINT fk_habilidades FOREIGN KEY(identificacion) REFERENCES Enfermera(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
 --Creación de la tabla Médico. Está relacionada con empleado
@@ -71,12 +72,13 @@ CREATE TABLE Medico(
 	CONSTRAINT fk_identificacion FOREIGN KEY(identificacion) REFERENCES Empleado(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
---Creación de la tabla Cita.
+--Creación de la tabla Cita. Se relaciona con medico y paciente
 CREATE TABLE Cita(
 	fecha DATE NOT NULL,
-	hora xxx NOT NULL,
+	hora TIME NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
 	idPaciente VARCHAR(35) NOT NULL,
+	estado BOOL NOT NULL,
 	CONSTRAINT pk_cita PRIMARY KEY(fecha, hora, idMedico)
 	CONSTRAINT fk_idMedico FOREIGN KEY(idMedico) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION, 
 	CONSTRAINT fk_idPaciente FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
@@ -84,7 +86,7 @@ CREATE TABLE Cita(
 
 
 
---Creación de la tabla medicamentos (ejem: ibuprofeno, acetaminofen, etc)
+--Creación de la tabla medicamentos (ejem: ibuprofeno, acetaminofen, etc). 
 CREATE TABLE Medicamentos(
 	codigoMedicamento VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
@@ -109,20 +111,24 @@ CREATE TABLE HistoriaClinica(
 
 --Creación de la tabla Camas_Paciente. Se relaciona con Cama y Paciente.
 CREATE TABLE Camas_Paciente(
-	idCita VARCHAR(35) NOT NULL,
+	idPaciente VARCHAR(35) NOT NULL,
 	numeroCama VARCHAR(20) NOT NULL,
 	fechaAsignacion DATE NOT NULL,
 	CONSTRAINT pk_camas_paciente PRIMARY KEY(idPaciente, numeroCama, fechaAsignacion), 
 	CONSTRAINT fk_idPacCP FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
---Creación de la tabla Formula. Se relaciona con Cita y Medicamentos.
+--Creación de la tabla Formula. Se relaciona con Medicamentos, historia clinica y medico.
 CREATE TABLE Formula(
---	idCita VARCHAR(35) NOT NULL,
 	idMedicamento VARCHAR(20) NOT NULL,
+	idMedico VARCHAR(35) NOT NULL,
+	numHistoria VARCHAR(35) NOT NULL,
 	fechaAsignacion DATE NOT NULL,
-	CONSTRAINT pk_camas_paciente PRIMARY KEY(idCita, idMedicamento, fechaAsignacion), 
-	CONSTRAINT fk_idPacCP FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
+	CONSTRAINT pk_camas_paciente PRIMARY KEY(idMedico, idMedicamento, numHistoria, fecha), 
+	CONSTRAINT fk_idNumHist FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
+	CONSTRAINT fk_idNumHist FOREIGN KEY(idMedicamento) REFERENCES Medicamento(idMedicamento) ON UPDATE CASCADE ON DELETE NO ACTION,
+	CONSTRAINT fk_idNumHist FOREIGN KEY(idMedico) REFERENCES Medico(idMedico) ON UPDATE CASCADE ON DELETE NO ACTION
+
 );
 
 --Creación de la tabla Campana. Se relaciona con Medico.
@@ -144,10 +150,15 @@ CREATE TABLE Pacientes_Campana(
 	CONSTRAINT fk_idCampPC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
---Creación de la tabla RegistroHC. Relaciona a Historia Clinica con Cita.
+--Creación de la tabla RegistroHC. Relaciona con Historia Clinica, medico y causa.
 CREATE TABLE RegistroHC(
---	codigoCita VARCHAR(35) NOT NULL,
 	numHistoria VARCHAR(35) NOT NULL,
-	CONSTRAINT pk_registroHC PRIMARY KEY(codigoCita, numHistoria), 
-	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION
+	codigoCausa VARCHAR (30) NOT NULL,
+	idMedico VARCHAR(35) NOT NULL,
+	fecha DATE NOT NULL,
+	precio INT NOT NULL,
+	CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico), 
+	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
+	CONSTRAINT fk_numHC FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
+	CONSTRAINT fk_numHC FOREIGN KEY(idMedico) REFERENCES Medico(idMedico) ON UPDATE CASCADE ON DELETE NO ACTION	
 );
