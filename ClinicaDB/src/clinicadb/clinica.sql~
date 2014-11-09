@@ -86,7 +86,7 @@ CREATE TABLE Cita(
 
 
 
---Creación de la tabla medicamentos (ejem: ibuprofeno, acetaminofen, etc). 
+--Creación de la tabla medicamentos (ejem: ibuprofeno, acetaminofen, etc)
 CREATE TABLE Medicamentos(
 	codigoMedicamento VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
@@ -118,7 +118,7 @@ CREATE TABLE Camas_Paciente(
 	CONSTRAINT fk_idPacCP FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
---Creación de la tabla Formula. Se relaciona con Medicamentos, historia clinica y medico.
+--Creación de la tabla Formula. Se relaciona con Medicamentos.
 CREATE TABLE Formula(
 	idMedicamento VARCHAR(20) NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE Pacientes_Campana(
 	CONSTRAINT fk_idCampPC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
---Creación de la tabla RegistroHC. Relaciona con Historia Clinica, medico y causa.
+--Creación de la tabla RegistroHC. Relaciona a Historia Clinica con Cita.
 CREATE TABLE RegistroHC(
 	numHistoria VARCHAR(35) NOT NULL,
 	codigoCausa VARCHAR (30) NOT NULL,
