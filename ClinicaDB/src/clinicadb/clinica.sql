@@ -1,6 +1,22 @@
 --Proyecto Base de datos
 
-
+DROP TABLE IF EXISTS RegistroHC;
+DROP TABLE IF EXISTS Pacientes_Campana;
+DROP TABLE IF EXISTS Campana;
+DROP TABLE IF EXISTS Formula;
+DROP TABLE IF EXISTS Camas_Paciente;
+DROP TABLE IF EXISTS HistoriaClinica;
+DROP TABLE IF EXISTS Causa;
+DROP TABLE IF EXISTS Medicamentos;
+DROP TABLE IF EXISTS Cita;
+DROP TABLE IF EXISTS Medico;
+DROP TABLE IF EXISTS Habilidades_Enfermera;
+DROP TABLE IF EXISTS Enfermera;
+DROP TABLE IF EXISTS Empleado;
+DROP TABLE IF EXISTS Paciente;
+DROP TABLE IF EXISTS Persona;
+DROP TABLE IF EXISTS Cama;
+DROP TABLE IF EXISTS Area;
 --Creación de tabla area (ejem: psicologia, pediatria, etc) 
 CREATE TABLE Area(
 	codigoArea INT PRIMARY KEY NOT NULL,
@@ -79,7 +95,7 @@ CREATE TABLE Cita(
 	idMedico VARCHAR(35) NOT NULL,
 	idPaciente VARCHAR(35) NOT NULL,
 	estado BOOL NOT NULL,
-	CONSTRAINT pk_cita PRIMARY KEY(fecha, hora, idMedico)
+	CONSTRAINT pk_cita PRIMARY KEY(fecha, hora, idMedico),
 	CONSTRAINT fk_idMedico FOREIGN KEY(idMedico) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION, 
 	CONSTRAINT fk_idPaciente FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
@@ -98,7 +114,7 @@ CREATE TABLE Medicamentos(
 CREATE TABLE Causa(
 	codigoCausa VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
-	descripcion VARCHAR(30) NOT NULL,
+	descripcion VARCHAR(30) NOT NULL
 );
 
 --Creación de la tabla HistoriaClinica. Está relacionada con Paciente.
@@ -124,10 +140,10 @@ CREATE TABLE Formula(
 	idMedico VARCHAR(35) NOT NULL,
 	numHistoria VARCHAR(35) NOT NULL,
 	fechaAsignacion DATE NOT NULL,
-	CONSTRAINT pk_camas_paciente PRIMARY KEY(idMedico, idMedicamento, numHistoria, fecha), 
+	CONSTRAINT pk_formula PRIMARY KEY(idMedico, idMedicamento, numHistoria, fechaAsignacion), 
 	CONSTRAINT fk_idNumHist FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
-	CONSTRAINT fk_idNumHist FOREIGN KEY(idMedicamento) REFERENCES Medicamento(idMedicamento) ON UPDATE CASCADE ON DELETE NO ACTION,
-	CONSTRAINT fk_idNumHist FOREIGN KEY(idMedico) REFERENCES Medico(idMedico) ON UPDATE CASCADE ON DELETE NO ACTION
+	CONSTRAINT fk_idMedicamento FOREIGN KEY(idMedicamento) REFERENCES Medicamentos(codigoMedicamento) ON UPDATE CASCADE ON DELETE NO ACTION,
+	CONSTRAINT fk_idMedicoOnFormula FOREIGN KEY(idMedico) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 
 );
 
@@ -146,7 +162,7 @@ CREATE TABLE Pacientes_Campana(
 	idPaciente VARCHAR(35) NOT NULL,
 	idCampana VARCHAR(35) NOT NULL,
 	CONSTRAINT pk_pacientes_campana PRIMARY KEY(idPaciente, idCampana), 
-	CONSTRAINT fk_idPacPC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
+	CONSTRAINT fk_idPacPC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_idCampPC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 
@@ -159,6 +175,6 @@ CREATE TABLE RegistroHC(
 	precio INT NOT NULL,
 	CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico), 
 	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
-	CONSTRAINT fk_numHC FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
-	CONSTRAINT fk_numHC FOREIGN KEY(idMedico) REFERENCES Medico(idMedico) ON UPDATE CASCADE ON DELETE NO ACTION	
+	CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
+	CONSTRAINT fk_idMed FOREIGN KEY(idMedico) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION	
 );
