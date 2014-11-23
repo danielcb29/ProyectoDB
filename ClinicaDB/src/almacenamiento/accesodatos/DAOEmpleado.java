@@ -12,7 +12,7 @@ import java.sql.*;
  *
  * @author family
  */
-public class DAOUser {
+public class DAOEmpleado {
      /**
      * @param db objeto encargado de la conexión a la base de datos.
      * @param conn objeto para ejecutar las sentencias de SQL
@@ -23,7 +23,7 @@ public class DAOUser {
     /**
      * constructor, inicializa los atributos.
      */
-    public DAOUser(){
+    public DAOEmpleado(){
         db=new BaseDatos();
         
     }//fin constructor
@@ -41,33 +41,16 @@ public class DAOUser {
         * @param em el objeto Empleado a agregar.
         * @return devuelve el número de tuplas que se agregaron a la tabla.
         */
-    public int createUser(Empleado em){
-        String sql_save,sql_convo;
+    public int createEmployee(Empleado em){
+        String sql_save,sql_per;
         int numRows=0;
-        System.out.println("antes del get");
-        String prof=us.getProfile();
-        System.out.println("create obtenemos perfil: "+prof);
-        switch(prof){
-            case "Digitador":   sql_save="INSERT INTO usuario VALUES ('" + us.getName() + "' , '" + us.getLastName() + "', '" + us.getUserName() +  "', '" + us.getCedula() + "' , '"  +us.getPassword() + "', '" + us.getMail() + "', '1', " + us.getState()+ ")";
-                                break;
-            case "Coordinador": sql_save="INSERT INTO usuario VALUES ('" + us.getName() + "' , '" + us.getLastName() + "', '" + us.getUserName() +  "', '" + us.getCedula() + "' , '"  +us.getPassword() + "', '" + us.getMail() + "', '2', " + us.getState()+ ")";
-                                break;
-            case "Administrador":   sql_save="INSERT INTO usuario VALUES ('" + us.getName() + "' , '" + us.getLastName() + "', '" + us.getUserName() +  "', '" + us.getCedula() + "' , '"  +us.getPassword() + "', '" + us.getMail() + "', '3', " + us.getState()+ ")";
-                                    break;
-            default: return -3;
-        }    
-        
+        sql_save="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + em.getCargo()+ "', '" + em.getJefe().getIdentificacion() + "', " + /** aqui va el área+*/")";
+        sql_per="INSERT INTO persona (identificacion, nombres, apellidos, telefono, direccion) VALUES ('"+ em.getIdentificacion() +"', '"+ em.getNombres()+ "', '"+ em.getApellidos() +"', '"+ em.getTelefono()+ "', '"+ em.getDireccion() +")";
         try{
-            Statement sentencia = conn.createStatement();
-
-            numRows = sentencia.executeUpdate(sql_save);
-            System.out.println("antes del if, prof : "+prof);
-             if(!(prof.equals("Administrador"))){
-                System.out.println("antes sentencia"); 
-                sql_convo = "INSERT INTO convoUsuario VALUES ('"+us.getCedula()+"', '"+us.getConvocatoria().getCode()+"', true)";
-                sentencia.executeUpdate(sql_convo);
-                System.out.println("despues sentencia");
-            } //el registro de convoUsuario se crea solo si el usuario es digitador o coordinador.
+            Statement st = conn.createStatement();
+            st.executeUpdate(sql_per);
+            numRows = st.executeUpdate(sql_save);
+            
             System.out.println("numRowsDAO: " + numRows);
             return numRows;
             
@@ -78,7 +61,6 @@ public class DAOUser {
             return -2;
         }
         catch(Exception e){ 
-            System.out.println("exception dao creare user");
             System.out.println(e);
         }
         return -1;
