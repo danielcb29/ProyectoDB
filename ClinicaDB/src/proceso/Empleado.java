@@ -14,9 +14,10 @@ public class Empleado extends Persona{
     private int salario;
     private String email;
     private String cargo;
-    private Empleado jefe;
+    private String jefe;//identificacion del empleado
+    private Area area;
     
-    public Empleado(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, Empleado je){
+    public Empleado(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String je, Area ar){
         identificacion = id;
         nombres = nom;
         apellidos=ap;
@@ -26,7 +27,11 @@ public class Empleado extends Persona{
         email=mail;
         cargo=car;
         jefe=je;
+        area=ar;
     }
+    
+    public Empleado(){}
+    
     /**
      * @return the salario
      */
@@ -72,17 +77,30 @@ public class Empleado extends Persona{
     /**
      * @return the jefe
      */
-    public Empleado getJefe() {
+    public String getJefe() {
         return jefe;
     }
 
     /**
      * @param jefe the jefe to set
      */
-    public void setJefe(Empleado jefe) {
+    public void setJefe(String jefe) {
         this.jefe = jefe;
     }
-
     
+    
+    /**
+     * @return la area
+     */
+    public Area getArea() {
+        return area;
+    }
+    
+    /**
+     * @param area el area a cambiar
+     */
+    public void setArea(Area area) {
+        this.area = area;
+    }
     
 }

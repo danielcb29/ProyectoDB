@@ -36,39 +36,39 @@ public class ControlEmpleado {
      * metodo encargado de pasar el usuario a ingresar a la base de
      * satos al DAOusuario. 
      * @param id: cedula del empleado
-     * @param name: nombre del empleado
-     * @param lastname : apellido del usuario
-     * @param username: nombre de usuario del empleado 
-     * @param password: contraseña de usuario del empleado
+     * @param nombres: nombre del empleado
+     * @param apellidos : apellidos del empleado
+     * @param telefono: telefono del empleado 
+     * @param direccion: direccion del empleado
+     * @param sal: salario del empleado
      * @param email: email del empleado
-     * @param perfil: id del perfil que se le va a otorgar al empleado 
-     * @return result: 0 si no fue posible crear el usuario.
-     * @return result: 1 si se creo satisfactoriamente el usuario.
-     * **/
-    public int   createEmployee (String id, int sal, String email ,String cargo, String jefe)
+     * @param cargo: cargo del empleado
+     * @param jefe: jefe del empleado, "-1" si no tiene jefe
+     * @param area: area del empleado, objeto null si es administrador
+     * @return result: 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente el usuario.
+     */
+    public int   createEmployee (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String jefe, Area area)
     {
-        //System.out.println(convocatoria.getName());
-        Empleado em = new Empleado(id, sal, email, cargo, jefe);        
+        
+        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo, jefe, area);
         
         //Se llama al dao para guardar
-        int result =daoUser.createUser(U);
-        //int result = 0;
+        int result =daoEm.createEmployee(em);
+        
         return result;
 
     }
     /**
      * metodo encargado de pasar el username a Dao para que consulte si el 
      * usuario existe
-     * @param username : nombre de usuario del empleado
-     * @return Usuario : objeto con los atributos del empleado
-     * es objeto es nulo en caso de no existir el usuario.
-     */
-    public Usuario   consultUser (String username, int tipoCon){
-        Usuario U = new Usuario ();
-        System.out.println("entramos al control");
-        U= daoUser.readUser(username, tipoCon);
+     * @param req el correo o identificacion del empleado que se quiere consultar.
+     * @param tipoCon 1 si es correo electronico, 2 si es identificacion
+     * @return null si hay error en la consulta a la base de datos. Objeto tipo Empleado si el objeto del usuario que se consulto. 
+    */
+    public Empleado   readEmployee (String req, int tipoCon){
+        Empleado em = daoEm.readEmployee(req, tipoCon);
         
-        return U;
+        return em;
 
     }
     
@@ -84,12 +84,7 @@ public class ControlEmpleado {
         return size;
                 
     }
-    /*
-     * Cerrar conexion base de datos
-     */
-    public void cerrarConexionBD(){
-        daoUser.closeConectionDB();
-    }
+    
 
     public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
         int result;
@@ -103,6 +98,14 @@ public class ControlEmpleado {
 
     public int  deleteUser(String text) {
         return daoUser.deleteUser(text);
+    }
+    
+    
+    /*
+     * Cerrar conexion base de datos
+     */
+    public void cerrarConexionBD(){
+        daoEm.closeConectionDB();
     }
 
 }//fin clase

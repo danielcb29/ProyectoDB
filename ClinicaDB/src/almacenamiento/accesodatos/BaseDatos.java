@@ -18,7 +18,7 @@ public class BaseDatos {
      BaseDatos(){
       url = "jdbc:postgresql://localhost:5432/bdbrayan";
       usuario="brayanrod";
-      password="bryan1112hola";
+      password="bryan1112";
       
     }
     public Connection conectar(){

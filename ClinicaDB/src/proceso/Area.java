@@ -9,13 +9,21 @@ package proceso;
  *
  * @author cenesis
  */
-class Area {
+public class Area {
     
     private int codigoArea;
     private String nombre;
     private String descripcion;
-    private Cama[] camasArea;
+    
 
+    public Area(int ca, String nom, String des){
+        codigoArea=ca;
+        nombre=nom;
+        descripcion=des;
+    }
+    
+    public Area(){}
+    
     /**
      * @return the codigoArea
      */
@@ -58,18 +66,4 @@ class Area {
         this.descripcion = descripcion;
     }
 
-    /**
-     * @return the camasArea
-     */
-    public Cama[] getCamasArea() {
-        return camasArea;
-    }
-
-    /**
-     * @param camasArea the camasArea to set
-     */
-    public void setCamasArea(Cama[] camasArea) {
-        this.camasArea = camasArea;
-    }
-    
 }
