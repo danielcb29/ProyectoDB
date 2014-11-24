@@ -11,12 +11,19 @@ import java.util.Date;
  *
  * @author cenesis
  */
-class HistoriaClinica {
+public class HistoriaClinica {
     
     private String numHistoria;
     private Date fechaAper;
     private Registro[] registrosConsultasPacientes;
 
+    public HistoriaClinica(Date fechaAper){
+        
+        this.fechaAper=fechaAper;
+    }
+    public HistoriaClinica(){
+        
+    }
     /**
      * @return the numHistoria
      */

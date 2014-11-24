@@ -121,6 +121,9 @@ CREATE TABLE Causa(
 	estado BOOL NOT NULL
 );
 ALTER TABLE Causa ALTER codigoCausa SET DEFAULT nextval('causa_seq');
+--Secuencia para las historias clinicas
+DROP SEQUENCE IF EXISTS hist_seq;
+CREATE SEQUENCE hist_seq;
 --Creación de la tabla HistoriaClinica. Está relacionada con Paciente.
 CREATE TABLE HistoriaClinica(
 	numHistoria VARCHAR(35) NOT NULL PRIMARY KEY,
@@ -128,7 +131,7 @@ CREATE TABLE HistoriaClinica(
 	idPaciente VARCHAR(35) NOT NULL,
 	CONSTRAINT fk_idPacHC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
-
+ALTER TABLE HistoriaClinica ALTER numHistoria SET DEFAULT nextval('hist_seq');
 --Creación de la tabla Camas_Paciente. Se relaciona con Cama y Paciente.
 CREATE TABLE Camas_Paciente(
 	idPaciente VARCHAR(35) NOT NULL,

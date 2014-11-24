@@ -20,6 +20,7 @@ public class PanelMedico extends javax.swing.JFrame {
      */
     static ClinicaDB db; //TEMPORAL
     private PanelCausas panelCausas; 
+    private PanelHistoriaClinica panelHC;
     private Connection conn;
     public PanelMedico(String apellido , Connection conn) {
         super("Panel Administrativo para Doctores");
@@ -64,6 +65,11 @@ public class PanelMedico extends javax.swing.JFrame {
         jLabel3.setText("Gestion de Historias Clinicas");
 
         btCrearHC.setText("Crear");
+        btCrearHC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearHCActionPerformed(evt);
+            }
+        });
 
         btRegistro.setText("Ingresar Registro");
         btRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +231,12 @@ public class PanelMedico extends javax.swing.JFrame {
             panelCausas.setVisible(true);
         }
     }//GEN-LAST:event_btEliminarCausaActionPerformed
+
+    private void btCrearHCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearHCActionPerformed
+        // TODO add your handling code here:
+        panelHC = new PanelHistoriaClinica(conn);
+        panelHC.setVisible(true);
+    }//GEN-LAST:event_btCrearHCActionPerformed
 
     /**
      * @param args the command line arguments
