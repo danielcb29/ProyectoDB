@@ -55,7 +55,7 @@ CREATE TABLE Paciente(
 CREATE TABLE Empleado(
 	identificacion VARCHAR(35) NOT NULL PRIMARY KEY,
 	salario INT NOT NULL,
-	email VARCHAR(40) NOT NULL UNIQUE,
+	email VARCHAR(40) NOT NULL,
 	cargo VARCHAR(40) NOT NULL,
 	jefe VARCHAR(35),
 	codigoArea INT,

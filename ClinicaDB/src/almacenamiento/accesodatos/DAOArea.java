@@ -12,7 +12,7 @@ import java.sql.*;
  *
  * @author family
  */
-public class DAOEmpleado {
+public class DAOArea {
      /**
      * @param db objeto encargado de la conexión a la base de datos.
      * @param conn objeto para ejecutar las sentencias de SQL
@@ -23,7 +23,7 @@ public class DAOEmpleado {
     /**
      * constructor, inicializa los atributos.
      */
-    public DAOEmpleado(){
+    public DAOArea(){
         db=new BaseDatos();
         
     }//fin constructor
@@ -37,34 +37,19 @@ public class DAOEmpleado {
         return conn;
     }
         /**
-        * crear o agregar un usuario a la tabla.
-        * @param em el objeto Empleado a agregar.
+        * crear o agregar un area a la tabla.
+        * @param ar el objeto Area a agregar.
         * @return devuelve el número de tuplas que se agregaron a la tabla.
         */
-    public int createEmployee(Empleado em){
-        String sql_em,sql_per;
+    public int createArea(Area ar){
+        String sql_ar;
         int numRows=0;
-        String cargo=em.getCargo();
-        String jefe =em.getJefe();
-        if(cargo.equals("Administrador")){
-            if(jefe.equals("-1")){
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', NULL, NULL)";                
-            }else{
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + jefe + "', NULL)";
-            }
-        }else{
-            if(jefe.equals("-1")){
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', NULL, "+ em.getArea().getCodigoArea() + ")";
-            }else{
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + jefe + "', "+ em.getArea().getCodigoArea() + ")";
-            }
-        }
         
-        sql_per="INSERT INTO persona (identificacion, nombres, apellidos, telefono, direccion) VALUES ('"+ em.getIdentificacion() +"', '"+ em.getNombres()+ "', '"+ em.getApellidos() +"', '"+ em.getTelefono()+ "', '"+ em.getDireccion() +")";
+        
+        sql_ar="INSERT INTO area (codigoArea, nombre, descripcion) VALUES ("+ ar.getCodigoArea() +", '"+ ar.getNombre()+ "', '"+ ar.getDescripcion() +")";
         try{
             Statement st = conn.createStatement();
-            st.executeUpdate(sql_per);
-            numRows = st.executeUpdate(sql_em);
+            numRows = st.executeUpdate(sql_ar);
             
             System.out.println("numRowsDAO: " + numRows);
             return numRows;
@@ -82,69 +67,35 @@ public class DAOEmpleado {
     }//fin saveUser
     
         /**
-        * consultar el empleado que tiene como correo o identificacion el parametro.
-        * @param req el correo o identificacion del empleado que se quiere consultar.
-        * @param tipoCon 1 si es correo electronico, 2 si es identificacion
-        * @return null si hay error en la consulta a la base de datos. Objeto tipo Empleado si el objeto del usuario que se consulto. 
+        * consultar el area que tiene codigo el parametro.
+        * @param cod el correo o identificacion del empleado que se quiere consultar.
+        * @return null si hay error en la consulta a la base de datos. Objeto tipo Area si el objeto del usuario que se consulto. 
         */
-    public Empleado readEmployee(String req, int tipoCon){
-        Empleado em= new Empleado();
+    public Area readArea(int cod){
+        Area ar= new Area();
         String sql_select;
-        if(tipoCon==1){
-            //System.out.println("entramos al caso de username");
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.jefe, empleado.area FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.email='" + req +  "'";        
-        }else{
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.jefe, empleado.area FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.identificacion='" + req +  "'";
-        }
+        sql_select="SELECT codigoArea, nombre, descripcion FROM  area WHERE codigoArea=" + cod ;        
+        
+        
         try{
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
-            //System.out.println("antes de la ejecucion");
+            
             ResultSet table = statement.executeQuery(sql_select);
-            //System.out.println("despues de la ejecucion");
+            
             
             while(table.next()){
-                //System.out.println("dentro del while");
-                em.setIdentificacion(table.getString(1));
+                
+                ar.setCodigoArea(table.getInt(0));
+                
+                ar.setNombre(table.getString(1));
+                
+                ar.setDescripcion(table.getString(2));
                
-                em.setNombres(table.getString(2));
-                
-                em.setApellidos(table.getString(3));
-                
-                em.setTelefono(table.getString(4));               
-
-                em.setDireccion(table.getString(5));
-
-                em.setSalario(table.getInt(6));
-                
-                em.setEmail(table.getString(7));
-                
-                em.setCargo(table.getString(8));
-                
-                String jefe = table.getString(9);
-                
-                System.out.println(jefe);
-                
-                if(jefe.equals("null")){
-                    em.setJefe("-1");
-                }else{
-                    em.setJefe(jefe);
-                }
-                
-                String area = table.getString(10);
-                
-                System.out.println(area);
-                if(area.equals("null")){
-                    em.setArea(null);
-                }else{
-                    DAOArea daoa= new DAOArea();
-                    Area ar = daoa.readArea(area);
-                    em.setArea(ar);
-                }
                 System.out.println("ok");
             }
-            return em;
-         }
+            return ar;
+        }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println("excepcion del dao"); System.out.println(e); }
         return null;
