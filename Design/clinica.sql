@@ -1,22 +1,22 @@
 --Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martienez , Brayan Rodriguez
 
---DROP TABLE IF EXISTS RegistroHC;
---DROP TABLE IF EXISTS Pacientes_Campana;
---DROP TABLE IF EXISTS Campana;
---DROP TABLE IF EXISTS Formula;
---DROP TABLE IF EXISTS Camas_Paciente;
---DROP TABLE IF EXISTS HistoriaClinica;
---DROP TABLE IF EXISTS Causa;
---DROP TABLE IF EXISTS Medicamentos;
---DROP TABLE IF EXISTS Cita;
---DROP TABLE IF EXISTS Medico;
---DROP TABLE IF EXISTS Habilidades_Enfermera;
---DROP TABLE IF EXISTS Enfermera;
---DROP TABLE IF EXISTS Empleado;
---DROP TABLE IF EXISTS Paciente;
---DROP TABLE IF EXISTS Persona;
---DROP TABLE IF EXISTS Cama;
---DROP TABLE IF EXISTS Area;
+DROP TABLE IF EXISTS RegistroHC;
+DROP TABLE IF EXISTS Pacientes_Campana;
+DROP TABLE IF EXISTS Campana;
+DROP TABLE IF EXISTS Formula;
+DROP TABLE IF EXISTS Camas_Paciente;
+DROP TABLE IF EXISTS HistoriaClinica;
+DROP TABLE IF EXISTS Causa;
+DROP TABLE IF EXISTS Medicamentos;
+DROP TABLE IF EXISTS Cita;
+DROP TABLE IF EXISTS Medico;
+DROP TABLE IF EXISTS Habilidades_Enfermera;
+DROP TABLE IF EXISTS Enfermera;
+DROP TABLE IF EXISTS Empleado;
+DROP TABLE IF EXISTS Paciente;
+DROP TABLE IF EXISTS Persona;
+DROP TABLE IF EXISTS Cama;
+DROP TABLE IF EXISTS Area;
 --Creación de tabla area (ejem: psicologia, pediatria, etc) 
 CREATE TABLE Area(
 	codigoArea INT PRIMARY KEY NOT NULL,
@@ -109,14 +109,18 @@ CREATE TABLE Medicamentos(
 	costo MONEY NOT NULL,
 	descripcion TEXT NOT NULL
 );
+--Secuencia para las causas
 
+DROP SEQUENCE IF EXISTS causa_seq;
+CREATE SEQUENCE causa_seq;
 --Creación de la tabla Causa.
 CREATE TABLE Causa(
 	codigoCausa VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
-	descripcion VARCHAR(30) NOT NULL
+	descripcion VARCHAR(30) NOT NULL,
+	estado BOOL NOT NULL
 );
-
+ALTER TABLE Causa ALTER codigoCausa SET DEFAULT nextval('causa_seq');
 --Creación de la tabla HistoriaClinica. Está relacionada con Paciente.
 CREATE TABLE HistoriaClinica(
 	numHistoria VARCHAR(35) NOT NULL PRIMARY KEY,
