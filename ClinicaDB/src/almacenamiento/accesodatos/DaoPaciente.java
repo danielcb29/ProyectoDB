@@ -211,6 +211,8 @@ public class DaoPaciente {
     }
     
     
+/***************************************************METODOS DE PRUEBA**********************************/
+    
     /**
      * Metodo que prueba el crear paciente
      * @throws ParseException 
@@ -227,6 +229,7 @@ public class DaoPaciente {
         System.out.println(crearPaciente(ejemPaciente1));
         
     }
+    
     
     /**
      * Metodo de prueba de paciente
@@ -247,9 +250,12 @@ public class DaoPaciente {
         System.out.println(modificarPaciente("4425", nuevoPaciente));
     }
     
+    
+    /**
+     * Prueba listar pacientes
+     */
     public void pruebaList(){
-       Paciente[] list = listPacientes();
-       
+       Paciente[] list = listPacientes();       
        System.out.println(list.length);
     }
 }
