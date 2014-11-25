@@ -16,6 +16,10 @@ public class Medico extends Empleado{
     private String universidad;
     private Campana[] miCampanas;
 
+    public Medico(String nombres, String apellidos, String telefono, String direccion, int salario, String email, String cargo, String identificacion) {
+        super(nombres, apellidos, telefono, direccion, salario, email, cargo, identificacion);
+    }
+
     /**
      * @return the numeroLicencia
      */

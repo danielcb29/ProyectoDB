@@ -18,6 +18,17 @@ public class Persona {
     private String telefono;
     private String direccion;
 
+    public Persona(String identificacion, String nombres, String apellidos, String telefono, String direccion) {
+        this.identificacion = identificacion;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+
+    public Persona() {
+    }
+
     /**
      * @return the identificacion
      */

@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author cenesis
  */
-class HistoriaClinica {
+public class HistoriaClinica {
     
     private String numHistoria;
     private Date fechaAper;

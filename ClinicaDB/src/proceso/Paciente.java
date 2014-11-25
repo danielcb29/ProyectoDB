@@ -14,11 +14,24 @@ import java.util.Date;
 public class Paciente extends Persona{
     
     private String numeroSocial;
-    private String actEcon;
     private Date fechaNac;
     private Cama camaAsignada;
     private HistoriaClinica historiaPaciente;
+    private String actEcon;
 
+
+    public Paciente() {
+    }
+    
+    
+
+    public Paciente(String identificacion, String nombres, String apellidos, String telefono, String direccion, String numeroSocial, String actEcon, Date fechaNac) {
+        super(identificacion, nombres, apellidos, telefono, direccion);
+        this.numeroSocial = numeroSocial;
+        this.actEcon = actEcon;
+        this.fechaNac = fechaNac;
+    }
+   
     /**
      * @return the numeroSocial
      */

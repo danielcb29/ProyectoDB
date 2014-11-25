@@ -15,6 +15,13 @@ public class Empleado extends Persona{
     private String email;
     private String cargo;
     private Empleado jefe;
+
+    public Empleado(String nombres, String apellidos, String telefono, String direccion, int salario, String email, String cargo, String identificacion) {
+        super(identificacion, nombres, apellidos, telefono, direccion);
+        this.salario = salario;
+        this.email = email;
+        this.cargo = cargo;
+    }
     /**
      * @return the salario
      */

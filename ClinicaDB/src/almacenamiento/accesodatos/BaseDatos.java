@@ -15,10 +15,12 @@ public class BaseDatos {
      private Connection conexion =null;
      private Statement instruccion;
      private ResultSet tabla; 
-     BaseDatos(){
-      url = "jdbc:postgresql://localhost:5432/SISCONDOC";
-      usuario="danielcb";
-      password="1144067772";
+     
+     
+     public BaseDatos(){
+      url = "jdbc:postgresql://localhost:5432/clinica";
+      usuario="alvaro";
+      password="juan";
       
     }
     public Connection conectar(){
