@@ -35,22 +35,24 @@ public class ControlEmpleado {
      /**
      * metodo encargado de pasar el usuario a ingresar a la base de
      * satos al DAOusuario. 
-     * @param id: cedula del empleado
-     * @param nombres: nombre del empleado
-     * @param apellidos : apellidos del empleado
-     * @param telefono: telefono del empleado 
-     * @param direccion: direccion del empleado
-     * @param sal: salario del empleado
-     * @param email: email del empleado
-     * @param cargo: cargo del empleado
-     * @param jefe: jefe del empleado, "-1" si no tiene jefe
-     * @param area: area del empleado, objeto null si es administrador
-     * @return result: 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente el usuario.
+     * @param id cedula del empleado
+     * @param nombres nombre del empleado
+     * @param apellidos  apellidos del empleado
+     * @param telefono telefono del empleado 
+     * @param direccion direccion del empleado
+     * @param sal salario del empleado
+     * @param email email del empleado
+     * @param cargo cargo del empleado
+     * @param contrasena contrasena del empleado
+     * @param jefe jefe del empleado, "-1" si no tiene jefe
+     * @param area area del empleado, objeto null si es administrador
+     * @param estado estado del empleado
+     * @return 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente el usuario.
      */
-    public int   createEmployee (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String jefe, Area area)
+    public int   createEmployee (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado)
     {
         
-        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo, jefe, area);
+        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
         
         //Se llama al dao para guardar
         int result =daoEm.createEmployee(em);
@@ -77,7 +79,7 @@ public class ControlEmpleado {
     /** metodo que llama al Dao para consultar cuantos usuarios existen
      * @return cantidad de usuarios existentes en la base de datos
      */
-    public int countUsers ()  
+   /** public int countUsers ()  
     {
         Usuario [] users = new Usuario [5];
         int size =  users.length;

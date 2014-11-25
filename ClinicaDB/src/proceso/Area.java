@@ -14,12 +14,14 @@ public class Area {
     private int codigoArea;
     private String nombre;
     private String descripcion;
+    private boolean estado;
     
 
-    public Area(int ca, String nom, String des){
+    public Area(int ca, String nom, String des, boolean est){
         codigoArea=ca;
         nombre=nom;
         descripcion=des;
+        estado=est;
     }
     
     public Area(){}
@@ -66,4 +68,17 @@ public class Area {
         this.descripcion = descripcion;
     }
 
+    /**
+     * @return the estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
 }

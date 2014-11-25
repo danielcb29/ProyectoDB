@@ -16,8 +16,8 @@ public class Medico extends Empleado{
     private String universidad;
     
     
-    public Medico(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, Empleado je, Area ar, int nL, String esp, String u){
-        super(id,nom,ap,tel,dir,sal,mail,car,je,ar);
+    public Medico(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String con, String je, Area ar, boolean est, int nL, String esp, String u){
+        super(id,nom,ap,tel,dir,sal,mail,car,con,je,ar,est);
         
         numeroLicencia=nL;
         especialidad=esp;
