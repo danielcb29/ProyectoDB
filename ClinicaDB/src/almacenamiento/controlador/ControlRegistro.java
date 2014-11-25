@@ -33,7 +33,7 @@ public class ControlRegistro {
     }
     
     public HistoriaClinica buscarHistoria(String cedula){
-        //Se de debe hacer la conexion con el control paciente para obtener el paciente
+        //Se de debe hacer la conexion con el control historia para obtener el paciente
         HistoriaClinica result = controlHis.buscarHistoria(cedula);
         return result;
     }

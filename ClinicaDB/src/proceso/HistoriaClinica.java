@@ -15,7 +15,7 @@ public class HistoriaClinica {
     
     private String numHistoria;
     private Date fechaAper;
-    private Registro[] registrosConsultasPacientes;
+    //private Registro[] registrosConsultasPacientes;
     private Paciente persona;
     public HistoriaClinica(Date fechaAper,Paciente paciente){
         
@@ -55,17 +55,17 @@ public class HistoriaClinica {
 
     /**
      * @return the registrosConsultasPacientes
-     */
+     *//*
     public Registro[] getRegistrosConsultasPacientes() {
         return registrosConsultasPacientes;
     }
 
     /**
      * @param registrosConsultasPacientes the registrosConsultasPacientes to set
-     */
+     *//*
     public void setRegistrosConsultasPacientes(Registro[] registrosConsultasPacientes) {
         this.registrosConsultasPacientes = registrosConsultasPacientes;
-    }
+    }*/
 
     /**
      * @return the persona

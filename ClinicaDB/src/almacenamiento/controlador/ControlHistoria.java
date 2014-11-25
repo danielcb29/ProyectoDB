@@ -45,8 +45,8 @@ public class ControlHistoria {
      * @return numero de verificacion , 1 ok , -1 sql error
      */
     public int crearHistoria(HistoriaClinica  hc){
-        String cedula = hc.getPersona().getIdentificacion();
-        int resultado = dao.crearHC(hc, cedula);
+        //String cedula = hc.getPersona().getIdentificacion();
+        int resultado = dao.crearHC(hc);
         return resultado;
     }
     

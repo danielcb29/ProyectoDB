@@ -32,23 +32,30 @@ public class DAOHistoria {
      */
     public boolean existePaciente(String cedula){
         boolean resultado = false;
-        String sql = "SELECT * FROM historiaclinica where idpaciente = '"+cedula+"'";
+        String sql = "SELECT numhistoria FROM historiaclinica where idpaciente = '"+cedula+"'";
+        String tam = "SELECT COUNT(*) FROM historiaclinica";
         try {
           
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
-            ResultSet table = sentence.executeQuery(sql);
-            String numero = "";
-            table.next();
-            numero  = table.getString(1);
-            /*while(table.next()){
-                System.out.println("entramos al while");
+            ResultSet tableTam = sentence.executeQuery(tam);
+            tableTam.next();
+            int tamano = tableTam.getInt(1);
+            if(tamano!=0){
+                ResultSet table = sentence.executeQuery(sql);
+                String numero = "";
+                table.next();
                 numero  = table.getString(1);
-            }*/
-            
-            if(numero != null){
-                resultado = true;
+                /*while(table.next()){
+                    System.out.println("entramos al while");
+                    numero  = table.getString(1);
+                }*/
+
+                if(numero != null){
+                    resultado = true;
+                }
             }
+            
             
             
             return resultado;
@@ -64,8 +71,9 @@ public class DAOHistoria {
      * @param ccPaciente: cedula del paciente al cual corresponde dicha historia
      * @return numero de verificacion , 1ok , -1 sql error
      */
-    public int crearHC(HistoriaClinica hc,String ccPaciente){
+    public int crearHC(HistoriaClinica hc){
         Date fecha = hc.getFechaAper();
+        String ccPaciente=hc.getPersona().getIdentificacion();
         int numRows=0;
         SimpleDateFormat format = new SimpleDateFormat("yyy/MM/dd HH:mm");
         format.format(fecha);
@@ -73,7 +81,7 @@ public class DAOHistoria {
             
         System.out.println("date one :"+datePSQL);
             
-        String sql = "INSERT INTO historiaclinica VALUES(NEXTVAL('causa_seq'),'"+datePSQL+"','"+ccPaciente+"');";
+        String sql = "INSERT INTO historiaclinica VALUES(NEXTVAL('hist_seq'),'"+datePSQL+"','"+ccPaciente+"');";
         try {
             
             
