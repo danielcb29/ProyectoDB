@@ -109,7 +109,12 @@ public class DaoPaciente {
                 pacienteCon.setFechaNac(format.parse(table2.getString(4)));
      
             }
-            return pacienteCon;
+            if(pacienteCon.getNombres()==null){
+                return null;
+            }else{
+                return pacienteCon;
+            }
+            
          }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println(e); }
@@ -235,10 +240,15 @@ public class DaoPaciente {
      * Metodo de prueba de paciente
      */
     public void pruebaLeerPaciente(){
-        Paciente nuevoPaciente = leerPaciente("4425");
-        System.out.println(nuevoPaciente.getIdentificacion()+ "','" + nuevoPaciente.getNombres() + "','" + nuevoPaciente.getApellidos() + "','" +
+        Paciente nuevoPaciente = leerPaciente("425");
+        if(nuevoPaciente == null){
+            System.out.println("nulo");
+        }else{
+            System.out.println(nuevoPaciente.getIdentificacion()+ "','" + nuevoPaciente.getNombres() + "','" + nuevoPaciente.getApellidos() + "','" +
                     nuevoPaciente.getTelefono() + " ','" +  nuevoPaciente.getDireccion()+", "+nuevoPaciente.getIdentificacion()+ "','" + nuevoPaciente.getNumeroSocial() + "','" + nuevoPaciente.getActEcon() + "','" +
                     nuevoPaciente.getFechaNac().toString());
+        }
+        
     }
     
     /**
