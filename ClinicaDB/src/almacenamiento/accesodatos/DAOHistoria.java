@@ -88,4 +88,31 @@ public class DAOHistoria {
         }
         return -1;
     }
+    /*
+    public HistoriaClinica leerHC(String cedula){
+        
+        String sql = "SELECT numHistoria, fechaAper,idPaciente FROM HistoriaClinica WHERE idPaciente ='"+cedula+"'; ";
+            
+        HistoriaClinica nuevaHC = new HistoriaClinica();
+        try {
+            System.out.println("consultando en la bd");
+            Statement sentence = conn.createStatement();
+            ResultSet table = sentence.executeQuery(sql);
+                
+            while(table.next()){
+                    
+                    nuevaHC.setNumHistoria(table.getString(1));
+                                    
+                    
+                    nuevaHC.setFechaAper(table.getString(2));
+                    
+                    nuevaHC.setRegistrosConsultasPacientes(table.getString(3));
+                    
+                    
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOHistoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }*/
 }

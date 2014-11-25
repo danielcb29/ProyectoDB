@@ -22,6 +22,7 @@ public class PanelMedico extends javax.swing.JFrame {
     private PanelCausas panelCausas; 
     private PanelHistoriaClinica panelHC;
     private Connection conn;
+    private PanelRegistros panelReg;
     public PanelMedico(String apellido , Connection conn) {
         super("Panel Administrativo para Doctores");
         initComponents();
@@ -193,6 +194,8 @@ public class PanelMedico extends javax.swing.JFrame {
 
     private void btRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroActionPerformed
         // TODO add your handling code here:
+        panelReg = new PanelRegistros(conn);
+        panelReg.setVisible(true);
     }//GEN-LAST:event_btRegistroActionPerformed
 
     private void btCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarActionPerformed

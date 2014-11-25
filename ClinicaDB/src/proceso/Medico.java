@@ -14,7 +14,7 @@ public class Medico extends Empleado{
     private int numeroLicencia;
     private String especialidad;
     private String universidad;
-    private Campana[] miCampanas;
+    //private Campana[] miCampanas;
 
     /**
      * @return the numeroLicencia
@@ -58,20 +58,6 @@ public class Medico extends Empleado{
         this.universidad = universidad;
     }
 
-    /**
-     * @return the miCampanas
-     */
-    public Campana[] getMiCampanas() {
-        return miCampanas;
-    }
-
-    /**
-     * @param miCampanas the miCampanas to set
-     */
-    public void setMiCampanas(Campana[] miCampanas) {
-        this.miCampanas = miCampanas;
-    }
-    
     
     
 }

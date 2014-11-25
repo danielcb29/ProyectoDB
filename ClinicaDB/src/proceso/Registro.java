@@ -17,8 +17,11 @@ class Registro {
     private Date fecha;
     private double precio;
     private Causa[] causasPaciente;
-    private HistoriaClinica historiaPaciente;
+    //private HistoriaClinica historiaPaciente;
 
+    public Registro(){
+        
+    }    
     /**
      * @return the medicoRegistro
      */

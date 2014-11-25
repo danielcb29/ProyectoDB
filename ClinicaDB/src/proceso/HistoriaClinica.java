@@ -16,10 +16,11 @@ public class HistoriaClinica {
     private String numHistoria;
     private Date fechaAper;
     private Registro[] registrosConsultasPacientes;
-
-    public HistoriaClinica(Date fechaAper){
+    private Paciente persona;
+    public HistoriaClinica(Date fechaAper,Paciente paciente){
         
         this.fechaAper=fechaAper;
+        persona=paciente;
     }
     public HistoriaClinica(){
         
@@ -64,6 +65,20 @@ public class HistoriaClinica {
      */
     public void setRegistrosConsultasPacientes(Registro[] registrosConsultasPacientes) {
         this.registrosConsultasPacientes = registrosConsultasPacientes;
+    }
+
+    /**
+     * @return the persona
+     */
+    public Paciente getPersona() {
+        return persona;
+    }
+
+    /**
+     * @param persona the persona to set
+     */
+    public void setPersona(Paciente persona) {
+        this.persona = persona;
     }
     
 }

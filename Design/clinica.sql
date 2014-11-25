@@ -117,7 +117,7 @@ CREATE SEQUENCE causa_seq;
 CREATE TABLE Causa(
 	codigoCausa VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
-	descripcion VARCHAR(30) NOT NULL,
+	descripcion TEXT NOT NULL,
 	estado BOOL NOT NULL
 );
 ALTER TABLE Causa ALTER codigoCausa SET DEFAULT nextval('causa_seq');
@@ -180,7 +180,7 @@ CREATE TABLE RegistroHC(
 	idMedico VARCHAR(35) NOT NULL,
 	fecha DATE NOT NULL,
 	precio INT NOT NULL,
-	CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico), 
+	CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico,fecha), 
 	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_idMed FOREIGN KEY(idMedico) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION	

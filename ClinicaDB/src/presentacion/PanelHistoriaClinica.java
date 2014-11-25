@@ -22,6 +22,7 @@ import proceso.Paciente;
 public class PanelHistoriaClinica extends javax.swing.JFrame {
 
     private ControlHistoria controlHC;
+    private Paciente paciente;
     /**
      * Creates new form PanelHistoriaClinica
      */
@@ -240,16 +241,16 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-        String cedula = tfCedula.getText();
+        //String cedula = tfCedula.getText();
         String fechaText = tfFecha.getText();
         SimpleDateFormat format = new SimpleDateFormat("yyy/MM/dd");
         Date fecha = new Date();
         try {
             fecha = format.parse(fechaText);
             
-            HistoriaClinica hc = new HistoriaClinica(fecha);
+            HistoriaClinica hc = new HistoriaClinica(fecha,paciente);
             
-            int resultado = controlHC.crearHistoria(hc,cedula);
+            int resultado = controlHC.crearHistoria(hc);
             
             if(resultado == 1){
                 JOptionPane.showMessageDialog(this,"Historia Clinica almacenada correctamente","Registro existoso",JOptionPane.INFORMATION_MESSAGE);
@@ -279,7 +280,7 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El paciente con cedula "+cedula+" ya tiene asignada una historia clinica\nPor favor proceda a ingresar un registro en dicha historia o buscar otro paciente","Paciente con HC asignada!",JOptionPane.ERROR_MESSAGE);
         }else{
             //BUSCAMOS EL PACIENTE
-            Paciente paciente = controlHC.buscarPaciente(cedula);
+            paciente = controlHC.buscarPaciente(cedula);
             String nombre = paciente.getNombres();
             String apellido = paciente.getApellidos();
             String seguro = paciente.getNumeroSocial();
