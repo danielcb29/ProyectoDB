@@ -7,7 +7,8 @@ package almacenamiento.controlador;
 import almacenamiento.accesodatos.DAORegistro;
 import java.sql.Connection;
 import proceso.Causa;
-import proceso.Paciente;
+import proceso.HistoriaClinica;
+
 
 /**
  *
@@ -16,9 +17,11 @@ import proceso.Paciente;
 public class ControlRegistro {
     DAORegistro daoReg;
     ControlCausa controlCausa;
+    ControlHistoria controlHis;
     public ControlRegistro(Connection conn){
         daoReg = new DAORegistro(conn);
         controlCausa=new ControlCausa(conn);
+        controlHis = new ControlHistoria(conn);
     }
     /**
      * Metodo que permite listar las causas almacenadas en la base de datos
@@ -29,9 +32,9 @@ public class ControlRegistro {
         return resul;
     }
     
-    public Paciente buscarPaciente(String cedula){
+    public HistoriaClinica buscarHistoria(String cedula){
         //Se de debe hacer la conexion con el control paciente para obtener el paciente
-        Paciente result = null;
+        HistoriaClinica result = controlHis.buscarHistoria(cedula);
         return result;
     }
 }

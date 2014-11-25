@@ -11,7 +11,8 @@ import java.util.Locale;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import proceso.Causa;
-import proceso.Paciente;
+import proceso.HistoriaClinica;
+
 
 /**
  *
@@ -24,7 +25,7 @@ public class PanelRegistros extends javax.swing.JFrame {
     private Connection conn;
     private Causa[] causas;
     private String[] nomCausas;
-    private Paciente paciente;
+    private HistoriaClinica historia;
     private boolean[] causasSeleccionadas;
     private Vector<Causa> causasDelRegistro;
     /**
@@ -40,6 +41,7 @@ public class PanelRegistros extends javax.swing.JFrame {
         this.conn=conn;
         controlReg = new ControlRegistro(conn);
         causasDelRegistro = new Vector<Causa>();
+        lbNombreApellido.setText("");
         mostrarCausas();
         
         
@@ -251,10 +253,11 @@ public class PanelRegistros extends javax.swing.JFrame {
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         // TODO add your handling code here:
         String cedula = tfCCPaciente.getText();
-        paciente = controlReg.buscarPaciente(cedula);
-        String nombre = paciente.getNombres().toUpperCase();
-        String apellido = paciente.getApellidos().toUpperCase();
-        lbNombreApellido.setText(nombre+apellido);
+        historia = controlReg.buscarHistoria(cedula);
+        //String nombre = paciente.getNombres().toUpperCase();
+        //String apellido = paciente.getApellidos().toUpperCase();
+        //lbNombreApellido.setText(nombre+apellido);
+        lbNombreApellido.setText("");
         
         
     }//GEN-LAST:event_btBuscarActionPerformed

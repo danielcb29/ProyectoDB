@@ -50,6 +50,12 @@ public class ControlHistoria {
         return resultado;
     }
     
+    public HistoriaClinica buscarHistoria(String cedula){
+        //Falta implementacion
+        HistoriaClinica resul = null;
+        return resul;
+    }
+    
     
     
     

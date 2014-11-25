@@ -6,6 +6,7 @@
 package proceso;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  *
@@ -16,12 +17,20 @@ class Registro {
     private Medico medicoRegistro;
     private Date fecha;
     private double precio;
-    private Causa[] causasPaciente;
+    private Vector<Causa> causasPaciente;
     //private HistoriaClinica historiaPaciente;
 
     public Registro(){
         
-    }    
+    }
+    public Registro(Medico medico,Date fecha,double precio, Vector<Causa> causas){
+        medicoRegistro=medico;
+        this.fecha=fecha;
+        this.precio=precio;
+        causasPaciente=causas;
+                
+        
+    }
     /**
      * @return the medicoRegistro
      */
@@ -67,14 +76,14 @@ class Registro {
     /**
      * @return the causasPaciente
      */
-    public Causa[] getCausasPaciente() {
+    public Vector<Causa> getCausasPaciente() {
         return causasPaciente;
     }
 
     /**
      * @param causasPaciente the causasPaciente to set
      */
-    public void setCausasPaciente(Causa[] causasPaciente) {
+    public void setCausasPaciente(Vector<Causa> causasPaciente) {
         this.causasPaciente = causasPaciente;
     }
     
