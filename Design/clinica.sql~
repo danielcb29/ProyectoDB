@@ -21,7 +21,8 @@ DROP TABLE IF EXISTS Area;
 CREATE TABLE Area(
 	codigoArea INT PRIMARY KEY NOT NULL,
 	nombre VARCHAR(30) NOT NULL,
-	descripcion TEXT NOT NULL
+	descripcion TEXT NOT NULL,
+	estado BOOLEAN NOT NULL
 );
 
 --Creación de la tabla cama (ejem: cama1, cama2, etc). Está relacionada con Area
@@ -55,10 +56,12 @@ CREATE TABLE Paciente(
 CREATE TABLE Empleado(
 	identificacion VARCHAR(35) NOT NULL PRIMARY KEY,
 	salario INT NOT NULL,
-	email VARCHAR(40) NOT NULL,
+	email VARCHAR(40) NOT NULL UNIQUE,
 	cargo VARCHAR(40) NOT NULL,
+	contrasena VARCHAR(40) NOT NULL,
 	jefe VARCHAR(35),
 	codigoArea INT,
+	estado BOOLEAN NOT NULL,
 	CONSTRAINT fk_identificacion FOREIGN KEY(identificacion) REFERENCES Persona(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_jefe FOREIGN KEY(jefe) REFERENCES Empleado(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_codigoArea FOREIGN KEY(codigoArea) REFERENCES Area(codigoArea) ON UPDATE CASCADE ON DELETE NO ACTION
@@ -181,6 +184,6 @@ CREATE TABLE RegistroHC(
 
 ------------------------------------------------------------------------------------------
 --Creacion empleado por defecto
-INSERT INTO area VALUES(1, 'Area1', 'Desc');
+INSERT INTO area VALUES(1, 'Area1', 'Desc', true);
 INSERT INTO persona VALUES ('123', 'bra', 'rod', '3230000', 'Cra X');
-INSERT INTO empleado VALUES ('123', 10, 'bra@aol.com', 'Administrador', NULL , NULL);
+INSERT INTO empleado VALUES ('123', 10, 'bra@aol.com', 'Administrador', 'bra',  null , null, true);

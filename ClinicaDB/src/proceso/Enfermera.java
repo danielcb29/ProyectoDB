@@ -14,8 +14,8 @@ public class Enfermera extends Empleado{
     private int anosExp;
     private String[] misHabilidades;
     
-    public Enfermera(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, Empleado je, Area ar, int aExp, String[] habs){
-        super(id,nom,ap,tel,dir,sal,mail,car,je,ar);
+    public Enfermera(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String con, String je, Area ar, boolean est, int aExp, String[] habs){
+        super(id,nom,ap,tel,dir,sal,mail,car,con,je,ar,est);
         anosExp=aExp;
         misHabilidades=habs;
     }

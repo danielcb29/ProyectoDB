@@ -4,18 +4,31 @@
  * and open the template in the editor.
  */
 package presentacion;
-
+import almacenamiento.controlador.*;
+import proceso.*;
+import java.sql.Connection;
+import java.util.Date;
+import javax.swing.JOptionPane;
 /**
  *
  * @author family
  */
 public class Login extends javax.swing.JFrame {
-
+    
+    ControlEmpleado ce;
+    private Connection conn;
     /**
      * Creates new form GestionUsuario
      */
     public Login() {
         initComponents();
+        ce=new ControlEmpleado();
+        ce.connectDB();
+        this.setTitle("Clínica 2014 Universidad del Valle");
+        this.setResizable(false);
+        conn= ce.getConn();
+        
+        
     }
 
     /**
@@ -27,18 +40,21 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lbCE = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        tfCE = new javax.swing.JTextField();
         btIngresar = new javax.swing.JButton();
+        lbCon = new javax.swing.JLabel();
+        tfCon = new javax.swing.JTextField();
+        lbClin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Correo electrónico");
+        lbCE.setText("Correo electrónico");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfCE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfCEActionPerformed(evt);
             }
         });
 
@@ -49,48 +65,107 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        lbCon.setText("Contraseña");
+
+        tfCon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfConActionPerformed(evt);
+            }
+        });
+
+        lbClin.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
+        lbClin.setText("Clínica");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(158, 158, 158)
-                        .addComponent(btIngresar)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbCon)
+                        .addGap(159, 159, 159))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btIngresar)
+                        .addGap(165, 165, 165))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbCE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbClin)
+                        .addGap(8, 8, 8)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(lbClin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(lbCE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbCon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btIngresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
+                .addGap(33, 33, 33)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfCEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfCEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfCEActionPerformed
 
     private void btIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarActionPerformed
+        String email=tfCE.getText();
+        String contrasena=tfCon.getText();
         
+        Empleado em = ce.readEmployee(email, 1);
+        
+         if (em==null){ 
+            JOptionPane.showMessageDialog(this, "Lo sentimos ha ocurrido un error en la conexion con la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
+        }else{
+             if(em.getContrasena()==null || !(em.getContrasena() .equals(contrasena))){
+                 JOptionPane.showMessageDialog(this, "Correo electrónico o contraseña invalida", "¡Error!", JOptionPane.ERROR_MESSAGE);
+             }else{
+                 boolean state = em.getEstado();
+                 
+                //Validacion de estado de usuario , activo o eliminado
+                if(state){
+                    String cargo  = em.getCargo();
+                    switch(cargo){
+                        case "Administrador":
+                            System.out.println("admin");
+                            break;
+                        default:
+                            System.out.println("default");
+                    }
+                 //Caso usuario eliminado   
+                }else{
+                    JOptionPane.showMessageDialog(this, "Lo sentimos, el usuario "+em.getEmail()+" fue eliminado por el administrador","Contacta al admin",JOptionPane.ERROR_MESSAGE);
+                }
+             }
+             
+         }
     }//GEN-LAST:event_btIngresarActionPerformed
+
+    private void tfConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfConActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfConActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,8 +205,11 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIngresar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lbCE;
+    private javax.swing.JLabel lbClin;
+    private javax.swing.JLabel lbCon;
+    private javax.swing.JTextField tfCE;
+    private javax.swing.JTextField tfCon;
     // End of variables declaration//GEN-END:variables
 }

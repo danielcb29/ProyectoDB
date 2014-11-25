@@ -22,9 +22,11 @@ public class DAOArea {
     Connection conn ;
     /**
      * constructor, inicializa los atributos.
+     * @param conn conexion base de datos
      */
-    public DAOArea(){
+    public DAOArea(Connection conn){
         db=new BaseDatos();
+        this.conn=conn;
         
     }//fin constructor
     /**
@@ -46,7 +48,7 @@ public class DAOArea {
         int numRows=0;
         
         
-        sql_ar="INSERT INTO area (codigoArea, nombre, descripcion) VALUES ("+ ar.getCodigoArea() +", '"+ ar.getNombre()+ "', '"+ ar.getDescripcion() +")";
+        sql_ar="INSERT INTO area (codigoArea, nombre, descripcion, estado) VALUES ("+ ar.getCodigoArea() +", '"+ ar.getNombre()+ "', '"+ ar.getDescripcion() + ","+ ar.getEstado() + ")";
         try{
             Statement st = conn.createStatement();
             numRows = st.executeUpdate(sql_ar);
@@ -74,7 +76,7 @@ public class DAOArea {
     public Area readArea(int cod){
         Area ar= new Area();
         String sql_select;
-        sql_select="SELECT codigoArea, nombre, descripcion FROM  area WHERE codigoArea=" + cod ;        
+        sql_select="SELECT codigoArea, nombre, descripcion, estado FROM  area WHERE codigoArea=" + cod ;        
         
         
         try{
@@ -86,11 +88,13 @@ public class DAOArea {
             
             while(table.next()){
                 
-                ar.setCodigoArea(table.getInt(0));
+                ar.setCodigoArea(table.getInt(1));
                 
-                ar.setNombre(table.getString(1));
+                ar.setNombre(table.getString(2));
                 
-                ar.setDescripcion(table.getString(2));
+                ar.setDescripcion(table.getString(3));
+                
+                ar.setEstado(table.getBoolean(4));
                
                 System.out.println("ok");
             }
@@ -108,7 +112,7 @@ public class DAOArea {
      * @param cedula la cedula del usuario que se quiere actualizar.
      * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
      */
-    public int updateUser(Usuario us, String cedula){
+  /**  public int updateUser(Usuario us, String cedula){
         String sql_save1,  sql_save2,  sql_save3, sql_save4,  sql_save5,  sql_save6,  sql_save7;
 	sql_save1="UPDATE usuario SET name='"+us.getName()+"' WHERE cedula='" + us.getCedula() + "'";
         sql_save2="UPDATE usuario SET lastname='"+us.getLastName()+"' WHERE cedula='" + us.getCedula() + "'";
@@ -188,7 +192,7 @@ public class DAOArea {
      * listar todas las tuplas de los usuarios existentes.
      * @return los objetos tipo Usuario enlistados en un arreglo.
      */ 
-   public Usuario[] listUsers(){
+/** public Usuario[] listUsers(){
         
         String sql_select;
         sql_select="SELECT usuario.cedula, usuario.name, usuario.lastName,usuario.userName, usuario.contrasena, usuario.email ,  perfiles.nombre, usuario.estado FROM  usuario, perfiles WHERE usuario.id_perfil=perfiles.id_perfil";
@@ -256,7 +260,7 @@ public class DAOArea {
     * borrar un usuario de la tabla.
     * @param cedula la cedula del usuario que se quiere borrar.
     */
-    public int deleteUser(String cedula){	
+/**    public int deleteUser(String cedula){	
         String sql_save;
 
         sql_save="UPDATE usuario SET estado=false WHERE cedula='" + cedula + "'";

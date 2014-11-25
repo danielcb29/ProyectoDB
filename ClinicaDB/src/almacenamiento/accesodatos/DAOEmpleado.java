@@ -48,15 +48,15 @@ public class DAOEmpleado {
         String jefe =em.getJefe();
         if(cargo.equals("Administrador")){
             if(jefe.equals("-1")){
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', NULL, NULL)";                
+                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea, estado) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+  "', '" + em.getContrasena()+"', NULL, NULL,"+ em.getEstado() +")";                
             }else{
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + jefe + "', NULL)";
+                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea, estado) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+  "', '" + em.getContrasena()+"', '" + jefe + "', NULL"+ em.getEstado() +")";
             }
         }else{
             if(jefe.equals("-1")){
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', NULL, "+ em.getArea().getCodigoArea() + ")";
+                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + em.getContrasena()+  "', NULL, "+ em.getArea().getCodigoArea() + ","+ em.getEstado() +")";
             }else{
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + jefe + "', "+ em.getArea().getCodigoArea() + ")";
+                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + em.getContrasena() +"', '" + jefe + "', "+ em.getArea().getCodigoArea()+","+ em.getEstado()+  ")";
             }
         }
         
@@ -92,9 +92,9 @@ public class DAOEmpleado {
         String sql_select;
         if(tipoCon==1){
             //System.out.println("entramos al caso de username");
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.jefe, empleado.area FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.email='" + req +  "'";        
+            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.email='" + req +  "'";        
         }else{
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.jefe, empleado.area FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.identificacion='" + req +  "'";
+            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.identificacion='" + req +  "'";
         }
         try{
             System.out.println("consultando en la bd");
@@ -121,26 +121,31 @@ public class DAOEmpleado {
                 
                 em.setCargo(table.getString(8));
                 
-                String jefe = table.getString(9);
+                em.setContrasena(table.getString(9));
                 
-                System.out.println(jefe);
+                String jefe = table.getString(10);
                 
-                if(jefe.equals("null")){
+                System.out.println("jefe "+jefe);
+                
+                if(jefe==null){
                     em.setJefe("-1");
                 }else{
                     em.setJefe(jefe);
                 }
                 
-                String area = table.getString(10);
+                String area = table.getString(11);
                 
                 System.out.println(area);
-                if(area.equals("null")){
+                if(area==null){
                     em.setArea(null);
                 }else{
-                    DAOArea daoa= new DAOArea();
-                    Area ar = daoa.readArea(area);
+                    DAOArea daoa= new DAOArea(conn);
+                    Area ar = daoa.readArea(Integer.parseInt(area));
                     em.setArea(ar);
                 }
+                
+                em.setEstado(table.getBoolean(12));
+                
                 System.out.println("ok");
             }
             return em;
@@ -157,7 +162,7 @@ public class DAOEmpleado {
      * @param cedula la cedula del usuario que se quiere actualizar.
      * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
      */
-    public int updateUser(Usuario us, String cedula){
+/**    public int updateUser(Usuario us, String cedula){
         String sql_save1,  sql_save2,  sql_save3, sql_save4,  sql_save5,  sql_save6,  sql_save7;
 	sql_save1="UPDATE usuario SET name='"+us.getName()+"' WHERE cedula='" + us.getCedula() + "'";
         sql_save2="UPDATE usuario SET lastname='"+us.getLastName()+"' WHERE cedula='" + us.getCedula() + "'";
@@ -237,7 +242,7 @@ public class DAOEmpleado {
      * listar todas las tuplas de los usuarios existentes.
      * @return los objetos tipo Usuario enlistados en un arreglo.
      */ 
-   public Usuario[] listUsers(){
+/**   public Usuario[] listUsers(){
         
         String sql_select;
         sql_select="SELECT usuario.cedula, usuario.name, usuario.lastName,usuario.userName, usuario.contrasena, usuario.email ,  perfiles.nombre, usuario.estado FROM  usuario, perfiles WHERE usuario.id_perfil=perfiles.id_perfil";
@@ -305,7 +310,7 @@ public class DAOEmpleado {
     * borrar un usuario de la tabla.
     * @param cedula la cedula del usuario que se quiere borrar.
     */
-    public int deleteUser(String cedula){	
+ /**   public int deleteUser(String cedula){	
         String sql_save;
 
         sql_save="UPDATE usuario SET estado=false WHERE cedula='" + cedula + "'";

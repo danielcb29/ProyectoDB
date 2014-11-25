@@ -22,9 +22,10 @@ public class ControlArea {
     
     /**
      * constructor
+     * @param conn conexion base de datos
      * **/
-    public ControlArea(){
-        daoAr=new DAOArea();
+    public ControlArea(Connection conn){
+        daoAr=new DAOArea(conn);
     }
     public void connectDB(){
         daoAr.connectDB();
@@ -37,12 +38,13 @@ public class ControlArea {
      * @param codigoArea: codigo del area
      * @param nombre: nombre del area
      * @param descripcion: descripcion del area
+     * @param estado: estado del area
      * @return result: 0 si no fue posible crear el Area. 1 si se creo satisfactoriamente el Area.
      */
-    public int   createArea (int codigoArea, String nombre, String descripcion)
+    public int   createArea (int codigoArea, String nombre, String descripcion, boolean estado)
     {
         
-        Area ar = new Area(codigoArea,nombre, descripcion);
+        Area ar = new Area(codigoArea,nombre, descripcion, estado);
         
         //Se llama al dao para guardar
         int result =daoAr.createArea(ar);
@@ -68,7 +70,7 @@ public class ControlArea {
     /** metodo que llama al Dao para consultar cuantos usuarios existen
      * @return cantidad de usuarios existentes en la base de datos
      */
-    public int countUsers ()  
+ /**   public int countUsers ()  
     {
         Usuario [] users = new Usuario [5];
         int size =  users.length;
@@ -96,7 +98,7 @@ public class ControlArea {
      * Cerrar conexion base de datos
      */
     public void cerrarConexionBD(){
-        daoEm.closeConectionDB();
+        daoAr.closeConectionDB();
     }
 
 }//fin clase

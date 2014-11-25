@@ -14,10 +14,12 @@ public class Empleado extends Persona{
     private int salario;
     private String email;
     private String cargo;
+    private String contrasena;
     private String jefe;//identificacion del empleado
     private Area area;
+    private boolean estado;
     
-    public Empleado(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String je, Area ar){
+    public Empleado(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String con, String je, Area ar, boolean est){
         identificacion = id;
         nombres = nom;
         apellidos=ap;
@@ -26,8 +28,10 @@ public class Empleado extends Persona{
         salario=sal;
         email=mail;
         cargo=car;
+        contrasena=con;
         jefe=je;
         area=ar;
+        estado=est;
     }
     
     public Empleado(){}
@@ -75,6 +79,20 @@ public class Empleado extends Persona{
     }
 
     /**
+     * @return the contrasena
+     */
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    /**
+     * @param contrasena the contrasena to set
+     */
+    public void setContrasena(String contrasena) {
+        this.contrasena= contrasena;
+    }
+
+    /**
      * @return the jefe
      */
     public String getJefe() {
@@ -101,6 +119,20 @@ public class Empleado extends Persona{
      */
     public void setArea(Area area) {
         this.area = area;
+    }
+    
+    /**
+     * @return el estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+    
+    /**
+     * @param estado el estado a cambiar
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
 }
