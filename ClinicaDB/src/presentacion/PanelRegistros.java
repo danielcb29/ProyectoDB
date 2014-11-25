@@ -91,7 +91,7 @@ public class PanelRegistros extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taRegistradas = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
+        btGuardar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btBuscar = new javax.swing.JButton();
 
@@ -144,7 +144,12 @@ public class PanelRegistros extends javax.swing.JFrame {
         taRegistradas.setRows(5);
         jScrollPane1.setViewportView(taRegistradas);
 
-        jButton3.setText("Guardar");
+        btGuardar.setText("Guardar");
+        btGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btGuardarActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +203,7 @@ public class PanelRegistros extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btCancelar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btGuardar)
                 .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
@@ -237,7 +242,7 @@ public class PanelRegistros extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(btGuardar)
                     .addComponent(btCancelar))
                 .addContainerGap())
         );
@@ -290,6 +295,10 @@ public class PanelRegistros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btQuitarActionPerformed
 
+    private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      *//*
@@ -335,9 +344,9 @@ public class PanelRegistros extends javax.swing.JFrame {
     private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btGuardar;
     private javax.swing.JButton btQuitar;
     private javax.swing.JComboBox cbCausas;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
