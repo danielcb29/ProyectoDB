@@ -72,10 +72,8 @@ public class PanelCrearPaciente extends javax.swing.JFrame {
         lblDescripcion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblDescripcion.setText("Formulario de la creación de pacientes");
 
-        lblNombres.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNombres.setText("Nombres:");
 
-        lblApellidos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblApellidos.setText("Apellidos:");
 
         txtApellidos.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +82,6 @@ public class PanelCrearPaciente extends javax.swing.JFrame {
             }
         });
 
-        lblTelefono.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblTelefono.setText("Telefono:");
 
         txtDir.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +155,6 @@ public class PanelCrearPaciente extends javax.swing.JFrame {
         });
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/logo2.png"))); // NOI18N
-        lblLogo.setText("jLabel4");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,7 +199,7 @@ public class PanelCrearPaciente extends javax.swing.JFrame {
                             .addComponent(lblDescripcion)
                             .addComponent(lblTitulo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblLogo)
                         .addGap(67, 67, 67))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -311,10 +307,11 @@ public class PanelCrearPaciente extends javax.swing.JFrame {
         fechaNac = jDateChooserFecha.getDate();
 
         if (validarInfo(identificacion, nombres, apellidos, telefono, direccion, numeroSegSocial, actividadEcono, fechaNac)) {
-            Paciente nuevoPaciente = new Paciente(identificacion, nombres, apellidos, telefono, direccion, numeroSegSocial, actividadEcono, fechaNac);
+            Paciente nuevoPaciente = new Paciente(identificacion, nombres, apellidos, telefono, direccion, numeroSegSocial, actividadEcono, fechaNac, true);
             int resultado = controladorPaciente.crearPaciente(nuevoPaciente);
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(this, "Paciente creado", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } else {
                 if (resultado == -2) {
                     JOptionPane.showMessageDialog(this, "Por favor revise la información del paciente, ya que la identificacion ya existe en la base de datos", "Mensaje de error", JOptionPane.ERROR_MESSAGE);
@@ -339,12 +336,8 @@ public class PanelCrearPaciente extends javax.swing.JFrame {
     private boolean validarInfo(String identificacion, String nombres, String apellidos, 
                                 String telefono, String direccion, String numeroSegSocial, String actividadEcono,
                                 Date fechaNac){
-        if((identificacion.length()==0)||(nombres.length()==0)||(apellidos.length()==0)||(telefono.length()==0)
-                ||(direccion.length()==0)||(numeroSegSocial.length()==0)||(actividadEcono.length()==0)||(fechaNac== null)){
-            return false;
-        }else{
-            return true;
-        }
+        return !((identificacion.length()==0)||(nombres.length()==0)||(apellidos.length()==0)||(telefono.length()==0)
+                ||(direccion.length()==0)||(numeroSegSocial.length()==0)||(actividadEcono.length()==0)||(fechaNac== null));
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

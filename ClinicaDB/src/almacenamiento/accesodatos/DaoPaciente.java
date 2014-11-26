@@ -50,7 +50,7 @@ public class DaoPaciente {
         Format formatter = new SimpleDateFormat("yyyy-MM-dd");
         String fechaNac = formatter.format(nuevoPaciente.getFechaNac());
         sql_Paciente = "INSERT INTO Paciente VALUES ('"+nuevoPaciente.getIdentificacion()+ "','" + nuevoPaciente.getNumeroSocial() + "','" + nuevoPaciente.getActEcon() + "','" +
-                    fechaNac+"');";
+                    fechaNac+"','"+nuevoPaciente.getEstado()+"');";
         System.out.println(sql_Persona);
         try{
             Statement sentencia = conn.createStatement();
@@ -107,6 +107,7 @@ public class DaoPaciente {
                 pacienteCon.setNumeroSocial(table2.getString(2));
                 pacienteCon.setActEcon(table2.getString(3));
                 pacienteCon.setFechaNac(format.parse(table2.getString(4)));
+                pacienteCon.setEstado(table2.getBoolean(5));
      
             }
             if(pacienteCon.getNombres()==null){
@@ -128,7 +129,7 @@ public class DaoPaciente {
      */
     
     public int modificarPaciente(String documento, Paciente pacienteMod){
-        String sql1,sql2,sql3,sql4,sql5,sql6,sql7;
+        String sql1,sql2,sql3,sql4,sql5,sql6,sql7, sql8;
 	sql1 = "UPDATE Persona SET nombres='"+pacienteMod.getNombres()+"' WHERE identificacion='" + documento + "';";
         sql2 = "UPDATE Persona SET apellidos ='"+pacienteMod.getApellidos()+"' WHERE identificacion='" + documento + "';";
         sql3 = "UPDATE Persona SET telefono ='"+pacienteMod.getTelefono()+"'WHERE identificacion='" + documento + "';";
@@ -136,6 +137,7 @@ public class DaoPaciente {
         sql5 = "UPDATE Paciente SET numerosegsocial ='"+pacienteMod.getNumeroSocial()+"' WHERE identificacion='" + documento + "';";
         sql6 = "UPDATE Paciente SET actecon ='"+pacienteMod.getActEcon()+"' WHERE identificacion='" + documento + "';";
         sql7 = "UPDATE Paciente SET fechaNac ='"+pacienteMod.getFechaNac().toString()+"' WHERE identificacion='" + documento + "';";
+        sql8 = "UPDATE Paciente SET estado ='"+pacienteMod.getEstado()+"' WHERE identificacion='" + documento + "';";
       
         
         try{
@@ -149,6 +151,7 @@ public class DaoPaciente {
                 sentencia.executeUpdate(sql5);
                 sentencia.executeUpdate(sql6);
                 sentencia.executeUpdate(sql7);
+                sentencia.executeUpdate(sql8);
                 return 1;
             }
         catch(SQLException e){
@@ -196,6 +199,7 @@ public class DaoPaciente {
                 listPacientes[j].setNumeroSocial(table2.getString(6));
                 listPacientes[j].setActEcon(table2.getString(7));
                 listPacientes[j].setFechaNac(table2.getDate(8));
+                listPacientes[j].setEstado(table2.getBoolean(9));
                 
               j++;
               System.out.println("ok");
@@ -208,8 +212,24 @@ public class DaoPaciente {
         return null;
     }
     
-     public int eliminarPaciente(String nombre) {
-        throw new UnsupportedOperationException("Not yet implemented");
+     public int eliminarPaciente(String identificacion) {
+        String sql1;
+	sql1 = "UPDATE Persona SET estado='false' WHERE identificacion='" + identificacion + "';";
+        try{
+                Statement sentencia = conn.createStatement();
+
+                sentencia.executeUpdate(sql1);
+
+                return 1;
+            }
+        catch(SQLException e){
+            System.out.println(e); 
+            return -2;
+            }
+        catch(Exception e){ 
+            System.out.println(e);
+            return -1;
+        }
     }
     
     /**
@@ -230,9 +250,9 @@ public class DaoPaciente {
         Date fecha = new Date();
         SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd");
         fecha = format.parse("2010-05-02");
-        Paciente ejemPaciente = new Paciente("4425", "Alvaro", "Martinez", "55524878", "cl 57#32a-24", "44512", "Est", fecha );
+        Paciente ejemPaciente = new Paciente("4425", "Alvaro", "Martinez", "55524878", "cl 57#32a-24", "44512", "Est", fecha, true );
         fecha = format.parse("2011-05-02");
-        Paciente ejemPaciente1 = new Paciente("4427", "Alvaro", "Kant", "55524878", "cr 57#32a-24", "44512", "Est", fecha );
+        Paciente ejemPaciente1 = new Paciente("4427", "Alvaro", "Kant", "55524878", "cr 57#32a-24", "44512", "Est", fecha, true );
 
         System.out.println(crearPaciente(ejemPaciente));
         System.out.println(crearPaciente(ejemPaciente1));

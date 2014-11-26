@@ -7,6 +7,7 @@ package clinicadb;
 import almacenamiento.accesodatos.*;
 import java.sql.Connection;
 import java.text.ParseException;
+import presentacion.PanelSecretaria;
 
 /**
  *
@@ -20,11 +21,8 @@ public class ClinicaDB {
     public static void main(String[] args) throws ParseException {
         
         BaseDatos conect = new BaseDatos();
-        DaoPaciente paciente = new DaoPaciente(conect.getConnetion());
-        paciente.pruebaCrearPaciente();
-        paciente.pruebaLeerPaciente();
-        paciente.pruebaModif();
-        paciente.pruebaList();
+        PanelSecretaria ventanaSecretaria = new PanelSecretaria(conect.getConnetion());
+        ventanaSecretaria.setVisible(true);
         
         // TODO code application logic here
     }

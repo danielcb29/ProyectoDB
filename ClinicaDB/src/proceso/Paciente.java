@@ -18,6 +18,9 @@ public class Paciente extends Persona{
     private Cama camaAsignada;
     private HistoriaClinica historiaPaciente;
     private String actEcon;
+    private boolean estado;
+
+   
 
 
     public Paciente() {
@@ -25,11 +28,12 @@ public class Paciente extends Persona{
     
     
 
-    public Paciente(String identificacion, String nombres, String apellidos, String telefono, String direccion, String numeroSocial, String actEcon, Date fechaNac) {
+    public Paciente(String identificacion, String nombres, String apellidos, String telefono, String direccion, String numeroSocial, String actEcon, Date fechaNac, boolean estado) {
         super(identificacion, nombres, apellidos, telefono, direccion);
         this.numeroSocial = numeroSocial;
         this.actEcon = actEcon;
         this.fechaNac = fechaNac;
+        this.estado = estado;
     }
    
     /**
@@ -86,6 +90,20 @@ public class Paciente extends Persona{
      */
     public void setCamaAsignada(Cama camaAsignada) {
         this.camaAsignada = camaAsignada;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
     
