@@ -1,5 +1,5 @@
 --Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martienez , Brayan Rodriguez
-
+DROP TABLE IF EXISTS Cuasas_Registro;
 DROP TABLE IF EXISTS RegistroHC;
 DROP TABLE IF EXISTS Pacientes_Campana;
 DROP TABLE IF EXISTS Campana;
@@ -172,16 +172,27 @@ CREATE TABLE Pacientes_Campana(
 	CONSTRAINT fk_idPacPC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_idCampPC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
-
+--Secuencia para los registros
+DROP SEQUENCE IF EXISTS registro_seq;
+CREATE SEQUENCE registro_seq;
 --Creación de la tabla RegistroHC. Relaciona con Historia Clinica, medico y causa.
 CREATE TABLE RegistroHC(
+	codigoRegistro VARCHAR(35) NOT NULL PRIMARY KEY,
 	numHistoria VARCHAR(35) NOT NULL,
-	codigoCausa VARCHAR (30) NOT NULL,
+	--codigoCausa VARCHAR (30) NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
 	fecha DATE NOT NULL,
-	precio INT NOT NULL,
-	CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico,fecha), 
+	precio MONEY NOT NULL,
+	--CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico,fecha), 
 	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
-	CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
+	--CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_idMed FOREIGN KEY(idMedico) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION	
+);
+ALTER TABLE RegistroHC ALTER codigoRegistro SET DEFAULT nextval('registro_seq');
+--Tabla Causas_Registro que permite almacenar las causas de un registro
+CREATE TABLE Causas_Registro(
+	codigoCausa VARCHAR (30) NOT NULL,
+	codigoRegistro VARCHAR(35) NOT NULL,
+	CONSTRAINT pk_causasregistro PRIMARY KEY(codigoCausa,codigoRegistro), 
+	CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
 );

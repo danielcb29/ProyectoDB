@@ -49,8 +49,22 @@ public class ControlHistoria {
         int resultado = dao.crearHC(hc);
         return resultado;
     }
-    
+    /**
+     * Permite buscar la informacion general de una historia clinica, sin registros
+     * @param cedula: cedula del paciente
+     * @return Historia sin registros
+     */
     public HistoriaClinica buscarHistoria(String cedula){
+        
+        HistoriaClinica resul = dao.leerHC(cedula);
+        return resul;
+    }
+    /**
+     * Permite buscar una historia cilinica completa con registros y causas 
+     * @param cedula: cedula del paciente
+     * @return Historia completa
+     */
+    public HistoriaClinica buscarHistoriaCompleta(String cedula){
         //Falta implementacion
         HistoriaClinica resul = null;
         return resul;

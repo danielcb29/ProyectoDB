@@ -8,6 +8,7 @@ import almacenamiento.accesodatos.DAORegistro;
 import java.sql.Connection;
 import proceso.Causa;
 import proceso.HistoriaClinica;
+import proceso.Paciente;
 
 
 /**
@@ -31,10 +32,15 @@ public class ControlRegistro {
         Causa[] resul = controlCausa.listarCausas(true);
         return resul;
     }
-    
+    /**
+     * Metodo que permite traer la informacion general de una historia clinica (sin registros)
+     * @param cedula: cedula del paciente
+     * @return Historia sin registros
+     */
     public HistoriaClinica buscarHistoria(String cedula){
         //Se de debe hacer la conexion con el control historia para obtener el paciente
         HistoriaClinica result = controlHis.buscarHistoria(cedula);
         return result;
     }
+    
 }

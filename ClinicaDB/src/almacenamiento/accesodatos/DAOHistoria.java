@@ -8,11 +8,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import proceso.HistoriaClinica;
+import proceso.Paciente;
 
 /**
  *
@@ -21,6 +23,7 @@ import proceso.HistoriaClinica;
 public class DAOHistoria {
     private BaseDatos db;
     private Connection conn;
+    //private DaoPaciente daoPac;
     public DAOHistoria(Connection conn){
         db = new BaseDatos();
         this.conn=conn;
@@ -96,31 +99,40 @@ public class DAOHistoria {
         }
         return -1;
     }
-    /*
+    
     public HistoriaClinica leerHC(String cedula){
         
-        String sql = "SELECT numHistoria, fechaAper,idPaciente FROM HistoriaClinica WHERE idPaciente ='"+cedula+"'; ";
+        String sql = "SELECT numHistoria, fechaAper FROM HistoriaClinica WHERE idPaciente ='"+cedula+"'; ";
             
         HistoriaClinica nuevaHC = new HistoriaClinica();
         try {
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
             ResultSet table = sentence.executeQuery(sql);
-                
+            SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm");    
+            //String idPaciente = "";
             while(table.next()){
                     
                     nuevaHC.setNumHistoria(table.getString(1));
                                     
+                    Date fechaAper;
+                    fechaAper = format.parse(table.getString(2));
+                    nuevaHC.setFechaAper(fechaAper);
                     
-                    nuevaHC.setFechaAper(table.getString(2));
-                    
-                    nuevaHC.setRegistrosConsultasPacientes(table.getString(3));
-                    
-                    
+                    //idPaciente = table.getString(3);
                 }
+            
+            //Paciente paciente = daoPac.leerPaciente(cedula);
+            //nuevaHC.setPersona(paciente);
+            
+            return nuevaHC;
+            
         } catch (SQLException ex) {
             Logger.getLogger(DAOHistoria.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(DAOHistoria.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
         
-    }*/
+    }
 }

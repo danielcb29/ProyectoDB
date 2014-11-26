@@ -6,6 +6,7 @@
 package proceso;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  *
@@ -15,7 +16,7 @@ public class HistoriaClinica {
     
     private String numHistoria;
     private Date fechaAper;
-    //private Registro[] registrosConsultasPacientes;
+    private Vector<Registro> registrosConsultasPacientes;
     private Paciente persona;
     public HistoriaClinica(Date fechaAper,Paciente paciente){
         
@@ -55,17 +56,17 @@ public class HistoriaClinica {
 
     /**
      * @return the registrosConsultasPacientes
-     *//*
-    public Registro[] getRegistrosConsultasPacientes() {
+     */
+    public Vector<Registro> getRegistrosConsultasPacientes() {
         return registrosConsultasPacientes;
     }
 
     /**
      * @param registrosConsultasPacientes the registrosConsultasPacientes to set
-     *//*
-    public void setRegistrosConsultasPacientes(Registro[] registrosConsultasPacientes) {
+     */
+    public void setRegistrosConsultasPacientes(Vector<Registro> registrosConsultasPacientes) {
         this.registrosConsultasPacientes = registrosConsultasPacientes;
-    }*/
+    }
 
     /**
      * @return the persona

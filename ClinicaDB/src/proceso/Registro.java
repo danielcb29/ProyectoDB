@@ -18,16 +18,17 @@ class Registro {
     private Date fecha;
     private double precio;
     private Vector<Causa> causasPaciente;
-    //private HistoriaClinica historiaPaciente;
+    private HistoriaClinica historiaPaciente;
 
     public Registro(){
         
     }
-    public Registro(Medico medico,Date fecha,double precio, Vector<Causa> causas){
+    public Registro(Medico medico,Date fecha,double precio, Vector<Causa> causas,HistoriaClinica hist){
         medicoRegistro=medico;
         this.fecha=fecha;
         this.precio=precio;
         causasPaciente=causas;
+        historiaPaciente=hist;
                 
         
     }
@@ -70,7 +71,7 @@ class Registro {
      * @param precio the precio to set
      */
     public void setPrecio(double precio, double descuento) {
-        this.precio = precio*descuento;
+        this.setPrecio(precio*descuento);
     }
 
     /**
@@ -85,6 +86,27 @@ class Registro {
      */
     public void setCausasPaciente(Vector<Causa> causasPaciente) {
         this.causasPaciente = causasPaciente;
+    }
+
+    /**
+     * @param precio the precio to set
+     */
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    /**
+     * @return the historiaPaciente
+     */
+    public HistoriaClinica getHistoriaPaciente() {
+        return historiaPaciente;
+    }
+
+    /**
+     * @param historiaPaciente the historiaPaciente to set
+     */
+    public void setHistoriaPaciente(HistoriaClinica historiaPaciente) {
+        this.historiaPaciente = historiaPaciente;
     }
     
 }

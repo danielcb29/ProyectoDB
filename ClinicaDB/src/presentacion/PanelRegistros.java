@@ -12,6 +12,8 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import proceso.Causa;
 import proceso.HistoriaClinica;
+import proceso.Medico;
+import proceso.Paciente;
 
 
 /**
@@ -42,6 +44,7 @@ public class PanelRegistros extends javax.swing.JFrame {
         controlReg = new ControlRegistro(conn);
         causasDelRegistro = new Vector<Causa>();
         lbNombreApellido.setText("");
+        historia=null;
         mostrarCausas();
         
         
@@ -94,6 +97,9 @@ public class PanelRegistros extends javax.swing.JFrame {
         btGuardar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
         btBuscar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        tfCosto = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -165,6 +171,12 @@ public class PanelRegistros extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel9.setText("Costo:");
+
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 2, 15)); // NOI18N
+        jLabel10.setText("Ingrese el valor sin caracteres, decimales con punto");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,7 +186,6 @@ public class PanelRegistros extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(lbFecha)
-                    .addComponent(jLabel6)
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1)
@@ -188,17 +199,32 @@ public class PanelRegistros extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(btQuitar))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfCCPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btBuscar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lbNombreApellido)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tfCCPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addGap(183, 183, 183)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel9)
+                                        .addComponent(btBuscar))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(lbNombreApellido))
+                                        .addComponent(jLabel10)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(13, 13, 13)
+                                    .addComponent(tfCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btCancelar)
@@ -225,9 +251,14 @@ public class PanelRegistros extends javax.swing.JFrame {
                     .addComponent(lbNombreApellido)
                     .addComponent(btBuscar))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
@@ -259,10 +290,17 @@ public class PanelRegistros extends javax.swing.JFrame {
         // TODO add your handling code here:
         String cedula = tfCCPaciente.getText();
         historia = controlReg.buscarHistoria(cedula);
-        //String nombre = paciente.getNombres().toUpperCase();
-        //String apellido = paciente.getApellidos().toUpperCase();
-        //lbNombreApellido.setText(nombre+apellido);
-        lbNombreApellido.setText("");
+        if(historia.getNumHistoria()==null){
+            historia=null;
+            JOptionPane.showMessageDialog(this, "No existe una HistoriaClinica para ese paciente\nDebe crear una","Error",JOptionPane.ERROR_MESSAGE);
+        }else{
+            Paciente paciente = historia.getPersona();
+            String nombre = paciente.getNombres().toUpperCase();
+            String apellido = paciente.getApellidos().toUpperCase();
+            lbNombreApellido.setText(nombre+apellido);
+            //lbNombreApellido.setText("");
+        }
+        
         
         
     }//GEN-LAST:event_btBuscarActionPerformed
@@ -294,9 +332,24 @@ public class PanelRegistros extends javax.swing.JFrame {
             escribirTxtArea();
         }
     }//GEN-LAST:event_btQuitarActionPerformed
-
+    private boolean validarVacios(){
+        boolean vacio = false;
+        if(causasDelRegistro.isEmpty() || tfCosto.getText().length() == 0 || historia==null)
+        {
+            vacio=true;
+        }        
+        return vacio;
+    }
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
         // TODO add your handling code here:
+        if(validarVacios()){
+            JOptionPane.showMessageDialog(this, "Hay campos vacios\nNo puede crearse un registro vacio","Error",JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            double costo = Double.parseDouble(tfCosto.getText());
+            
+            
+        }
     }//GEN-LAST:event_btGuardarActionPerformed
 
     /**
@@ -348,6 +401,7 @@ public class PanelRegistros extends javax.swing.JFrame {
     private javax.swing.JButton btQuitar;
     private javax.swing.JComboBox cbCausas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -355,12 +409,14 @@ public class PanelRegistros extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbFecha;
     private javax.swing.JLabel lbNombreApellido;
     private javax.swing.JTextArea taRegistradas;
     private javax.swing.JTextField tfCCPaciente;
+    private javax.swing.JTextField tfCosto;
     // End of variables declaration//GEN-END:variables
 
     private void escribirTxtArea() {

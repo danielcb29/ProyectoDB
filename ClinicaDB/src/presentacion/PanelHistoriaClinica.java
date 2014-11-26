@@ -23,6 +23,7 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
 
     private ControlHistoria controlHC;
     private Paciente paciente;
+    private Date fecha;
     /**
      * Creates new form PanelHistoriaClinica
      */
@@ -35,6 +36,9 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
         lbSeguroPaciente.setText("");
         btGuardar.setEnabled(false);
         setResizable(false);
+        fecha = new Date();
+        String fechaText = fecha.toString();
+        lbHoy.setText(fechaText);
         
     }
 
@@ -65,9 +69,9 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
         lbSeguroPaciente = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        tfFecha = new javax.swing.JTextField();
         btGuardar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        lbHoy = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,7 +122,7 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
         jLabel11.setText("Fecha Apertura:");
 
         jLabel12.setFont(new java.awt.Font("Cantarell", 2, 15)); // NOI18N
-        jLabel12.setText("El formato de fecha es: aaa/mm/dd");
+        jLabel12.setText("La fecha actual es:");
 
         btGuardar.setText("Guardar");
         btGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,48 +138,15 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
             }
         });
 
+        lbHoy.setText("hoy");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbApellPaciente))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbNomPaciente))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(32, 32, 32)
-                                .addComponent(btBuscar)
-                                .addGap(107, 107, 107)
-                                .addComponent(tfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(79, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel11))
-                        .addGap(98, 98, 98))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -184,7 +155,42 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
                         .addComponent(btCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btGuardar)
-                        .addGap(47, 47, 47))))
+                        .addGap(47, 47, 47))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11))
+                        .addGap(144, 144, 144))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbApellPaciente))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbNomPaciente))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(32, 32, 32)
+                                .addComponent(btBuscar)
+                                .addGap(157, 157, 157)
+                                .addComponent(lbHoy)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,13 +211,14 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btBuscar))
+                            .addComponent(btBuscar)
+                            .addComponent(lbHoy))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
@@ -226,11 +233,9 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(lbSeguroPaciente))
-                        .addContainerGap(24, Short.MAX_VALUE))
+                        .addContainerGap(30, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(tfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btGuardar)
                             .addComponent(btCancelar))
@@ -241,13 +246,7 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGuardarActionPerformed
-        //String cedula = tfCedula.getText();
-        String fechaText = tfFecha.getText();
-        SimpleDateFormat format = new SimpleDateFormat("yyy/MM/dd");
-        Date fecha = new Date();
-        try {
-            fecha = format.parse(fechaText);
-            
+              
             HistoriaClinica hc = new HistoriaClinica(fecha,paciente);
             
             int resultado = controlHC.crearHistoria(hc);
@@ -258,16 +257,7 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(this,"Algo paso , vuelve a intentarlo por favor","Error",JOptionPane.ERROR_MESSAGE);
             }
-            
-            
-            
-        } catch (ParseException ex) {
-            Logger.getLogger(PanelHistoriaClinica.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showConfirmDialog(this, "Usted ha ingresado la fecha en un formato diferente al indicado\nPor favor vuelva a intentarlo","Fecha invalida",JOptionPane.ERROR_MESSAGE);
-        }
-        
-        
-        
+     
     }//GEN-LAST:event_btGuardarActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
@@ -281,13 +271,18 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
         }else{
             //BUSCAMOS EL PACIENTE
             paciente = controlHC.buscarPaciente(cedula);
-            String nombre = paciente.getNombres();
-            String apellido = paciente.getApellidos();
-            String seguro = paciente.getNumeroSocial();
-            lbNomPaciente.setText(nombre);
-            lbApellPaciente.setText(apellido);
-            lbSeguroPaciente.setText(seguro);
-            btGuardar.setEnabled(true);
+            if(paciente==null){
+                JOptionPane.showMessageDialog(this, "El paciente con cedula "+cedula+" no existe en la base de datos, contacte a la secretaria para crear el paciente","Paciente no existe",JOptionPane.ERROR_MESSAGE);
+            }else{
+                String nombre = paciente.getNombres();
+                String apellido = paciente.getApellidos();
+                String seguro = paciente.getNumeroSocial();
+                lbNomPaciente.setText(nombre);
+                lbApellPaciente.setText(apellido);
+                lbSeguroPaciente.setText(seguro);
+                btGuardar.setEnabled(true);
+            }
+            
             
         }
     }//GEN-LAST:event_btBuscarActionPerformed
@@ -356,9 +351,9 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbApellPaciente;
+    private javax.swing.JLabel lbHoy;
     private javax.swing.JLabel lbNomPaciente;
     private javax.swing.JLabel lbSeguroPaciente;
     private javax.swing.JTextField tfCedula;
-    private javax.swing.JTextField tfFecha;
     // End of variables declaration//GEN-END:variables
 }
