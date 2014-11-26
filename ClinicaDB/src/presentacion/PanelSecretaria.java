@@ -26,21 +26,144 @@ public class PanelSecretaria extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lbTitulo = new javax.swing.JLabel();
+        infoPanel = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        tituPaci = new javax.swing.JLabel();
+        btModfPac = new javax.swing.JButton();
+        btEliminarPac = new javax.swing.JButton();
+        btAsigCit = new javax.swing.JButton();
+        tituloCita = new javax.swing.JLabel();
+        btCrearPac = new javax.swing.JButton();
+        btCancelarCitas = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(300, 350));
+
+        lbTitulo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
+        lbTitulo.setText("Bienvenido");
+
+        infoPanel.setText("En este panel usted podra gestionar la información de los pacientes y sus citas");
+
+        jSeparator1.setMaximumSize(new java.awt.Dimension(290, 290));
+
+        tituPaci.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
+        tituPaci.setText("Gestion de Pacientes");
+
+        btModfPac.setText("Modificar");
+        btModfPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModfPacActionPerformed(evt);
+            }
+        });
+
+        btEliminarPac.setText("Eliminar");
+        btEliminarPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarPacActionPerformed(evt);
+            }
+        });
+
+        btAsigCit.setText("Asignar");
+        btAsigCit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsigCitActionPerformed(evt);
+            }
+        });
+
+        tituloCita.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
+        tituloCita.setText("Gestion de Citas");
+
+        btCrearPac.setText("Crear");
+        btCrearPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearPacActionPerformed(evt);
+            }
+        });
+
+        btCancelarCitas.setText("Cancelar");
+        btCancelarCitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarCitasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btEliminarPac, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tituPaci, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btCrearPac, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btModfPac, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(82, 82, 82)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btCancelarCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btAsigCit, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tituloCita, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(269, 269, 269))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(infoPanel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbTitulo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap()))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(lbTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(infoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tituPaci)
+                    .addComponent(tituloCita))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCrearPac)
+                    .addComponent(btAsigCit))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btModfPac)
+                    .addComponent(btCancelarCitas))
+                .addGap(18, 18, 18)
+                .addComponent(btEliminarPac)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btModfPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModfPacActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btModfPacActionPerformed
+
+    private void btEliminarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarPacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEliminarPacActionPerformed
+
+    private void btAsigCitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsigCitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAsigCitActionPerformed
+
+    private void btCrearPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearPacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCrearPacActionPerformed
+
+    private void btCancelarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarCitasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCancelarCitasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -84,5 +207,15 @@ public class PanelSecretaria extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAsigCit;
+    private javax.swing.JButton btCancelarCitas;
+    private javax.swing.JButton btCrearPac;
+    private javax.swing.JButton btEliminarPac;
+    private javax.swing.JButton btModfPac;
+    private javax.swing.JLabel infoPanel;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbTitulo;
+    private javax.swing.JLabel tituPaci;
+    private javax.swing.JLabel tituloCita;
     // End of variables declaration//GEN-END:variables
 }

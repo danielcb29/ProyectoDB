@@ -208,6 +208,10 @@ public class DaoPaciente {
         return null;
     }
     
+     public int eliminarPaciente(String nombre) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+    
     /**
      * cerrar la conexion con la base de datos.
      */
@@ -268,6 +272,8 @@ public class DaoPaciente {
        Paciente[] list = listPacientes();       
        System.out.println(list.length);
     }
+
+   
 }
 
     
