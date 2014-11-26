@@ -194,5 +194,5 @@ CREATE TABLE Causas_Registro(
 	codigoCausa VARCHAR (30) NOT NULL,
 	codigoRegistro VARCHAR(35) NOT NULL,
 	CONSTRAINT pk_causasregistro PRIMARY KEY(codigoCausa,codigoRegistro), 
-	CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,
+	CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION
 );
