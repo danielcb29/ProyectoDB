@@ -37,7 +37,7 @@ public class Paciente extends Persona{
      */
     public String getNumeroSocial() {
         return numeroSocial;
-    }
+    }   
 
     /**
      * @param numeroSocial the numeroSocial to set
