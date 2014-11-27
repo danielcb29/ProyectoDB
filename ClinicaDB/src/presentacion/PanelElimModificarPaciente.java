@@ -439,7 +439,7 @@ public class PanelElimModificarPaciente extends javax.swing.JFrame {
             resultado = controladorPaciente.eliminarPaciente(identificacion);
         }
         if (resultado > 0) {
-            JOptionPane.showMessageDialog(this, "Operacion de " + oper + " exitosa", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Operacion de " + oper + "  exitosa", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
             dispose();
         } else {
             if (resultado == -2) {
