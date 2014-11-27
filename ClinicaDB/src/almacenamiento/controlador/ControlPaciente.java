@@ -35,7 +35,7 @@ public class ControlPaciente {
      * @param identificacion de la causa
      * @return paciente leido
      */
-    public Paciente leerCausa(String identificacion){
+    public Paciente leerPaciente(String identificacion){
         Paciente resultado = dao.leerPaciente(identificacion);
         return resultado;
     }

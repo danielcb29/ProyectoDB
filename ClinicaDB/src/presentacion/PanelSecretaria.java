@@ -14,6 +14,7 @@ public class PanelSecretaria extends javax.swing.JFrame {
 
     
     PanelCrearPaciente panelCreaPaciente;
+    PanelElimModificarPaciente panelElimModPaciente;
    private Connection conn;
     /**
      * Creates new form PanelSecretaria
@@ -170,12 +171,14 @@ public class PanelSecretaria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btModfPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModfPacActionPerformed
-        // TODO add your handling code here:
+        panelElimModPaciente = new PanelElimModificarPaciente(conn, 1);
+        panelElimModPaciente.setVisible(true);
         
     }//GEN-LAST:event_btModfPacActionPerformed
 
     private void btEliminarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarPacActionPerformed
-        // TODO add your handling code here:
+        panelElimModPaciente = new PanelElimModificarPaciente(conn, 2);
+        panelElimModPaciente.setVisible(true);
     }//GEN-LAST:event_btEliminarPacActionPerformed
 
     private void btAsigCitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsigCitActionPerformed

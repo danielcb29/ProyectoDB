@@ -141,6 +141,7 @@ public class DaoPaciente {
       
         
         try{
+            System.out.println(sql3);
                 Statement sentencia = conn.createStatement();
 
                 sentencia.executeUpdate(sql1);
@@ -214,7 +215,7 @@ public class DaoPaciente {
     
      public int eliminarPaciente(String identificacion) {
         String sql1;
-	sql1 = "UPDATE Persona SET estado='false' WHERE identificacion='" + identificacion + "';";
+	sql1 = "UPDATE Paciente SET estado='false' WHERE identificacion='" + identificacion + "';";
         try{
                 Statement sentencia = conn.createStatement();
 
