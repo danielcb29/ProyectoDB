@@ -30,6 +30,7 @@ public class PanelHistoriaClinica extends javax.swing.JFrame {
     public PanelHistoriaClinica(Connection conn) {
         super("Gestor de Historias Clinicas");
         initComponents();
+        System.out.println("creado cotrol his");
         controlHC = new ControlHistoria(conn);
         lbNomPaciente.setText("");
         lbApellPaciente.setText("");

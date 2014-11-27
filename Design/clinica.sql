@@ -48,6 +48,7 @@ CREATE TABLE Paciente(
 	numeroSegSocial VARCHAR(40) NOT NULL,
 	actEcon VARCHAR(30) NOT NULL,
 	fechaNac DATE NOT NULL,
+	estado BOOLEAN NOT NULL,
 	CONSTRAINT fk_identificacion FOREIGN KEY(identificacion) REFERENCES Persona(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION 
 );
 
@@ -59,6 +60,7 @@ CREATE TABLE Empleado(
 	cargo VARCHAR(40) NOT NULL,
 	jefe VARCHAR(35) NOT NULL,
 	codigoArea INT NOT NULL,
+	estado BOOLEAN NOT NULL,
 	CONSTRAINT fk_identificacion FOREIGN KEY(identificacion) REFERENCES Persona(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_jefe FOREIGN KEY(jefe) REFERENCES Empleado(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_codigoArea FOREIGN KEY(codigoArea) REFERENCES Area(codigoArea) ON UPDATE CASCADE ON DELETE NO ACTION

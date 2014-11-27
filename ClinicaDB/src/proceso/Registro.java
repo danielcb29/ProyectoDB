@@ -12,7 +12,7 @@ import java.util.Vector;
  *
  * @author cenesis
  */
-class Registro {
+public class Registro {
     
     private Medico medicoRegistro;
     private Date fecha;

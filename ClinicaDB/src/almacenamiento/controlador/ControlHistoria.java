@@ -15,10 +15,14 @@ import proceso.Paciente;
  */
 public class ControlHistoria {
     
-    DAOHistoria dao;
+    private DAOHistoria dao;
+    private ControlPaciente controlPac;
     
     public ControlHistoria(Connection conn){
         dao = new DAOHistoria(conn);
+        System.out.println("creado control pac");
+        controlPac = new ControlPaciente(conn);
+        
     }
     /**
      * Metodo que permite consultar la existencia de una historia clinica 
@@ -35,8 +39,8 @@ public class ControlHistoria {
      * @return paciente 
      */
     public Paciente buscarPaciente(String cedula){
-        //CONEXION CON CONTROL PACIENTE PARA LA BUSQUEDA DEL TIPO
-        return null;
+        Paciente paciente = controlPac.leerPaciente(cedula);
+        return paciente;
     }
     /**
      * Metodo que permite almacenar una historia clinica en la base de datos

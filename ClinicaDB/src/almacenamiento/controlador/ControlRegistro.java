@@ -6,9 +6,11 @@ package almacenamiento.controlador;
 
 import almacenamiento.accesodatos.DAORegistro;
 import java.sql.Connection;
+import java.util.Vector;
 import proceso.Causa;
 import proceso.HistoriaClinica;
 import proceso.Paciente;
+import proceso.Registro;
 
 
 /**
@@ -40,6 +42,20 @@ public class ControlRegistro {
     public HistoriaClinica buscarHistoria(String cedula){
         //Se de debe hacer la conexion con el control historia para obtener el paciente
         HistoriaClinica result = controlHis.buscarHistoria(cedula);
+        return result;
+    }
+    /**
+     * Metdo que permite crear un registro de una historia clinica en la base de datos
+     * @param reg: registro a almacenar 
+     * @return valor de confirmacion del registro , 1ok , -1 error , -2 sql error
+     */
+    public int crearRegitro(Registro reg) {
+        Vector<Causa> causas = reg.getCausasPaciente();
+        int indice = daoReg.crearRegistro(reg);
+        int result = daoReg.insertarCausasDelRegistro(indice, causas);
+            //controlCausa.crearCausa(causas.get(i));
+        
+        
         return result;
     }
     

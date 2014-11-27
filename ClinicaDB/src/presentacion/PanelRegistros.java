@@ -14,6 +14,7 @@ import proceso.Causa;
 import proceso.HistoriaClinica;
 import proceso.Medico;
 import proceso.Paciente;
+import proceso.Registro;
 
 
 /**
@@ -30,10 +31,11 @@ public class PanelRegistros extends javax.swing.JFrame {
     private HistoriaClinica historia;
     private boolean[] causasSeleccionadas;
     private Vector<Causa> causasDelRegistro;
+    private Medico doctor;
     /**
      * Creates new form PanelRegistros
      */
-    public PanelRegistros(Connection conn) {
+    public PanelRegistros(Connection conn, Medico medico) {
         super("Panel de Registro de Historias Clinicas");
         setResizable(false);
         initComponents();
@@ -45,6 +47,7 @@ public class PanelRegistros extends javax.swing.JFrame {
         causasDelRegistro = new Vector<Causa>();
         lbNombreApellido.setText("");
         historia=null;
+        doctor=medico;
         mostrarCausas();
         
         
@@ -347,7 +350,8 @@ public class PanelRegistros extends javax.swing.JFrame {
             
         }else{
             double costo = Double.parseDouble(tfCosto.getText());
-            
+            Registro reg = new Registro(doctor, hoy, costo, causasDelRegistro, historia);
+            int resul = controlReg.crearRegitro(reg);
             
         }
     }//GEN-LAST:event_btGuardarActionPerformed

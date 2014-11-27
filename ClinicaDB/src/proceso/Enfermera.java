@@ -12,6 +12,10 @@ package proceso;
 public class Enfermera extends Empleado{
     
     private int anosExp;
+
+    public Enfermera(String nombres, String apellidos, String telefono, String direccion, int salario, String email, String cargo, String identificacion) {
+        super(nombres, apellidos, telefono, direccion, salario, email, cargo, identificacion);
+    }
     private String[] misHabilidades;
 
     /**

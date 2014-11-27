@@ -23,10 +23,11 @@ import proceso.Paciente;
 public class DAOHistoria {
     private BaseDatos db;
     private Connection conn;
-    //private DaoPaciente daoPac;
+    private DaoPaciente daoPac;
     public DAOHistoria(Connection conn){
         db = new BaseDatos();
         this.conn=conn;
+        daoPac = new DaoPaciente(conn);
     }
     /**
      * Metodo que permite consultar la existencia de una historia clinica asignada a un paciente
@@ -122,8 +123,8 @@ public class DAOHistoria {
                     //idPaciente = table.getString(3);
                 }
             
-            //Paciente paciente = daoPac.leerPaciente(cedula);
-            //nuevaHC.setPersona(paciente);
+            Paciente paciente = daoPac.leerPaciente(cedula);
+            nuevaHC.setPersona(paciente);
             
             return nuevaHC;
             

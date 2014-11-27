@@ -8,6 +8,7 @@ import almacenamiento.controlador.ControlCausa;
 import clinicadb.ClinicaDB;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
+import proceso.Medico;
 
 /**
  *
@@ -23,12 +24,14 @@ public class PanelMedico extends javax.swing.JFrame {
     private PanelHistoriaClinica panelHC;
     private Connection conn;
     private PanelRegistros panelReg;
-    public PanelMedico(String apellido , Connection conn) {
+    private Medico doctor;
+    public PanelMedico(Connection conn,Medico med) {
         super("Panel Administrativo para Doctores");
         initComponents();
-        lbTitulo.setText("Bienvenido Dr "+apellido+"!");
+        lbTitulo.setText("Bienvenido Dr "+med.getApellidos()+"!");
         this.conn=conn;
         setResizable(false);
+        doctor=med;
         
     }
 
@@ -191,7 +194,7 @@ public class PanelMedico extends javax.swing.JFrame {
 
     private void btRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistroActionPerformed
         // TODO add your handling code here:
-        panelReg = new PanelRegistros(conn);
+        panelReg = new PanelRegistros(conn,doctor);
         panelReg.setVisible(true);
     }//GEN-LAST:event_btRegistroActionPerformed
 
@@ -277,7 +280,9 @@ public class PanelMedico extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new PanelMedico("Correa",conn).setVisible(true);
+                Medico med = new Medico("Daniel", "Correa", "31245","calle univalle", 350, "danielc.web@gmail.com", "Doc", "1144067772", 12, "Sistemas", "Univalle");
+                new PanelMedico(conn,med).setVisible(true);
+                //new PanelSecretaria(conn).setVisible(true);
             }
         });
     }
