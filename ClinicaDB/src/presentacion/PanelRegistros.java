@@ -206,8 +206,7 @@ public class PanelRegistros extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel4)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfCCPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18))
+                                    .addComponent(tfCCPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel6)
                                     .addGap(183, 183, 183)))
@@ -227,7 +226,7 @@ public class PanelRegistros extends javax.swing.JFrame {
                                     .addGap(13, 13, 13)
                                     .addComponent(tfCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btCancelar)
@@ -352,6 +351,12 @@ public class PanelRegistros extends javax.swing.JFrame {
             double costo = Double.parseDouble(tfCosto.getText());
             Registro reg = new Registro(doctor, hoy, costo, causasDelRegistro, historia);
             int resul = controlReg.crearRegitro(reg);
+            
+            if(resul ==1){
+                String id = historia.getPersona().getIdentificacion();
+                JOptionPane.showMessageDialog(this, "Registro adicionado exitosamente a la historia clinica del paciente "+id,"Registro Exitoso",JOptionPane.INFORMATION_MESSAGE);
+            
+            }
             
         }
     }//GEN-LAST:event_btGuardarActionPerformed

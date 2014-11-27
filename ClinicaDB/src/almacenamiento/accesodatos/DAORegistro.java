@@ -62,7 +62,16 @@ public class DAORegistro {
      * @return numero de confirmacion, 1 ok 
      */
     public int insertarCausasDelRegistro(int indice, Vector<Causa> causas){
-        return 0;
+        int size = causas.size();
+        int insert = 1;
+        for(int i = 0 ; i<size;i++){
+            int resul = insertarUnaCausaAlRegistro(indice, causas.get(i));
+            if(resul == -1){
+                insert=-1;
+                break;
+            }
+        }
+        return insert;
     }
     /**
      * Metodo que permite insertar una causa a un registro

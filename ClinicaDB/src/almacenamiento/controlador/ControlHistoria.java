@@ -20,7 +20,7 @@ public class ControlHistoria {
     
     public ControlHistoria(Connection conn){
         dao = new DAOHistoria(conn);
-        System.out.println("creado control pac");
+        //System.out.println("creado control pac");
         controlPac = new ControlPaciente(conn);
         
     }

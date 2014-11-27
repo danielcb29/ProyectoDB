@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -110,12 +111,12 @@ public class DAOHistoria {
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
             ResultSet table = sentence.executeQuery(sql);
-            SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm");    
+            SimpleDateFormat format = new SimpleDateFormat("yyy/MM/dd HH:mm");
             //String idPaciente = "";
             while(table.next()){
                     
                     nuevaHC.setNumHistoria(table.getString(1));
-                                    
+                    
                     Date fechaAper;
                     fechaAper = format.parse(table.getString(2));
                     nuevaHC.setFechaAper(fechaAper);
