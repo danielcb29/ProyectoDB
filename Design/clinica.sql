@@ -1,5 +1,5 @@
 --Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martienez , Brayan Rodriguez
-DROP TABLE IF EXISTS Cuasas_Registro;
+DROP TABLE IF EXISTS Causas_Registro;
 DROP TABLE IF EXISTS RegistroHC;
 DROP TABLE IF EXISTS Pacientes_Campana;
 DROP TABLE IF EXISTS Campana;
@@ -129,7 +129,7 @@ CREATE SEQUENCE hist_seq;
 --Creación de la tabla HistoriaClinica. Está relacionada con Paciente.
 CREATE TABLE HistoriaClinica(
 	numHistoria VARCHAR(35) NOT NULL PRIMARY KEY,
-	fechaAper DATE NOT NULL,
+	fechaAper timestamp NOT NULL,
 	idPaciente VARCHAR(35) NOT NULL,
 	CONSTRAINT fk_idPacHC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
@@ -148,7 +148,7 @@ CREATE TABLE Formula(
 	idMedicamento VARCHAR(20) NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
 	numHistoria VARCHAR(35) NOT NULL,
-	fechaAsignacion DATE NOT NULL,
+	fechaAsignacion timestamp NOT NULL,
 	CONSTRAINT pk_formula PRIMARY KEY(idMedico, idMedicamento, numHistoria, fechaAsignacion), 
 	CONSTRAINT fk_idNumHist FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_idMedicamento FOREIGN KEY(idMedicamento) REFERENCES Medicamentos(codigoMedicamento) ON UPDATE CASCADE ON DELETE NO ACTION,
@@ -183,7 +183,7 @@ CREATE TABLE RegistroHC(
 	numHistoria VARCHAR(35) NOT NULL,
 	--codigoCausa VARCHAR (30) NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
-	fecha DATE NOT NULL,
+	fecha timestamp NOT NULL,
 	precio MONEY NOT NULL,
 	--CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico,fecha), 
 	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
