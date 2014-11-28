@@ -84,7 +84,7 @@ public class DAOMedico {
         
         try{
             
-            sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";        
+            sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
             

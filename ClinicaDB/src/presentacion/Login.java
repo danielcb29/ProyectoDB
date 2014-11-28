@@ -7,7 +7,7 @@ package presentacion;
 import almacenamiento.controlador.*;
 import proceso.*;
 import java.sql.Connection;
-import java.util.Date;
+
 import javax.swing.JOptionPane;
 /**
  *
@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
     
     ControlEmpleado ce;
+    ControlMedico cm;
     private Connection conn;
     /**
      * Creates new form GestionUsuario
@@ -24,9 +25,11 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         ce=new ControlEmpleado();
         ce.connectDB();
+        conn= ce.getConn();
+        cm = new ControlMedico(conn);
         this.setTitle("Clínica 2014 Universidad del Valle");
         this.setResizable(false);
-        conn= ce.getConn();
+        
         
         
     }
@@ -46,7 +49,7 @@ public class Login extends javax.swing.JFrame {
         lbCon = new javax.swing.JLabel();
         tfCon = new javax.swing.JTextField();
         lbLogo = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lbEISC = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
 
@@ -77,7 +80,7 @@ public class Login extends javax.swing.JFrame {
 
         lbLogo.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/logo2.png")); // NOI18N
 
-        jLabel1.setText("Escuela de Ingeniería de Sistemas");
+        lbEISC.setText("Escuela de Ingeniería de Sistemas y Computación");
 
         jLabel2.setText("Universidad del Valle");
 
@@ -86,17 +89,16 @@ public class Login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 173, Short.MAX_VALUE)
+                .addComponent(lbEISC)
+                .addGap(172, 172, 172))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(jLabel2)))
-                .addGap(0, 210, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfCE, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                    .addComponent(tfCon))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -106,14 +108,14 @@ public class Login extends javax.swing.JFrame {
                         .addGap(316, 316, 316)
                         .addComponent(lbLogo))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(279, 279, 279)
                         .addComponent(lbCE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(304, 304, 304)
-                        .addComponent(lbCon)))
+                        .addComponent(lbCon))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,7 +136,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addComponent(lbEISC)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel2)
                 .addGap(41, 41, 41))
@@ -153,7 +155,7 @@ public class Login extends javax.swing.JFrame {
         
         Empleado em = ce.readEmpleado(email, 1);
         
-         if (em==null){ 
+        if (em==null){ 
             JOptionPane.showMessageDialog(this, "Lo sentimos ha ocurrido un error en la conexion con la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
         }else{
              if(em.getContrasena()==null || !(em.getContrasena() .equals(contrasena))){
@@ -167,6 +169,10 @@ public class Login extends javax.swing.JFrame {
                     switch(cargo){
                         case "Administrador":
                             System.out.println("admin");
+                            break;
+                        case "Medico":
+                            System.out.println("Medico");
+                            Medico me = cm.readMedico(email, 1);
                             break;
                         default:
                             System.out.println("default");
@@ -222,11 +228,11 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIngresar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbCE;
     private javax.swing.JLabel lbCon;
+    private javax.swing.JLabel lbEISC;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JTextField tfCE;
     private javax.swing.JTextField tfCon;

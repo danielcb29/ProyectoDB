@@ -77,7 +77,9 @@ public class ControlMedico {
      * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
     */
     public Medico   readMedico (String req, int tipoCon){
+        System.out.println("antes readEmplado");
         Empleado em = daoEm.readEmpleado(req, tipoCon);
+        System.out.println("antes readMedico");
         Medico me= daoMe.readMedico(em);
         return me;
 
