@@ -37,28 +37,17 @@ public class DAOHistoria {
      */
     public boolean existePaciente(String cedula){
         boolean resultado = false;
-        String sql = "SELECT numhistoria FROM historiaclinica where idpaciente = '"+cedula+"'";
-        String tam = "SELECT COUNT(*) FROM historiaclinica";
+        String sql = "select count(*) from (select numhistoria from historiaclinica where idpaciente = '"+cedula+"') as a";
+        //String tam = "SELECT COUNT(*) FROM historiaclinica";
         try {
           
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
-            ResultSet tableTam = sentence.executeQuery(tam);
-            tableTam.next();
-            int tamano = tableTam.getInt(1);
+            ResultSet table = sentence.executeQuery(sql);
+            table.next();
+            int tamano = table.getInt(1);
             if(tamano!=0){
-                ResultSet table = sentence.executeQuery(sql);
-                String numero = "";
-                table.next();
-                numero  = table.getString(1);
-                /*while(table.next()){
-                    System.out.println("entramos al while");
-                    numero  = table.getString(1);
-                }*/
-
-                if(numero != null){
-                    resultado = true;
-                }
+                resultado = true;
             }
             
             
@@ -101,8 +90,12 @@ public class DAOHistoria {
         }
         return -1;
     }
-    
-    public HistoriaClinica leerHC(String cedula){
+    /**
+     * Metodo que permite leer la historia clinica de una base de datos
+     * @param cedula: cedula del paciente al cual pertenece la historia
+     * @return historia clinica
+     */
+    public HistoriaClinica leerSimpleHC(String cedula){
         
         String sql = "SELECT numHistoria, fechaAper FROM HistoriaClinica WHERE idPaciente ='"+cedula+"'; ";
             
@@ -111,14 +104,16 @@ public class DAOHistoria {
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
             ResultSet table = sentence.executeQuery(sql);
-            SimpleDateFormat format = new SimpleDateFormat("yyy/MM/dd HH:mm");
+            SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
             //String idPaciente = "";
             while(table.next()){
                     
                     nuevaHC.setNumHistoria(table.getString(1));
                     
                     Date fechaAper;
+                    System.out.println("Antes de formatear la fecha");
                     fechaAper = format.parse(table.getString(2));
+                    System.out.println("Despues de formatear la fecha");
                     nuevaHC.setFechaAper(fechaAper);
                     
                     //idPaciente = table.getString(3);
