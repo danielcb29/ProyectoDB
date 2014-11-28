@@ -23,8 +23,8 @@ public class ControlPaciente {
     public ControlPaciente(Connection conn){
         dao = new DaoPaciente(conn);
         /*try {
-            System.out.println("creando paciente");
-            dao.pruebaCrearPaciente();
+            System.out.println("creando paciente NEW");
+            //dao.pruebaCrearPaciente();
         } catch (ParseException ex) {
             Logger.getLogger(ControlPaciente.class.getName()).log(Level.SEVERE, null, ex);
         }*/
