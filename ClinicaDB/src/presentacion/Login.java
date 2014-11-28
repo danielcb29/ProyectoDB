@@ -41,12 +41,14 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         lbCE = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         tfCE = new javax.swing.JTextField();
         btIngresar = new javax.swing.JButton();
         lbCon = new javax.swing.JLabel();
         tfCon = new javax.swing.JTextField();
-        lbClin = new javax.swing.JLabel();
+        lbLogo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,54 +75,69 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        lbClin.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
-        lbClin.setText("Clínica");
+        lbLogo.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/logo2.png")); // NOI18N
+
+        jLabel1.setText("Escuela de Ingeniería de Sistemas");
+
+        jLabel2.setText("Universidad del Valle");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(61, 61, 61))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbCon)
-                        .addGap(159, 159, 159))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btIngresar)
-                        .addGap(165, 165, 165))))
+            .addComponent(jSeparator2)
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbCE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbClin)
-                        .addGap(8, 8, 8)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(208, 208, 208)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel2)))
+                .addGap(0, 210, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(296, 296, 296)
+                        .addComponent(btIngresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(316, 316, 316)
+                        .addComponent(lbLogo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(lbCE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(304, 304, 304)
+                        .addComponent(lbCon)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbClin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbCE)
+                .addGap(36, 36, 36)
+                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbCE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbCon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(btIngresar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
                 .addGap(33, 33, 33)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel2)
+                .addGap(41, 41, 41))
         );
 
         pack();
@@ -134,7 +151,7 @@ public class Login extends javax.swing.JFrame {
         String email=tfCE.getText();
         String contrasena=tfCon.getText();
         
-        Empleado em = ce.readEmployee(email, 1);
+        Empleado em = ce.readEmpleado(email, 1);
         
          if (em==null){ 
             JOptionPane.showMessageDialog(this, "Lo sentimos ha ocurrido un error en la conexion con la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -205,10 +222,12 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIngresar;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbCE;
-    private javax.swing.JLabel lbClin;
     private javax.swing.JLabel lbCon;
+    private javax.swing.JLabel lbLogo;
     private javax.swing.JTextField tfCE;
     private javax.swing.JTextField tfCon;
     // End of variables declaration//GEN-END:variables
