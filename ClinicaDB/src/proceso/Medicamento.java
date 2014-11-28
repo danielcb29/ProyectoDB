@@ -16,6 +16,15 @@ public class Medicamento{
     private double costo;
     private String descripcion;
 
+    public Medicamento(){
+        
+    }
+    public Medicamento(String codigo , String nombre , double costo, String descripcion){
+        codigoMedicamento=codigo;
+        this.nombre=nombre;
+        this.costo=costo;
+        this.descripcion=descripcion;
+    }
     /**
      * @return the codigoMedicamento
      */
