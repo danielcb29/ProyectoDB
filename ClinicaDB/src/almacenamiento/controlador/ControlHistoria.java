@@ -60,7 +60,7 @@ public class ControlHistoria {
      */
     public HistoriaClinica buscarHistoria(String cedula){
         
-        HistoriaClinica resul = dao.leerHC(cedula);
+        HistoriaClinica resul = dao.leerSimpleHC(cedula);
         return resul;
     }
     /**
