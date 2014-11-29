@@ -12,7 +12,7 @@ import java.sql.*;
  *
  * @author family
  */
-public class DAOEmpleado {
+public class DAOMedico {
      /**
      * @param db objeto encargado de la conexión a la base de datos.
      * @param conn objeto para ejecutar las sentencias de SQL
@@ -20,11 +20,16 @@ public class DAOEmpleado {
      */
     private  BaseDatos db;
     Connection conn ;
+    DAOEmpleado daoEm;
+    
     /**
      * constructor, inicializa los atributos.
+     * @param conn conexion base de datos
      */
-    public DAOEmpleado(){
+    public DAOMedico(){
         db=new BaseDatos();
+        //this.conn=conn;
+        daoEm=new DAOEmpleado();
         
     }//fin constructor
     /**
@@ -36,35 +41,20 @@ public class DAOEmpleado {
     public Connection getConn(){
         return conn;
     }
-        /**
-        * crear o agregar un usuario a la tabla.
-        * @param em el objeto Empleado a agregar.
-        * @return devuelve el número de tuplas que se agregaron a la tabla.
-        */
-    public int createEmpleado(Empleado em){
-        String sql_em,sql_per;
+    /**
+    * crear o agregar un medico a la tabla.
+    * @param me el objeto Medico a agregar.
+    * @return devuelve el número de tuplas que se agregaron a la tabla.
+    */
+    public int createMedico(Medico me){
+        String sql_me;
         int numRows=0;
-        String cargo=em.getCargo();
-        String jefe =em.getJefe();
-        if(cargo.equals("Administrador")){
-            if(jefe.equals("-1")){
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea, estado) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+  "', '" + em.getContrasena()+"', NULL, NULL,"+ em.getEstado() +")";                
-            }else{
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea, estado) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+  "', '" + em.getContrasena()+"', '" + jefe + "', NULL"+ em.getEstado() +")";
-            }
-        }else{
-            if(jefe.equals("-1")){
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + em.getContrasena()+  "', NULL, "+ em.getArea().getCodigoArea() + ","+ em.getEstado() +")";
-            }else{
-                sql_em="INSERT INTO empleado (identificacion, salario, email, cargo, contrasena, jefe, codigoArea) VALUES ('"+ em.getIdentificacion() + "', " + em.getSalario() + ", '" + em.getEmail() + "', '"  + cargo+ "', '" + em.getContrasena() +"', '" + jefe + "', "+ em.getArea().getCodigoArea()+","+ em.getEstado()+  ")";
-            }
-        }
         
-        sql_per="INSERT INTO persona (identificacion, nombres, apellidos, telefono, direccion) VALUES ('"+ em.getIdentificacion() +"', '"+ em.getNombres()+ "', '"+ em.getApellidos() +"', '"+ em.getTelefono()+ "', '"+ em.getDireccion() +")";
+        sql_me="INSERT INTO medico (identificacion, numeroLicencia, especialidad, universidad) VALUES ('"+ me.getIdentificacion() +"', "+ me.getNumeroLicencia()+ ", '"+ me.getEspecialidad() + "', '"+ me.getUniversidad() + "')";
         try{
+
             Statement st = conn.createStatement();
-            st.executeUpdate(sql_per);
-            numRows = st.executeUpdate(sql_em);
+            numRows = st.executeUpdate(sql_me);
             
             System.out.println("numRowsDAO: " + numRows);
             return numRows;
@@ -82,74 +72,62 @@ public class DAOEmpleado {
     }//fin saveUser
     
         /**
-        * consultar el empleado que tiene como correo o identificacion el parametro.
-        * @param req el correo o identificacion del empleado que se quiere consultar.
-        * @param tipoCon 1 si es correo electronico, 2 si es identificacion
-        * @return null si hay error en la consulta a la base de datos. Objeto tipo Empleado si el objeto del usuario que se consulto. 
+        * consultar el medico que tiene identificacion el parametro.
+        * @param em objeto Empleado con la informacion del medico a consultar
+        * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
         */
-    public Empleado readEmpleado(String req, int tipoCon){
-        Empleado em= new Empleado();
+    public Medico readMedico(Empleado em){
+        Medico me= new Medico();
         String sql_select;
-        if(tipoCon==1){
-            //System.out.println("entramos al caso de username");
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.email='" + req +  "'";        
-        }else{
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.identificacion='" + req +  "'";
-        }
+        
+        
+        
         try{
+            
+            sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";
             System.out.println("consultando en la bd");
+            
             Statement statement = conn.createStatement();
-            //System.out.println("antes de la ejecucion");
+            
             ResultSet table = statement.executeQuery(sql_select);
-            //System.out.println("despues de la ejecucion");
+            
             
             while(table.next()){
-                //System.out.println("dentro del while");
-                em.setIdentificacion(table.getString(1));
+                
+                me.setNombres(em.getNombres());
+                
+                me.setApellidos(em.getApellidos());
+                
+                me.setTelefono(em.getTelefono());
+                
+                me.setDireccion(em.getDireccion());
+                
+                me.setSalario(em.getSalario());
+                
+                me.setEmail(em.getEmail());
+                
+                me.setCargo(em.getCargo());
+                
+                me.setContrasena(em.getContrasena());
+                
+                me.setJefe(em.getJefe());
+                
+                me.setArea(em.getArea());
+                
+                me.setEstado(em.getEstado());
+                
+                me.setIdentificacion(table.getString(1));
+                
+                me.setNumeroLicencia(table.getInt(2));
+                
+                me.setEspecialidad(table.getString(3));
+                
+                me.setUniversidad(table.getString(4));
                
-                em.setNombres(table.getString(2));
-                
-                em.setApellidos(table.getString(3));
-                
-                em.setTelefono(table.getString(4));               
-
-                em.setDireccion(table.getString(5));
-
-                em.setSalario(table.getInt(6));
-                
-                em.setEmail(table.getString(7));
-                
-                em.setCargo(table.getString(8));
-                
-                em.setContrasena(table.getString(9));
-                
-                String jefe = table.getString(10);
-                
-                System.out.println("jefe "+jefe);
-                
-                if(jefe==null){
-                    em.setJefe("-1");
-                }else{
-                    em.setJefe(jefe);
-                }
-                
-                String area = table.getString(11);
-                
-                System.out.println(area);
-                if(area==null){
-                    em.setArea(null);
-                }else{
-                    DAOArea daoa= new DAOArea(conn);
-                    Area ar = daoa.readArea(Integer.parseInt(area));
-                    em.setArea(ar);
-                }
-                
-                em.setEstado(table.getBoolean(12));
-                
                 System.out.println("ok");
             }
-            return em;
-         }
+            return me;
+        }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println("excepcion del dao"); System.out.println(e); }
         return null;
@@ -162,7 +140,7 @@ public class DAOEmpleado {
      * @param cedula la cedula del usuario que se quiere actualizar.
      * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
      */
-/**    public int updateUser(Usuario us, String cedula){
+  /**  public int updateUser(Usuario us, String cedula){
         String sql_save1,  sql_save2,  sql_save3, sql_save4,  sql_save5,  sql_save6,  sql_save7;
 	sql_save1="UPDATE usuario SET name='"+us.getName()+"' WHERE cedula='" + us.getCedula() + "'";
         sql_save2="UPDATE usuario SET lastname='"+us.getLastName()+"' WHERE cedula='" + us.getCedula() + "'";
@@ -242,7 +220,7 @@ public class DAOEmpleado {
      * listar todas las tuplas de los usuarios existentes.
      * @return los objetos tipo Usuario enlistados en un arreglo.
      */ 
-/**   public Usuario[] listUsers(){
+/** public Usuario[] listUsers(){
         
         String sql_select;
         sql_select="SELECT usuario.cedula, usuario.name, usuario.lastName,usuario.userName, usuario.contrasena, usuario.email ,  perfiles.nombre, usuario.estado FROM  usuario, perfiles WHERE usuario.id_perfil=perfiles.id_perfil";
@@ -310,7 +288,7 @@ public class DAOEmpleado {
     * borrar un usuario de la tabla.
     * @param cedula la cedula del usuario que se quiere borrar.
     */
- /**   public int deleteUser(String cedula){	
+/**    public int deleteUser(String cedula){	
         String sql_save;
 
         sql_save="UPDATE usuario SET estado=false WHERE cedula='" + cedula + "'";

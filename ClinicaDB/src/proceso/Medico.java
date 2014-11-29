@@ -23,7 +23,8 @@ public class Medico extends Empleado{
         especialidad=esp;
         universidad=u;
     }
-
+    
+    public Medico(){}
     /**
      * @return the numeroLicencia
      */

@@ -13,47 +13,56 @@ import java.sql.Connection;
  * @author Fernando
  */
 
-public class ControlEmpleado {
+public class ControlMedico {
     
 
     DAOEmpleado daoEm;
-    
+    DAOMedico daoMe;
 
     
     /**
      * constructor
+     * @param conn conexion base de datos
      * **/
-    public ControlEmpleado(){
+    public ControlMedico(/*Connection conn*/){
         daoEm=new DAOEmpleado();
+        daoMe=new DAOMedico(/*conn*/);
     }
     public void connectDB(){
-        daoEm.connectDB();
+        daoMe.connectDB();
     }
     public Connection getConn(){
-        return daoEm.getConn();
+        return daoMe.getConn();
     }
      /**
      * metodo encargado de pasar el usuario a ingresar a la base de
      * satos al DAOusuario. 
-     * @param id cedula del empleado
-     * @param nombres nombre del empleado
-     * @param apellidos  apellidos del empleado
-     * @param telefono telefono del empleado 
-     * @param direccion direccion del empleado
-     * @param sal salario del empleado
-     * @param email email del empleado
-     * @param cargo cargo del empleado
-     * @param contrasena contrasena del empleado
-     * @param jefe jefe del empleado, "-1" si no tiene jefe
-     * @param area area del empleado, objeto null si es administrador
-     * @param estado estado del empleado
+     * @param id cedula del medico
+     * @param nombres nombre del medico
+     * @param apellidos  apellidos del medico
+     * @param telefono telefono del medico
+     * @param direccion direccion del medico
+     * @param sal salario del medico
+     * @param email email del medico
+     * @param cargo cargo del medico
+     * @param contrasena contrasena del medico
+     * @param jefe jefe del medico, "-1" si no tiene jefe
+     * @param area area del medico, objeto null si es administrador
+     * @param estado estado del medico
+     * @param numeroLicencia  el numero de licencia del medico
+     * @param especialidad especialidad del medico
+     * @param universidad universidad del medico
      * @return 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente el usuario.
      */
-    public int   createEmpleado (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado)
+    public int   createMedico (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int numeroLicencia, String especialidad, String universidad)
     {
         
         Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
+        Medico med = new Medico(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, numeroLicencia, especialidad, universidad);
         
+        daoEm.createEmpleado(med);
+        
+        daoMe.createMedico(med);
         //Se llama al dao para guardar
         int result =daoEm.createEmpleado(em);
         
@@ -63,23 +72,26 @@ public class ControlEmpleado {
     /**
      * metodo encargado de pasar el username a Dao para que consulte si el 
      * usuario existe
-     * @param req el correo o identificacion del empleado que se quiere consultar.
+     * @param req el correo o identificacion del medico que se quiere consultar.
      * @param tipoCon 1 si es correo electronico, 2 si es identificacion
-     * @return null si hay error en la consulta a la base de datos. Objeto tipo Empleado si el objeto del usuario que se consulto. 
+     * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
     */
-    public Empleado   readEmpleado (String req, int tipoCon){
+    public Medico   readMedico (String req, int tipoCon){
+        System.out.println("antes readEmplado");
         Empleado em = daoEm.readEmpleado(req, tipoCon);
-        
-        return em;
+        System.out.println("antes readMedico");
+        Medico me= daoMe.readMedico(em);
+        return me;
 
     }
+    
     
  
      
     /** metodo que llama al Dao para consultar cuantos usuarios existen
      * @return cantidad de usuarios existentes en la base de datos
      */
-   /** public int countUsers ()  
+ /**   public int countUsers ()  
     {
         Usuario [] users = new Usuario [5];
         int size =  users.length;
@@ -107,7 +119,7 @@ public class ControlEmpleado {
      * Cerrar conexion base de datos
      */
     public void cerrarConexionBD(){
-        daoEm.closeConectionDB();
+        daoMe.closeConectionDB();
     }
 
 }//fin clase

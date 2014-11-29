@@ -26,12 +26,21 @@ dist.jar=${dist.dir}/ClinicaDB.jar
 dist.javadoc.dir=${dist.dir}/javadoc
 excludes=
 file.reference.postgresql-9.0-801.jdbc3.jar=/home/family/Proyectos/SISCONDOC/SISCONDOC/postgresql-9.0-801.jdbc3.jar
+<<<<<<< HEAD
 file.reference.postgresql-9.0-801.jdbc3.jar-1=/home/family/Proyectos/SISCONDOC/SISCONDOC/postgresql-9.0-801.jdbc3.jar
+file.reference.postgresql-9.0-801.jdbc3.jar-2=../postgresql-9.0-801.jdbc3.jar
 includes=**
 jar.compress=false
 javac.classpath=\
     ${file.reference.postgresql-9.0-801.jdbc3.jar}:\
     ${file.reference.postgresql-9.0-801.jdbc3.jar-1}
+=======
+includes=**
+jar.compress=false
+javac.classpath=\
+    ${file.reference.postgresql-9.0-801.jdbc3.jar}:\
+    ${file.reference.postgresql-9.0-801.jdbc3.jar-2}
+>>>>>>> d0090d9e7eb89febfdb1c50faf5fbbeb6fd5c5a7
 # Space-separated list of extra javac options
 javac.compilerargs=
 javac.deprecation=false

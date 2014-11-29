@@ -7,7 +7,7 @@ package presentacion;
 import almacenamiento.controlador.*;
 import proceso.*;
 import java.sql.Connection;
-import java.util.Date;
+
 import javax.swing.JOptionPane;
 /**
  *
@@ -15,18 +15,28 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
     
-    ControlEmpleado ce;
+    private ControlEmpleado ce;
+    private ControlMedico cm;
     private Connection conn;
+    private String email;
+    private String contrasena;
+    private VistaCrearUsuario vcu;
+    
     /**
      * Creates new form GestionUsuario
      */
     public Login() {
+        email="";
+        contrasena="";
         initComponents();
         ce=new ControlEmpleado();
         ce.connectDB();
+        conn= ce.getConn();
+        cm = new ControlMedico(/*conn*/);
+        cm.connectDB();
         this.setTitle("Clínica 2014 Universidad del Valle");
         this.setResizable(false);
-        conn= ce.getConn();
+        
         
         
     }
@@ -41,14 +51,17 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         lbCE = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         tfCE = new javax.swing.JTextField();
         btIngresar = new javax.swing.JButton();
         lbCon = new javax.swing.JLabel();
-        tfCon = new javax.swing.JTextField();
-        lbClin = new javax.swing.JLabel();
+        lbLogo = new javax.swing.JLabel();
+        lbEISC = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        tfCon = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lbCE.setText("Correo electrónico");
 
@@ -67,60 +80,68 @@ public class Login extends javax.swing.JFrame {
 
         lbCon.setText("Contraseña");
 
-        tfCon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfConActionPerformed(evt);
-            }
-        });
+        lbLogo.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/logo2.png")); // NOI18N
 
-        lbClin.setFont(new java.awt.Font("Ubuntu", 0, 36)); // NOI18N
-        lbClin.setText("Clínica");
+        lbEISC.setText("Escuela de Ingeniería de Sistemas y Computación");
+
+        jLabel2.setText("Universidad del Valle");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
+            .addComponent(jSeparator2)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(61, 61, 61))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbCon)
-                        .addGap(159, 159, 159))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btIngresar)
-                        .addGap(165, 165, 165))))
+                .addGap(0, 173, Short.MAX_VALUE)
+                .addComponent(lbEISC)
+                .addGap(172, 172, 172))
             .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfCE, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                    .addComponent(tfCon))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbCE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lbClin)
-                        .addGap(8, 8, 8)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(296, 296, 296)
+                        .addComponent(btIngresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(316, 316, 316)
+                        .addComponent(lbLogo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(279, 279, 279)
+                        .addComponent(lbCE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(304, 304, 304)
+                        .addComponent(lbCon))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbClin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lbCE)
+                .addGap(36, 36, 36)
+                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbCE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbCon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(btIngresar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lbEISC)
                 .addGap(33, 33, 33)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel2)
+                .addGap(41, 41, 41))
         );
 
         pack();
@@ -131,12 +152,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCEActionPerformed
 
     private void btIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarActionPerformed
-        String email=tfCE.getText();
-        String contrasena=tfCon.getText();
+        email=tfCE.getText();
+        contrasena=tfCon.getText();
         
-        Empleado em = ce.readEmployee(email, 1);
+        Empleado em = ce.readEmpleado(email, 1);
         
-         if (em==null){ 
+        if (em==null){ 
             JOptionPane.showMessageDialog(this, "Lo sentimos ha ocurrido un error en la conexion con la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
         }else{
              if(em.getContrasena()==null || !(em.getContrasena() .equals(contrasena))){
@@ -150,6 +171,14 @@ public class Login extends javax.swing.JFrame {
                     switch(cargo){
                         case "Administrador":
                             System.out.println("admin");
+                            
+                            break;
+                        case "Medico":
+                            System.out.println("Medico");
+                            Medico me1 = cm.readMedico(email, 1);
+                            vcu=new VistaCrearUsuario();
+                            vcu.setVisible(true);
+                            this.setEnabled(false);
                             break;
                         default:
                             System.out.println("default");
@@ -162,10 +191,6 @@ public class Login extends javax.swing.JFrame {
              
          }
     }//GEN-LAST:event_btIngresarActionPerformed
-
-    private void tfConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfConActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfConActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,11 +230,13 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIngresar;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbCE;
-    private javax.swing.JLabel lbClin;
     private javax.swing.JLabel lbCon;
+    private javax.swing.JLabel lbEISC;
+    private javax.swing.JLabel lbLogo;
     private javax.swing.JTextField tfCE;
-    private javax.swing.JTextField tfCon;
+    private javax.swing.JPasswordField tfCon;
     // End of variables declaration//GEN-END:variables
 }
