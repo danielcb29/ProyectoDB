@@ -17,7 +17,7 @@ public class ControlEmpleado {
     
 
     DAOEmpleado daoEm;
-    
+    ControlMedico controlMe;
 
     
     /**
@@ -25,6 +25,7 @@ public class ControlEmpleado {
      * **/
     public ControlEmpleado(){
         daoEm=new DAOEmpleado();
+        controlMe=new ControlMedico();
     }
     public void connectDB(){
         daoEm.connectDB();
@@ -67,8 +68,19 @@ public class ControlEmpleado {
      * @param tipoCon 1 si es correo electronico, 2 si es identificacion
      * @return null si hay error en la consulta a la base de datos. Objeto tipo Empleado si el objeto del usuario que se consulto. 
     */
-    public Empleado   readEmpleado (String req, int tipoCon){
-        Empleado em = daoEm.readEmpleado(req, tipoCon);
+    public Empleado   readEmpleado (String req, int tipoCon, int cargo){
+        Empleado em;
+        switch(cargo){
+            case 0:
+                em = daoEm.readEmpleado(req, tipoCon);
+                break;
+            case 1:
+                em= controlMe.readMedico(req, tipoCon);
+                break;
+            default:
+                em=null;
+                System.out.println("no existe cargo");
+        }
         
         return em;
 
