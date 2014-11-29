@@ -7,6 +7,8 @@ package presentacion;
 
 import almacenamiento.controlador.ControlMedicamento;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
+import proceso.Medicamento;
 
 /**
  *
@@ -15,6 +17,9 @@ import java.sql.Connection;
 public class PanelMedicamentos extends javax.swing.JFrame {
 
     private ControlMedicamento control;
+    private Medicamento[] medicamentos;
+    private Medicamento seleccionado;
+    private int tipo;
     /**
      * Creates new form PanelMedicamentos
      */
@@ -23,6 +28,27 @@ public class PanelMedicamentos extends javax.swing.JFrame {
         setResizable(false);
         this.control=control;
         initComponents();
+        lbEstado.setVisible(false);
+        cbEstado.setVisible(false);
+        this.tipo=tipo;
+        if(tipo==1){
+            //Crear
+            cbMedicamentos.setVisible(false);
+            lbMedicamento.setVisible(false);
+            lbTipo.setText("Crear");
+            btProceso.setText("Crear");
+        }else{
+            btProceso.setEnabled(false);
+            if(tipo==2){
+                //editar
+                lbTipo.setText("Editar");
+                btProceso.setText("Editar");
+            }else{
+                //eliminar
+                lbTipo.setText("Eliminar");
+                btProceso.setText("Eliminar");
+            }
+        }
     }
 
     /**
@@ -49,9 +75,11 @@ public class PanelMedicamentos extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        taDescript = new javax.swing.JTextArea();
         btProceso = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        lbEstado = new javax.swing.JLabel();
+        cbEstado = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +92,12 @@ public class PanelMedicamentos extends javax.swing.JFrame {
 
         lbMedicamento.setText("Medicamentos:");
 
+        cbMedicamentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbMedicamentosActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Nombre:");
 
         jLabel6.setText("Codigo:");
@@ -75,11 +109,16 @@ public class PanelMedicamentos extends javax.swing.JFrame {
 
         jLabel9.setText("Descripcion:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        taDescript.setColumns(20);
+        taDescript.setRows(5);
+        jScrollPane1.setViewportView(taDescript);
 
         btProceso.setText("Guardar");
+        btProceso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProcesoActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +126,8 @@ public class PanelMedicamentos extends javax.swing.JFrame {
                 btCancelarActionPerformed(evt);
             }
         });
+
+        lbEstado.setText("Estado:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -131,9 +172,15 @@ public class PanelMedicamentos extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(lbMedicamento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbEstado)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbMedicamento)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(59, 59, 59))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -160,7 +207,9 @@ public class PanelMedicamentos extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbEstado)
+                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -189,6 +238,64 @@ public class PanelMedicamentos extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void cbMedicamentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMedicamentosActionPerformed
+        // TODO add your handling code here:
+        btProceso.setEnabled(true);
+        int index = cbMedicamentos.getSelectedIndex();
+        seleccionado = medicamentos[index];
+        String codigo = seleccionado.getCodigoMedicamento();
+        String nombre = seleccionado.getNombre();
+        String descripcion = seleccionado.getDescripcion();
+        double costo = seleccionado.getCosto();
+        
+        tfCodigo.setText(codigo);
+        tfNombre.setText(nombre);
+        taDescript.setText(descripcion);
+        tfCosto.setText(costo+"");
+        boolean estado = seleccionado.getEstado();
+        if(tipo==2 && estado==false){
+            lbEstado.setVisible(true);
+            cbEstado.setVisible(true);
+            cbEstado.addItem("Inactivo");
+            cbEstado.addItem("Activo");
+            
+        }
+    }//GEN-LAST:event_cbMedicamentosActionPerformed
+    private boolean validarVacios(){
+        if(tfNombre.getText().length() == 0 || taDescript.getText().length()==0 || tfCodigo.getText().length()==0 || tfCosto.getText().length()==0){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+    private void btProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProcesoActionPerformed
+        // TODO add your handling code here:
+        if(validarVacios()){
+            JOptionPane.showMessageDialog(this, "Hay campos vacios , no se puede procesar","Error",JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            String codigo = tfCodigo.getText();
+            String nombre = tfNombre.getText();
+            double costo = Double.parseDouble(tfCosto.getText());
+            String descripcion = taDescript.getText();
+            
+            Medicamento nuevo = new Medicamento(codigo, nombre, costo, descripcion);
+            
+            if(tipo==1){
+                //crear
+                
+                int result = control.crearMedicamento(nuevo);
+                if(result==1){
+                    JOptionPane.showMessageDialog(this, "Medicamento registrado exitosamente","Regitro Existoso",JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
+                }else{
+                    JOptionPane.showMessageDialog(this, "Ocurrio un error , no se puede procesar\nVuelve a intentarlo","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_btProcesoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,6 +335,7 @@ public class PanelMedicamentos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btProceso;
+    private javax.swing.JComboBox cbEstado;
     private javax.swing.JComboBox cbMedicamentos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
@@ -238,9 +346,10 @@ public class PanelMedicamentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lbEstado;
     private javax.swing.JLabel lbMedicamento;
     private javax.swing.JLabel lbTipo;
+    private javax.swing.JTextArea taDescript;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JTextField tfCosto;
     private javax.swing.JTextField tfNombre;

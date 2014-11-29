@@ -15,6 +15,7 @@ public class Medicamento{
     private String nombre;
     private double costo;
     private String descripcion;
+    private boolean estado;
 
     public Medicamento(){
         
@@ -24,6 +25,7 @@ public class Medicamento{
         this.nombre=nombre;
         this.costo=costo;
         this.descripcion=descripcion;
+        estado=true;
     }
     /**
      * @return the codigoMedicamento
@@ -79,5 +81,19 @@ public class Medicamento{
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

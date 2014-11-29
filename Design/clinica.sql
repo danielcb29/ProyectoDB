@@ -109,7 +109,8 @@ CREATE TABLE Medicamentos(
 	codigoMedicamento VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
 	costo MONEY NOT NULL,
-	descripcion TEXT NOT NULL
+	descripcion TEXT NOT NULL,
+	estado BOOL NOT NULL
 );
 --Secuencia para las causas
 

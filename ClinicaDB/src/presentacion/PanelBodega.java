@@ -25,10 +25,12 @@ public class PanelBodega extends javax.swing.JFrame {
      */
     public PanelBodega(Connection conn,String nombre) {
         super("Panel de Bodega");
+        
         setResizable(false);
         this.conn=conn;
         control = new ControlMedicamento(conn);
         initComponents();
+        lbTitulo.setText("Bienvenido "+nombre+"!");
     }
 
     /**
@@ -40,7 +42,7 @@ public class PanelBodega extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lbTitulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -52,8 +54,8 @@ public class PanelBodega extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel1.setText("Bienvenido User!");
+        lbTitulo.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        lbTitulo.setText("Bienvenido User!");
 
         jLabel2.setText("En este modulo ustes podra realizar la gestion de medicamentos");
 
@@ -109,7 +111,7 @@ public class PanelBodega extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1)))
+                            .addComponent(lbTitulo)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(200, 200, 200)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,7 +124,7 @@ public class PanelBodega extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1)
+                .addComponent(lbTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -215,10 +217,10 @@ public class PanelBodega extends javax.swing.JFrame {
     private javax.swing.JButton btCrear;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btEliminar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbTitulo;
     // End of variables declaration//GEN-END:variables
 }
