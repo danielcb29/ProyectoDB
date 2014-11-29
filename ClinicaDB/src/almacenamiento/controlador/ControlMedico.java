@@ -24,9 +24,9 @@ public class ControlMedico {
      * constructor
      * @param conn conexion base de datos
      * **/
-    public ControlMedico(Connection conn){
+    public ControlMedico(/*Connection conn*/){
         daoEm=new DAOEmpleado();
-        daoMe=new DAOMedico(conn);
+        daoMe=new DAOMedico(/*conn*/);
     }
     public void connectDB(){
         daoMe.connectDB();

@@ -15,18 +15,25 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
     
-    ControlEmpleado ce;
-    ControlMedico cm;
+    private ControlEmpleado ce;
+    private ControlMedico cm;
     private Connection conn;
+    private String email;
+    private String contrasena;
+    private VistaCrearUsuario vcu;
+    
     /**
      * Creates new form GestionUsuario
      */
     public Login() {
+        email="";
+        contrasena="";
         initComponents();
         ce=new ControlEmpleado();
         ce.connectDB();
         conn= ce.getConn();
-        cm = new ControlMedico(conn);
+        cm = new ControlMedico(/*conn*/);
+        cm.connectDB();
         this.setTitle("Clínica 2014 Universidad del Valle");
         this.setResizable(false);
         
@@ -47,13 +54,14 @@ public class Login extends javax.swing.JFrame {
         tfCE = new javax.swing.JTextField();
         btIngresar = new javax.swing.JButton();
         lbCon = new javax.swing.JLabel();
-        tfCon = new javax.swing.JTextField();
         lbLogo = new javax.swing.JLabel();
         lbEISC = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        tfCon = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lbCE.setText("Correo electrónico");
 
@@ -71,12 +79,6 @@ public class Login extends javax.swing.JFrame {
         });
 
         lbCon.setText("Contraseña");
-
-        tfCon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfConActionPerformed(evt);
-            }
-        });
 
         lbLogo.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/logo2.png")); // NOI18N
 
@@ -150,8 +152,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCEActionPerformed
 
     private void btIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIngresarActionPerformed
-        String email=tfCE.getText();
-        String contrasena=tfCon.getText();
+        email=tfCE.getText();
+        contrasena=tfCon.getText();
         
         Empleado em = ce.readEmpleado(email, 1);
         
@@ -169,10 +171,14 @@ public class Login extends javax.swing.JFrame {
                     switch(cargo){
                         case "Administrador":
                             System.out.println("admin");
+                            
                             break;
                         case "Medico":
                             System.out.println("Medico");
-                            Medico me = cm.readMedico(email, 1);
+                            Medico me1 = cm.readMedico(email, 1);
+                            vcu=new VistaCrearUsuario();
+                            vcu.setVisible(true);
+                            this.setEnabled(false);
                             break;
                         default:
                             System.out.println("default");
@@ -185,10 +191,6 @@ public class Login extends javax.swing.JFrame {
              
          }
     }//GEN-LAST:event_btIngresarActionPerformed
-
-    private void tfConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfConActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfConActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,6 +237,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lbEISC;
     private javax.swing.JLabel lbLogo;
     private javax.swing.JTextField tfCE;
-    private javax.swing.JTextField tfCon;
+    private javax.swing.JPasswordField tfCon;
     // End of variables declaration//GEN-END:variables
 }

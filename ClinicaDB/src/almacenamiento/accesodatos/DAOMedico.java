@@ -26,9 +26,9 @@ public class DAOMedico {
      * constructor, inicializa los atributos.
      * @param conn conexion base de datos
      */
-    public DAOMedico(Connection conn){
+    public DAOMedico(){
         db=new BaseDatos();
-        this.conn=conn;
+        //this.conn=conn;
         daoEm=new DAOEmpleado();
         
     }//fin constructor
@@ -86,6 +86,7 @@ public class DAOMedico {
             
             sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";
             System.out.println("consultando en la bd");
+            
             Statement statement = conn.createStatement();
             
             ResultSet table = statement.executeQuery(sql_select);
