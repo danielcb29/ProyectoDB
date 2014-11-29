@@ -25,7 +25,7 @@ public class ControlEmpleado {
      * **/
     public ControlEmpleado(){
         daoEm=new DAOEmpleado();
-        controlMe=new ControlMedico();
+        controlMe=new ControlMedico(this.getConn());
     }
     public void connectDB(){
         daoEm.connectDB();
@@ -53,6 +53,7 @@ public class ControlEmpleado {
     public int   createEmpleado (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado)
     {
         
+        
         Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
         
         //Se llama al dao para guardar
@@ -75,7 +76,9 @@ public class ControlEmpleado {
                 em = daoEm.readEmpleado(req, tipoCon);
                 break;
             case 1:
-                em= controlMe.readMedico(req, tipoCon);
+                System.out.println("antes readEmplado");
+                Empleado em1 = daoEm.readEmpleado(req, tipoCon);
+                em= controlMe.readMedico(em1);
                 break;
             default:
                 em=null;

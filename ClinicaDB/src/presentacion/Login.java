@@ -155,7 +155,7 @@ public class Login extends javax.swing.JFrame {
         email=tfCE.getText();
         contrasena=tfCon.getText();
         
-        Empleado em = ce.readEmpleado(email, 1);
+        Empleado em = ce.readEmpleado(email, 1,0);
         
         if (em==null){ 
             JOptionPane.showMessageDialog(this, "Lo sentimos ha ocurrido un error en la conexion con la base de datos", "¡Error!", JOptionPane.ERROR_MESSAGE);
@@ -171,11 +171,10 @@ public class Login extends javax.swing.JFrame {
                     switch(cargo){
                         case "Administrador":
                             System.out.println("admin");
-                            
                             break;
                         case "Medico":
                             System.out.println("Medico");
-                            Empleado me1 = ce.readEmpleado(email, 1);
+                            Empleado me1 = ce.readEmpleado(email, 1, 1);
                             vcu=new VistaCrearUsuario();
                             vcu.setVisible(true);
                             this.setEnabled(false);

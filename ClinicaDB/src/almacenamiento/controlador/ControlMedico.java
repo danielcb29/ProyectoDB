@@ -16,17 +16,16 @@ import java.sql.Connection;
 public class ControlMedico {
     
 
-    DAOEmpleado daoEm;
     DAOMedico daoMe;
-
+    DAOEmpleado daoEm;
     
     /**
      * constructor
      * @param conn conexion base de datos
      * **/
-    public ControlMedico(/*Connection conn*/){
-        daoEm=new DAOEmpleado();
-        daoMe=new DAOMedico(/*conn*/);
+    public ControlMedico(Connection conn){
+        daoMe=new DAOMedico(conn);
+        daoEm= new DAOEmpleado();
     }
     public void connectDB(){
         daoMe.connectDB();
@@ -56,15 +55,16 @@ public class ControlMedico {
      */
     public int   createMedico (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int numeroLicencia, String especialidad, String universidad)
     {
-        
         Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
+        daoEm.createEmpleado(em);
+        
         Medico med = new Medico(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, numeroLicencia, especialidad, universidad);
         
-        daoEm.createEmpleado(med);
         
-        daoMe.createMedico(med);
         //Se llama al dao para guardar
-        int result =daoEm.createEmpleado(em);
+        int result = daoMe.createMedico(med);
+        
+         
         
         return result;
 
@@ -76,9 +76,9 @@ public class ControlMedico {
      * @param tipoCon 1 si es correo electronico, 2 si es identificacion
      * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
     */
-    public Medico   readMedico (String req, int tipoCon){
-        System.out.println("antes readEmplado");
-        Empleado em = daoEm.readEmpleado(req, tipoCon);
+    public Medico   readMedico (Empleado em){
+
+        
         System.out.println("antes readMedico");
         Medico me= daoMe.readMedico(em);
         return me;

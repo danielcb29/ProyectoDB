@@ -62,77 +62,77 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbEspecialidad" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbNL" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbAnos" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbAJ" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="lbSalario" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lbArea" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lbDireccion" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lbTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbIdentificacion" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                                  <Component id="lbApellidos" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lbNombres" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="lbCE" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbContrasena" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="comboArea" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfNombres" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfIdentificacion" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfApellidos" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfTelefono" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfDireccion" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfSalario" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfCE" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                              <Component id="tfContrasena" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblDescripcion" alignment="0" min="-2" pref="360" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lbIdJ" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbCargo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="tfIdJ" min="-2" pref="320" max="-2" attributes="0"/>
-                                          <Component id="comboCargo" min="-2" pref="192" max="-2" attributes="0"/>
-                                          <Component id="comboAnos" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tfNL" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                          <Component id="tfEspecialidad" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="198" pref="198" max="-2" attributes="0"/>
-                                          <Component id="tfUniversidad" min="-2" pref="320" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="lbUniversidad" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lbLogo" min="-2" pref="59" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="273" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="btnCrear" min="-2" pref="105" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbEspecialidad" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbNL" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbAnos" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbAJ" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="lbSalario" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbArea" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbDireccion" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lbTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbIdentificacion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                                      <Component id="lbApellidos" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="lbNombres" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="lbCE" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lbContrasena" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="comboArea" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfNombres" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfIdentificacion" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfApellidos" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfTelefono" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfDireccion" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfSalario" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfCE" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                                  <Component id="tfContrasena" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="lblTitulo" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblDescripcion" alignment="0" min="-2" pref="360" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lbIdJ" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lbCargo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="tfIdJ" min="-2" pref="320" max="-2" attributes="0"/>
+                                              <Component id="comboCargo" min="-2" pref="192" max="-2" attributes="0"/>
+                                              <Component id="comboAnos" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="tfNL" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                              <Component id="tfEspecialidad" alignment="0" min="-2" pref="320" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="198" pref="198" max="-2" attributes="0"/>
+                                              <Component id="tfUniversidad" min="-2" pref="320" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="lbUniversidad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="lbLogo" min="-2" pref="59" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -192,9 +192,9 @@
                           <Component id="lbContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="comboArea" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbArea" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cbAJ" min="-2" max="-2" attributes="0"/>
@@ -228,12 +228,12 @@
                           <Component id="tfUniversidad" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbUniversidad" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnCancelar" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="btnCrear" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

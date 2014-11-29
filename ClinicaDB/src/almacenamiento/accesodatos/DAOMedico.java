@@ -26,9 +26,9 @@ public class DAOMedico {
      * constructor, inicializa los atributos.
      * @param conn conexion base de datos
      */
-    public DAOMedico(){
+    public DAOMedico(Connection conn){
         db=new BaseDatos();
-        //this.conn=conn;
+        this.conn=conn;
         daoEm=new DAOEmpleado();
         
     }//fin constructor
