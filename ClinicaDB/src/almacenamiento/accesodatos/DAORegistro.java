@@ -35,7 +35,7 @@ public class DAORegistro {
         String idMedico = reg.getMedicoRegistro().getIdentificacion();
         double costo = reg.getPrecio();
         String fecha = reg.getFecha().toString();
-        String sql = "INSERT INTO registrohc VALUES(NEXTVAL('registro_seq'),'"+numHistoria+"','"+idMedico+"','"+fecha+"','"+costo+"')";
+        String sql = "INSERT INTO registrohc VALUES(NEXTVAL('registro_seq'),'"+numHistoria+"','"+idMedico+"','"+fecha+"',"+costo+")";
         String selectInd = "SELECT codigoregistro FROM registrohc WHERE numHistoria='"+numHistoria+"' AND fecha='"+fecha+"' AND idMedico='"+idMedico+"'";
         try {
             
