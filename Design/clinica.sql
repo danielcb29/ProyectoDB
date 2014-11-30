@@ -108,7 +108,7 @@ CREATE TABLE Cita(
 CREATE TABLE Medicamentos(
 	codigoMedicamento VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
-	costo MONEY NOT NULL,
+	costo REAL NOT NULL,
 	descripcion TEXT NOT NULL,
 	estado BOOL NOT NULL
 );
@@ -185,7 +185,7 @@ CREATE TABLE RegistroHC(
 	--codigoCausa VARCHAR (30) NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
 	fecha timestamp NOT NULL,
-	precio MONEY NOT NULL,
+	precio REAL NOT NULL,
 	--CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico,fecha), 
 	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
 	--CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,

@@ -19,6 +19,7 @@ public class PanelMedicamentos extends javax.swing.JFrame {
     private ControlMedicamento control;
     private Medicamento[] medicamentos;
     private Medicamento seleccionado;
+    private String[] nomMedicamentos;
     private int tipo;
     /**
      * Creates new form PanelMedicamentos
@@ -39,6 +40,7 @@ public class PanelMedicamentos extends javax.swing.JFrame {
             btProceso.setText("Crear");
         }else{
             btProceso.setEnabled(false);
+            mostrarMedicamentos();
             if(tipo==2){
                 //editar
                 lbTipo.setText("Editar");
@@ -47,10 +49,32 @@ public class PanelMedicamentos extends javax.swing.JFrame {
                 //eliminar
                 lbTipo.setText("Eliminar");
                 btProceso.setText("Eliminar");
+                tfCodigo.setEnabled(false);
+                tfNombre.setEnabled(false);
+                tfCosto.setEnabled(false);
+                taDescript.setEditable(false);
             }
         }
     }
-
+    public int tamMedicamentos(){
+        return medicamentos.length;
+    }
+    private void mostrarMedicamentos(){
+        if(tipo==2){
+            medicamentos = control.listarMedicamentos(false);
+        }else{
+            medicamentos = control.listarMedicamentos(true);
+        }
+        
+        int longitud=medicamentos.length;
+        nomMedicamentos=new String[longitud];
+        for(int i=0; i<longitud; i++){
+            String nombre=medicamentos[i].getNombre();
+            System.out.println(nombre);
+            nomMedicamentos[i]=nombre;
+        }
+        cbMedicamentos.setModel(new javax.swing.DefaultComboBoxModel(nomMedicamentos));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -254,6 +278,7 @@ public class PanelMedicamentos extends javax.swing.JFrame {
         taDescript.setText(descripcion);
         tfCosto.setText(costo+"");
         boolean estado = seleccionado.getEstado();
+        System.out.println("seleccionado:"+nombre+" estado:"+estado);
         if(tipo==2 && estado==false){
             lbEstado.setVisible(true);
             cbEstado.setVisible(true);
@@ -292,6 +317,38 @@ public class PanelMedicamentos extends javax.swing.JFrame {
                     dispose();
                 }else{
                     JOptionPane.showMessageDialog(this, "Ocurrio un error , no se puede procesar\nVuelve a intentarlo","Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }else{
+                if(tipo==2){
+                    //editar
+                    String exCod = seleccionado.getCodigoMedicamento();
+                    if(!seleccionado.getEstado()){
+                        Object item = cbEstado.getSelectedItem();
+                            String value = item.toString();
+                            
+                            if(value.equals("Inactivo")){
+                                nuevo.setEstado(false);
+                                
+                            }
+                    }
+                    int result = control.actualizarMedicamento(exCod, nuevo);
+                    if(result==1){
+                        JOptionPane.showMessageDialog(this, "Medicamentos Actualizado exitosamente","Regitro Existoso",JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Ocurrio un error , no se puede procesar\nVuelve a intentarlo","Error",JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+                }else{
+                    //eliminar
+                    int result = control.eliminarMedicamento(codigo);
+                    if(result==1){
+                        JOptionPane.showMessageDialog(this, "Medicamento Eliminado exitosamente","Regitro Existoso",JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    }else{
+                        JOptionPane.showMessageDialog(this, "Ocurrio un error , no se puede procesar\nVuelve a intentarlo","Error",JOptionPane.ERROR_MESSAGE);
+                    }
+                     
                 }
             }
         }

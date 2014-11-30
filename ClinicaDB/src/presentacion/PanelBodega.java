@@ -8,6 +8,7 @@ package presentacion;
 import almacenamiento.controlador.ControlMedicamento;
 import clinicadb.ClinicaDB;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 //import static presentacion.PanelMedico.db;
 
 /**
@@ -162,15 +163,26 @@ public class PanelBodega extends javax.swing.JFrame {
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
         //Falta validar la existencia de medicamentos
-        panelMed = new PanelMedicamentos(control,1);
-        panelMed.setVisible(true);
+        panelMed = new PanelMedicamentos(control,2);
+        int cantidad = panelMed.tamMedicamentos();
+        if(cantidad == 0){
+            JOptionPane.showMessageDialog(this,"No hay medicamentos registrados en la base de datos","Mensaje",JOptionPane.WARNING_MESSAGE);
+        }else{
+            panelMed.setVisible(true);
+        }
+        
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarActionPerformed
         // TODO add your handling code here:
         //Falta validar la existencia de medicamentos
-        panelMed = new PanelMedicamentos(control,1);
-        panelMed.setVisible(true);
+        panelMed = new PanelMedicamentos(control,3);
+        int cantidad = panelMed.tamMedicamentos();
+        if(cantidad == 0){
+            JOptionPane.showMessageDialog(this,"No hay medicamentos registrados en la base de datos","Mensaje",JOptionPane.WARNING_MESSAGE);
+        }else{
+            panelMed.setVisible(true);
+        }
     }//GEN-LAST:event_btEliminarActionPerformed
 
     /**

@@ -17,7 +17,7 @@ public class BaseDatos {
      private ResultSet tabla; 
      public BaseDatos(){
       url = "jdbc:postgresql://localhost:5432/clinicadb";
-      usuario="danielcb";
+      usuario="dc";
       password="1144067772";
       
     }
@@ -41,6 +41,7 @@ public class BaseDatos {
                   //Crear objeto Statement para realizar queries a la base de datos
              } catch( Exception e ) {
                 System.out.println( "No se pudo abrir la bd." );
+                System.out.println(e);
                 return null;
              }
 
