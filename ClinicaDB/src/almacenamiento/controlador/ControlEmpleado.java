@@ -25,10 +25,11 @@ public class ControlEmpleado {
      * **/
     public ControlEmpleado(){
         daoEm=new DAOEmpleado();
-        controlMe=new ControlMedico(this.getConn());
+        
     }
     public void connectDB(){
         daoEm.connectDB();
+        controlMe=new ControlMedico(daoEm.getConn());
     }
     public Connection getConn(){
         return daoEm.getConn();

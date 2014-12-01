@@ -78,13 +78,12 @@ public class DAOMedico {
         */
     public Medico readMedico(Empleado em){
         Medico me= new Medico();
-        String sql_select;
-        
+        String sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";
         
         
         try{
             
-            sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";
+            
             System.out.println("consultando en la bd");
             
             Statement statement = conn.createStatement();
