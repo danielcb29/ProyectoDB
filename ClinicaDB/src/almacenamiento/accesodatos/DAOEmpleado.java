@@ -242,10 +242,10 @@ public class DAOEmpleado {
      * listar todas las tuplas de los usuarios existentes.
      * @return los objetos tipo Usuario enlistados en un arreglo.
      */ 
-/**   public Usuario[] listUsers(){
+    public Usuario[] listEmpleado(){
         
         String sql_select;
-        sql_select="SELECT usuario.cedula, usuario.name, usuario.lastName,usuario.userName, usuario.contrasena, usuario.email ,  perfiles.nombre, usuario.estado FROM  usuario, perfiles WHERE usuario.id_perfil=perfiles.id_perfil";
+        sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion ";
         try{
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
@@ -264,7 +264,7 @@ public class DAOEmpleado {
             int j=0;
             while(table2.next()){
                 
-                us[j].setCedula(table.getString(1));
+                us[j].setCedula(table2.getString(1));
                
                 us[j].setName(table.getString(2));
                 
