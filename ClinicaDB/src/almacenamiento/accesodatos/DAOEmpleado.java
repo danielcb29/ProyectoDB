@@ -258,7 +258,7 @@ public class DAOEmpleado {
             System.out.println(numRows);
             Empleado em[]= new Empleado[numRows];
             for(int i=0; i<numRows; i++){
-                em[i]=new Usuario();
+                em[i]=new Empleado();
             }
             String sql_conv="";
             int j=0;
