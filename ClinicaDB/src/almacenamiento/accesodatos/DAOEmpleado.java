@@ -304,7 +304,7 @@ public class DAOEmpleado {
                 }
                 
                 em[j].setEstado(table2.getBoolean(12));
-                
+                j++;
                 System.out.println("ok");
             }
            
