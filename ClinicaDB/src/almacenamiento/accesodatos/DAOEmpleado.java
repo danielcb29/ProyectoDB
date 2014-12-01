@@ -256,51 +256,59 @@ public class DAOEmpleado {
                 numRows++;
             }
             System.out.println(numRows);
-            Usuario us[]= new Usuario[numRows];
+            Empleado em[]= new Empleado[numRows];
             for(int i=0; i<numRows; i++){
-                us[i]=new Usuario();
+                em[i]=new Usuario();
             }
             String sql_conv="";
             int j=0;
             while(table2.next()){
                 
-                us[j].setCedula(table2.getString(1));
+                em[j].setIdentificacion(table2.getString(1));
                
-                us[j].setName(table.getString(2));
+                em[j].setNombres(table2.getString(2));
                 
-                us[j].setLastName(table.getString(3));
+                em[j].setApellidos(table2.getString(3));
                 
-                us[j].setUserName(table.getString(4));               
+                em[j].setTelefono(table2.getString(4));               
 
-                us[j].setPassword(table.getString(5));
+                em[j].setDireccion(table2.getString(5));
 
-                us[j].setMail(table.getString(6));
- 
-                us[j].setProfile(table.getString(7));
+                em[j].setSalario(table2.getInt(6));
                 
-                us[j].setState(table.getBoolean(8));
+                em[j].setEmail(table2.getString(7));
                 
-                if(!us[j].getProfile().equals("Administrador")){
-                    sql_conv= "SELECT convocatoria.nombre FROM convoUsuario, convocatoria WHERE cedula='"+us[j].getCedula() +"' AND estado=true AND convoUsuario.codigo=convocatoria.codigo";
-                    ResultSet table3= statement.executeQuery(sql_conv);
-                    String nom="";
-                    while(table3.next()){
+                em[j].setCargo(table2.getString(8));
                 
-                        nom = table3.getString(1);
-              
-                        //System.out.println("ok");
-                    }
-                    DAOConvocatoria daoc=new DAOConvocatoria(conn);
-                    Convocatoria conv = daoc.readConv(nom);
-                    us[j].setConvocatoria(conv);
+                em[j].setContrasena(table2.getString(9));
+                
+                String jefe = table2.getString(10);
+                
+                System.out.println("jefe "+jefe);
+                
+                if(jefe==null){
+                    em[j].setJefe("-1");
+                }else{
+                    em[j].setJefe(jefe);
                 }
-
-
-                j++;
+                
+                String area = table2.getString(11);
+                
+                System.out.println(area);
+                if(area==null){
+                    em[j].setArea(null);
+                }else{
+                    DAOArea daoa= new DAOArea(conn);
+                    Area ar = daoa.readArea(Integer.parseInt(area));
+                    em[j].setArea(ar);
+                }
+                
+                em[j].setEstado(table2.getBoolean(12));
+                
                 System.out.println("ok");
             }
            
-            return us;
+            return em;
          }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println(e); }
