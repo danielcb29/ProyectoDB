@@ -217,12 +217,11 @@ public class DAOMedico {
 
    /**
      * listar todas las tuplas de los usuarios existentes.
-     * @return los objetos tipo Usuario enlistados en un arreglo.
+     * @return los objetos tipo Medico enlistados en un arreglo.
      */ 
-/** public Usuario[] listUsers(){
+    public Medico[] listMedico(){
         
-        String sql_select;
-        sql_select="SELECT usuario.cedula, usuario.name, usuario.lastName,usuario.userName, usuario.contrasena, usuario.email ,  perfiles.nombre, usuario.estado FROM  usuario, perfiles WHERE usuario.id_perfil=perfiles.id_perfil";
+        String sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico";
         try{
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
@@ -233,48 +232,48 @@ public class DAOMedico {
                 numRows++;
             }
             System.out.println(numRows);
-            Usuario us[]= new Usuario[numRows];
+            Medico me[]= new Medico[numRows];
             for(int i=0; i<numRows; i++){
-                us[i]=new Usuario();
+                me[i]=new Medico();
             }
             String sql_conv="";
             int j=0;
             while(table2.next()){
                 
-                us[j].setCedula(table.getString(1));
+                me[j].setNombres(em.getNombres());
+                
+                me[j].setApellidos(em.getApellidos());
+                
+                me[j].setTelefono(em.getTelefono());
+                
+                me[j].setDireccion(em.getDireccion());
+                
+                me[j].setSalario(em.getSalario());
+                
+                me[j].setEmail(em.getEmail());
+                
+                me[j].setCargo(em.getCargo());
+                
+                me[j].setContrasena(em.getContrasena());
+                
+                me[j].setJefe(em.getJefe());
+                
+                me[j].setArea(em.getArea());
+                
+                me[j].setEstado(em.getEstado());
+                
+                me[j].setIdentificacion(table.getString(1));
+                
+                me[j].setNumeroLicencia(table.getInt(2));
+                
+                me[j].setEspecialidad(table.getString(3));
+                
+                me[j].setUniversidad(table.getString(4));
                
-                us[j].setName(table.getString(2));
-                
-                us[j].setLastName(table.getString(3));
-                
-                us[j].setUserName(table.getString(4));               
-
-                us[j].setPassword(table.getString(5));
-
-                us[j].setMail(table.getString(6));
- 
-                us[j].setProfile(table.getString(7));
-                
-                us[j].setState(table.getBoolean(8));
-                
-                if(!us[j].getProfile().equals("Administrador")){
-                    sql_conv= "SELECT convocatoria.nombre FROM convoUsuario, convocatoria WHERE cedula='"+us[j].getCedula() +"' AND estado=true AND convoUsuario.codigo=convocatoria.codigo";
-                    ResultSet table3= statement.executeQuery(sql_conv);
-                    String nom="";
-                    while(table3.next()){
-                
-                        nom = table3.getString(1);
-              
-                        //System.out.println("ok");
-                    }
-                    DAOConvocatoria daoc=new DAOConvocatoria(conn);
-                    Convocatoria conv = daoc.readConv(nom);
-                    us[j].setConvocatoria(conv);
-                }
-
-
                 j++;
+               
                 System.out.println("ok");
+                
             }
            
             return us;
