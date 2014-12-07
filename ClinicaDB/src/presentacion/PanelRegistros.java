@@ -122,7 +122,7 @@ public class PanelRegistros extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         jLabel5.setText("Nombres y Apellidos:");
 
-        lbNombreApellido.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
+        lbNombreApellido.setFont(new java.awt.Font("Cantarell", 3, 15)); // NOI18N
         lbNombreApellido.setText("salida");
 
         jLabel6.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
@@ -285,13 +285,14 @@ public class PanelRegistros extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         // TODO add your handling code here:
-        btGuardar.setEnabled(true);
+        
         String cedula = tfCCPaciente.getText();
         historia = controlReg.buscarHistoria(cedula);
         if(historia.getNumHistoria()==null){
             historia=null;
             JOptionPane.showMessageDialog(this, "No existe una HistoriaClinica para ese paciente\nDebe crear una","Error",JOptionPane.ERROR_MESSAGE);
         }else{
+            btGuardar.setEnabled(true);
             Paciente paciente = historia.getPersona();
             String nombre = paciente.getNombres().toUpperCase();
             String apellido = paciente.getApellidos().toUpperCase();

@@ -176,7 +176,7 @@
     <Component class="javax.swing.JLabel" name="lbNombreApellido">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Cantarell" size="15" style="1"/>
+          <Font name="Cantarell" size="15" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="salida"/>
       </Properties>

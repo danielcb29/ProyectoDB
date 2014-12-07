@@ -17,7 +17,7 @@ public class BaseDatos {
      private ResultSet tabla; 
      public BaseDatos(){
       url = "jdbc:postgresql://localhost:5432/clinicadb";
-      usuario="dc";
+      usuario="danielcb";
       password="1144067772";
       
     }

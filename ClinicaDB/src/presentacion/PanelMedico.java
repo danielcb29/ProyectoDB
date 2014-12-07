@@ -25,6 +25,7 @@ public class PanelMedico extends javax.swing.JFrame {
     private Connection conn;
     private PanelRegistros panelReg;
     private Medico doctor;
+    private PanelFormula panelFormula;
     public PanelMedico(Connection conn,Medico med) {
         super("Panel Administrativo para Doctores");
         initComponents();
@@ -86,6 +87,11 @@ public class PanelMedico extends javax.swing.JFrame {
         jLabel1.setText("Gestion de Formulas Medicas");
 
         btFormula.setText("Nueva Formula");
+        btFormula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFormulaActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         jLabel4.setText("Gestion de Causas de Cita");
@@ -240,6 +246,13 @@ public class PanelMedico extends javax.swing.JFrame {
         panelHC = new PanelHistoriaClinica(conn);
         panelHC.setVisible(true);
     }//GEN-LAST:event_btCrearHCActionPerformed
+
+    private void btFormulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFormulaActionPerformed
+        // TODO add your handling code here:
+        //Formulas medicas 
+        panelFormula = new PanelFormula(conn,doctor);
+        panelFormula.setVisible(true);
+    }//GEN-LAST:event_btFormulaActionPerformed
 
     /**
      * @param args the command line arguments

@@ -158,6 +158,8 @@ public class PanelBodega extends javax.swing.JFrame {
         // TODO add your handling code here:
         panelMed = new PanelMedicamentos(control,1);
         panelMed.setVisible(true);
+        //PanelSecretaria secre = new PanelSecretaria(conn);
+        //secre.setVisible(true);
     }//GEN-LAST:event_btCrearActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
