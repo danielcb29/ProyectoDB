@@ -91,14 +91,13 @@ public class ControlMedico {
     /** metodo que llama al Dao para consultar cuantos usuarios existen
      * @return cantidad de usuarios existentes en la base de datos
      */
- /**   public int countUsers ()  
+    public Medico[] listMedico ()  
     {
-        Usuario [] users = new Usuario [5];
-        int size =  users.length;
-        return size;
+        Medico [] me = daoMe.listMedico();
+        return  me;
                 
     }
-    
+    /**
 
     public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
         int result;

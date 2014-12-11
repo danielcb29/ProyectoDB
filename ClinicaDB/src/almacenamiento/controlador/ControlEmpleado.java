@@ -95,16 +95,15 @@ public class ControlEmpleado {
     /** metodo que llama al Dao para consultar cuantos usuarios existen
      * @return cantidad de usuarios existentes en la base de datos
      */
-   /** public int countUsers ()  
+    public Empleado[] listEmpleado ()  
     {
-        Usuario [] users = new Usuario [5];
-        int size =  users.length;
-        return size;
+        Empleado[] em = daoEm.listEmpleado();
+        return em;
                 
     }
     
 
-    public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
+   /** public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
         int result;
         result = 0;
         Usuario user = new Usuario(name,lastName,userName,password,email,perfil,cedula,convo);
