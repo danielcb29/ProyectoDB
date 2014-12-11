@@ -242,7 +242,7 @@ public class DAOEmpleado {
      * listar todas las tuplas de los usuarios existentes.
      * @return los objetos tipo Usuario enlistados en un arreglo.
      */ 
-    public Usuario[] listEmpleado(){
+    public Empleado[] listEmpleado(){
         
         String sql_select;
         sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion ";
