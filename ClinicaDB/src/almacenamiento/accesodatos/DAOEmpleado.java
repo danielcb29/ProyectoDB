@@ -250,7 +250,7 @@ public class DAOEmpleado {
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
             ResultSet table = statement.executeQuery(sql_select);
-            ResultSet table2= table;
+            
             int numRows=0;
             while(table.next()){
                 numRows++;
@@ -260,7 +260,7 @@ public class DAOEmpleado {
             for(int i=0; i<numRows; i++){
                 em[i]=new Empleado();
             }
-            String sql_conv="";
+            ResultSet table2= statement.executeQuery(sql_select);
             int j=0;
             while(table2.next()){
                 

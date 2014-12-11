@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
     
     private ControlEmpleado ce;
-    //private ControlMedico cm;
+    private ControlMedico cm;
     private Connection conn;
     private String email;
     private String contrasena;
@@ -32,8 +32,7 @@ public class Login extends javax.swing.JFrame {
         ce=new ControlEmpleado();
         ce.connectDB();
         conn= ce.getConn();
-//        cm = new ControlMedico(/*conn*/);
-//        cm.connectDB();
+        cm = new ControlMedico(conn);
         this.setTitle("Clínica 2014 Universidad del Valle");
         this.setResizable(false);
         
@@ -175,9 +174,12 @@ public class Login extends javax.swing.JFrame {
                         case "Medico":
                             System.out.println("Medico");
                             Empleado me1 = ce.readEmpleado(email, 1, 1);
+                            System.out.println("dentro de la vista1" + me1.getNombres());
+                            Medico[] list = cm.listMedico();
+                            System.out.println("dentro de la vista2" + list[0].getNombres());
                             vcu=new VistaCrearUsuario();
-                            vcu.setVisible(true);
-                            this.setEnabled(false);
+                           /* vcu.setVisible(true);
+                            this.setEnabled(false);*/
                             break;
                         default:
                             System.out.println("default");

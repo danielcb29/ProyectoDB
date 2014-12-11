@@ -226,7 +226,7 @@ public class DAOMedico {
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
             ResultSet table = statement.executeQuery(sql_select);
-            ResultSet table2= table;
+            
             int numRows=0;
             while(table.next()){
                 numRows++;
@@ -236,29 +236,30 @@ public class DAOMedico {
             for(int i=0; i<numRows; i++){
                 me[i]=new Medico();
             }
-            
+            ResultSet table2= statement.executeQuery(sql_select);
             int j=0;
+            
             while(table2.next()){
                 
-                me[j].setIdentificacion(table.getString(1));
+                me[j].setIdentificacion(table2.getString(1));
                 
-                me[j].setNombres(table.getString(2));
+                me[j].setNombres(table2.getString(2));
                 
-                me[j].setApellidos(table.getString(3));
+                me[j].setApellidos(table2.getString(3));
                 
-                me[j].setTelefono(table.getString(4));
+                me[j].setTelefono(table2.getString(4));
                 
-                me[j].setDireccion(table.getString(5));
+                me[j].setDireccion(table2.getString(5));
                 
-                me[j].setSalario(table.getInt(6));
+                me[j].setSalario(table2.getInt(6));
                 
-                me[j].setEmail(table.getString(7));
+                me[j].setEmail(table2.getString(7));
                 
-                me[j].setCargo(table.getString(8));
+                me[j].setCargo(table2.getString(8));
                 
-                me[j].setContrasena(table.getString(9));
+                me[j].setContrasena(table2.getString(9));
                 
-                String jefe = table.getString(10);
+                String jefe = table2.getString(10);
                 
                 System.out.println("jefe "+jefe);
                 
@@ -268,7 +269,7 @@ public class DAOMedico {
                     me[j].setJefe(jefe);
                 }
                 
-                String area = table.getString(11);
+                String area = table2.getString(11);
                 
                 System.out.println(area);
                 if(area==null){
@@ -279,15 +280,15 @@ public class DAOMedico {
                     me[j].setArea(ar);
                 }
                 
-                me[j].setEstado(table.getBoolean(12));
+                me[j].setEstado(table2.getBoolean(12));
                 
                 
                 
-                me[j].setNumeroLicencia(table.getInt(13));
+                me[j].setNumeroLicencia(table2.getInt(13));
                 
-                me[j].setEspecialidad(table.getString(14));
+                me[j].setEspecialidad(table2.getString(14));
                 
-                me[j].setUniversidad(table.getString(15));
+                me[j].setUniversidad(table2.getString(15));
                
                 System.out.println("ok");
                 
