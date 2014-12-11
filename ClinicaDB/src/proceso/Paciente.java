@@ -14,17 +14,34 @@ import java.util.Date;
 public class Paciente extends Persona{
     
     private String numeroSocial;
-    private String actEcon;
     private Date fechaNac;
     private Cama camaAsignada;
     private HistoriaClinica historiaPaciente;
+    private String actEcon;
+    private boolean estado;
 
+   
+
+
+    public Paciente() {
+    }
+    
+    
+
+    public Paciente(String identificacion, String nombres, String apellidos, String telefono, String direccion, String numeroSocial, String actEcon, Date fechaNac, boolean estado) {
+        super(identificacion, nombres, apellidos, telefono, direccion);
+        this.numeroSocial = numeroSocial;
+        this.actEcon = actEcon;
+        this.fechaNac = fechaNac;
+        this.estado = estado;
+    }
+   
     /**
      * @return the numeroSocial
      */
     public String getNumeroSocial() {
         return numeroSocial;
-    }
+    }   
 
     /**
      * @param numeroSocial the numeroSocial to set
@@ -73,6 +90,20 @@ public class Paciente extends Persona{
      */
     public void setCamaAsignada(Cama camaAsignada) {
         this.camaAsignada = camaAsignada;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
     

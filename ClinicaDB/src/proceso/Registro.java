@@ -58,7 +58,7 @@ class Registro {
      * @param precio the precio to set
      */
     public void setPrecio(double precio, double descuento) {
-        this.precio = precio*descuento;
+        this.precio = precio*descuento  ;
     }
 
     /**
