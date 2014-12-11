@@ -18,6 +18,7 @@ class Campana {
     private String nombre;
     private String objetivo;
     private Paciente[] pacientesCampana;
+    private Medico responsable;
 
     /**
      * @return the codigoCampana
@@ -89,6 +90,18 @@ class Campana {
         this.pacientesCampana = misPacientes;
     }
     
-    
+    /**
+     * @return the responsable
+     */
+    public Medico getResponsable() {
+        return responsable;
+    }
+
+    /**
+     * @param responsable the responsable to set
+     */
+    public void setResponsable(Medico responsable) {
+        this.responsable = responsable;
+    }
     
 }

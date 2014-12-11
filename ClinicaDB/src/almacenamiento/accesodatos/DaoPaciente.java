@@ -183,10 +183,7 @@ public class DaoPaciente {
             numRows = table.getInt(1);
             ResultSet table2 = sentence.executeQuery(sql_select);
             System.out.println(numRows);
-            Paciente listPacientes[]= new Paciente[numRows];
-            for(int i=0; i<numRows; i++){
-                listPacientes[i]= new Paciente();
-            }
+            Paciente listPacientes[]= new Paciente[numRows];   
             
             int j=0;
             while(table2.next())

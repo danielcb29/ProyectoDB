@@ -12,11 +12,11 @@ package proceso;
 public class Persona {
     
     
-    private String identificacion;
-    private String nombres;
-    private String apellidos;
-    private String telefono;
-    private String direccion;
+    protected String identificacion;
+    protected String nombres;
+    protected String apellidos;
+    protected String telefono;
+    protected String direccion;
 
     public Persona(String identificacion, String nombres, String apellidos, String telefono, String direccion) {
         this.identificacion = identificacion;

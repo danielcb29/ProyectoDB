@@ -12,11 +12,17 @@ package proceso;
 public class Enfermera extends Empleado{
     
     private int anosExp;
+     private String[] misHabilidades;
 
-    public Enfermera(String nombres, String apellidos, String telefono, String direccion, int salario, String email, String cargo, String identificacion) {
-        super(nombres, apellidos, telefono, direccion, salario, email, cargo, identificacion);
+    public Enfermera(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String con, String je, Area ar, boolean est, int aExp, String[] habs){
+        super(id,nom,ap,tel,dir,sal,mail,car,con,je,ar,est);
+        anosExp=aExp;
+        misHabilidades=habs;
     }
-    private String[] misHabilidades;
+
+   
+    
+
 
     /**
      * @return the anosExp

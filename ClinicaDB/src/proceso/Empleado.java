@@ -14,14 +14,28 @@ public class Empleado extends Persona{
     private int salario;
     private String email;
     private String cargo;
-    private Empleado jefe;
-
-    public Empleado(String nombres, String apellidos, String telefono, String direccion, int salario, String email, String cargo, String identificacion) {
-        super(identificacion, nombres, apellidos, telefono, direccion);
-        this.salario = salario;
-        this.email = email;
-        this.cargo = cargo;
+    private String contrasena;
+    private String jefe;//identificacion del empleado
+    private Area area;
+    private boolean estado;
+    
+    public Empleado(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String con, String je, Area ar, boolean est){
+        identificacion = id;
+        nombres = nom;
+        apellidos=ap;
+        telefono=tel;
+        direccion=dir;
+        salario=sal;
+        email=mail;
+        cargo=car;
+        contrasena=con;
+        jefe=je;
+        area=ar;
+        estado=est;
     }
+    
+    public Empleado(){}
+    
     /**
      * @return the salario
      */
@@ -65,19 +79,60 @@ public class Empleado extends Persona{
     }
 
     /**
+     * @return the contrasena
+     */
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    /**
+     * @param contrasena the contrasena to set
+     */
+    public void setContrasena(String contrasena) {
+        this.contrasena= contrasena;
+    }
+
+    /**
      * @return the jefe
      */
-    public Empleado getJefe() {
+    public String getJefe() {
         return jefe;
     }
 
     /**
      * @param jefe the jefe to set
      */
-    public void setJefe(Empleado jefe) {
+    public void setJefe(String jefe) {
         this.jefe = jefe;
     }
-
     
+    
+    /**
+     * @return la area
+     */
+    public Area getArea() {
+        return area;
+    }
+    
+    /**
+     * @param area el area a cambiar
+     */
+    public void setArea(Area area) {
+        this.area = area;
+    }
+    
+    /**
+     * @return el estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+    
+    /**
+     * @param estado el estado a cambiar
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
     
 }

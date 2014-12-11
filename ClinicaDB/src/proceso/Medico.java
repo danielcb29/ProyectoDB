@@ -15,11 +15,18 @@ public class Medico extends Empleado{
     private String especialidad;
     private String universidad;
     private Campana[] miCampanas;
-
-    public Medico(String nombres, String apellidos, String telefono, String direccion, int salario, String email, String cargo, String identificacion) {
-        super(nombres, apellidos, telefono, direccion, salario, email, cargo, identificacion);
+    
+    public Medico(){
+        
     }
-
+ 
+    public Medico(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String con, String je, Area ar, boolean est, int nL, String esp, String u){
+        super(id,nom,ap,tel,dir,sal,mail,car,con,je,ar,est);
+        
+        numeroLicencia=nL;
+        especialidad=esp;
+        universidad=u;
+    }
     /**
      * @return the numeroLicencia
      */
@@ -62,19 +69,7 @@ public class Medico extends Empleado{
         this.universidad = universidad;
     }
 
-    /**
-     * @return the miCampanas
-     */
-    public Campana[] getMiCampanas() {
-        return miCampanas;
-    }
-
-    /**
-     * @param miCampanas the miCampanas to set
-     */
-    public void setMiCampanas(Campana[] miCampanas) {
-        this.miCampanas = miCampanas;
-    }
+  
     
     
     

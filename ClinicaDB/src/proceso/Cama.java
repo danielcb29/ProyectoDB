@@ -14,6 +14,7 @@ class Cama {
     private String numeroCama;
     private boolean estado;
     private String descripcion;
+    private Area area;
 
     /**
      * @return the numeroCama
@@ -57,5 +58,18 @@ class Cama {
         this.descripcion = descripcion;
     }
         
+    /**
+     * @return the descripcion
+     */
+    public Area getArea() {
+        return area;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setArea(Area area) {
+        this.area = area;
+    }
     
 }
