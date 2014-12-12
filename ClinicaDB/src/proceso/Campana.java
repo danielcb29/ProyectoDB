@@ -11,14 +11,27 @@ import java.util.Date;
  *
  * @author cenesis
  */
-class Campana {
+public class Campana {
     
     private String codigoCampana;
     private Date fecha;
     private String nombre;
     private String objetivo;
     private Paciente[] pacientesCampana;
-
+    private boolean estado;
+    private Medico responsable;
+    
+    public Campana(){
+        
+    }
+    
+    public Campana(Date fechaIn , String nombre , String objetivo, Medico doctor){
+        fecha=fechaIn;
+        this.nombre=nombre;
+        this.objetivo=objetivo;
+        estado=true;
+        responsable=doctor;
+    }
     /**
      * @return the codigoCampana
      */
@@ -79,14 +92,56 @@ class Campana {
      * @return the misPacientes
      */
     public Paciente[] getMisPacientes() {
-        return pacientesCampana;
+        return getPacientesCampana();
     }
 
     /**
      * @param misPacientes the misPacientes to set
      */
     public void setMisPacientes(Paciente[] misPacientes) {
-        this.pacientesCampana = misPacientes;
+        this.setPacientesCampana(misPacientes);
+    }
+
+    /**
+     * @return the pacientesCampana
+     */
+    public Paciente[] getPacientesCampana() {
+        return pacientesCampana;
+    }
+
+    /**
+     * @param pacientesCampana the pacientesCampana to set
+     */
+    public void setPacientesCampana(Paciente[] pacientesCampana) {
+        this.pacientesCampana = pacientesCampana;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the responsable
+     */
+    public Medico getResponsable() {
+        return responsable;
+    }
+
+    /**
+     * @param responsable the responsable to set
+     */
+    public void setResponsable(Medico responsable) {
+        this.responsable = responsable;
     }
     
     

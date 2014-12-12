@@ -58,6 +58,10 @@ public class PanelMedico extends javax.swing.JFrame {
         btEditarCausa = new javax.swing.JButton();
         btEliminarCausa = new javax.swing.JButton();
         btCerrar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        btCrearCampana = new javax.swing.JButton();
+        btEditarCampana = new javax.swing.JButton();
+        btEliminarCampana = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,6 +128,30 @@ public class PanelMedico extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
+        jLabel6.setText("Gestion de Campañas");
+
+        btCrearCampana.setText("Crear");
+        btCrearCampana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearCampanaActionPerformed(evt);
+            }
+        });
+
+        btEditarCampana.setText("Editar");
+        btEditarCampana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarCampanaActionPerformed(evt);
+            }
+        });
+
+        btEliminarCampana.setText("Eliminar");
+        btEliminarCampana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEliminarCampanaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,15 +160,15 @@ public class PanelMedico extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(lbTitulo))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btCrearHC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(105, 105, 105)
@@ -155,13 +183,22 @@ public class PanelMedico extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(btEditarCausa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btEliminarCausa, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(69, 69, 69))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btCerrar)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 812, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                        .addGap(69, 69, 69))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(lbTitulo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btCrearCampana, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btEditarCampana, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(btEliminarCampana, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btCerrar)
+                        .addGap(37, 37, 37))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,9 +227,16 @@ public class PanelMedico extends javax.swing.JFrame {
                         .addComponent(jLabel1)))
                 .addGap(18, 18, 18)
                 .addComponent(btEliminarCausa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCrearCampana)
+                    .addComponent(btEditarCampana)
+                    .addComponent(btEliminarCampana))
+                .addGap(22, 22, 22)
                 .addComponent(btCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         pack();
@@ -254,6 +298,18 @@ public class PanelMedico extends javax.swing.JFrame {
         panelFormula.setVisible(true);
     }//GEN-LAST:event_btFormulaActionPerformed
 
+    private void btCrearCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearCampanaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCrearCampanaActionPerformed
+
+    private void btEditarCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarCampanaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEditarCampanaActionPerformed
+
+    private void btEliminarCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarCampanaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btEliminarCampanaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -301,9 +357,12 @@ public class PanelMedico extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCerrar;
+    private javax.swing.JButton btCrearCampana;
     private javax.swing.JButton btCrearCausa;
     private javax.swing.JButton btCrearHC;
+    private javax.swing.JButton btEditarCampana;
     private javax.swing.JButton btEditarCausa;
+    private javax.swing.JButton btEliminarCampana;
     private javax.swing.JButton btEliminarCausa;
     private javax.swing.JButton btFormula;
     private javax.swing.JButton btRegistro;
@@ -311,6 +370,7 @@ public class PanelMedico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbTitulo;
     // End of variables declaration//GEN-END:variables
