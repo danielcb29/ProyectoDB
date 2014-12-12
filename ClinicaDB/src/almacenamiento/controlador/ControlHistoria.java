@@ -6,8 +6,10 @@ package almacenamiento.controlador;
 
 import almacenamiento.accesodatos.DAOHistoria;
 import java.sql.Connection;
+import java.util.Vector;
 import proceso.HistoriaClinica;
 import proceso.Paciente;
+import proceso.Registro;
 
 /**
  *
@@ -69,9 +71,18 @@ public class ControlHistoria {
      * @return Historia completa
      */
     public HistoriaClinica buscarHistoriaCompleta(String cedula){
-        //Falta implementacion
-        HistoriaClinica resul = null;
-        return resul;
+        
+        HistoriaClinica hist = buscarHistoria(cedula);
+        String idHistoria = hist.getNumHistoria();
+        if(idHistoria!=null){
+            Vector<Registro> registros = dao.leerRegistrosHistoria(idHistoria);
+            hist.setRegistrosConsultasPacientes(registros);
+            return hist;
+        }else{
+            return null;
+        }
+        
+        
     }
     
     

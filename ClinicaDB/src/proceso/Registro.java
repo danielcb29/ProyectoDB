@@ -19,6 +19,7 @@ public class Registro {
     private double precio;
     private Vector<Causa> causasPaciente;
     private HistoriaClinica historiaPaciente;
+    private String idMedico; //TEMPORAL MIENTRAS DAOMEDICO
 
     public Registro(){
         
@@ -107,6 +108,20 @@ public class Registro {
      */
     public void setHistoriaPaciente(HistoriaClinica historiaPaciente) {
         this.historiaPaciente = historiaPaciente;
+    }
+
+    /**
+     * @return the idMedico
+     */
+    public String getIdMedico() {
+        return idMedico;
+    }
+
+    /**
+     * @param idMedico the idMedico to set
+     */
+    public void setIdMedico(String idMedico) {
+        this.idMedico = idMedico;
     }
     
 }
