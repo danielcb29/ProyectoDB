@@ -26,6 +26,7 @@ public class PanelMedico extends javax.swing.JFrame {
     private PanelRegistros panelReg;
     private Medico doctor;
     private PanelFormula panelFormula;
+    private PanelCampana panelCampana;
     public PanelMedico(Connection conn,Medico med) {
         super("Panel Administrativo para Doctores");
         initComponents();
@@ -300,14 +301,30 @@ public class PanelMedico extends javax.swing.JFrame {
 
     private void btCrearCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearCampanaActionPerformed
         // TODO add your handling code here:
+        panelCampana = new PanelCampana(1, doctor, conn);
+        
     }//GEN-LAST:event_btCrearCampanaActionPerformed
 
     private void btEditarCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarCampanaActionPerformed
         // TODO add your handling code here:
+        panelCampana = new PanelCampana(2, doctor, conn);
+        int len = panelCampana.tamCampanas();
+        if(len==0){
+            JOptionPane.showMessageDialog(this, "No hay campañas registradas en este momento","Mensaje",JOptionPane.ERROR_MESSAGE);
+        }else{
+            panelCampana.setVisible(true);
+        }
     }//GEN-LAST:event_btEditarCampanaActionPerformed
 
     private void btEliminarCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarCampanaActionPerformed
         // TODO add your handling code here:
+        panelCampana = new PanelCampana(3, doctor, conn);
+        int len = panelCampana.tamCampanas();
+        if(len==0){
+            JOptionPane.showMessageDialog(this, "No hay campañas registradas en este momento","Mensaje",JOptionPane.ERROR_MESSAGE);
+        }else{
+            panelCampana.setVisible(true);
+        }
     }//GEN-LAST:event_btEliminarCampanaActionPerformed
 
     /**

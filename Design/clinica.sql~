@@ -166,6 +166,7 @@ CREATE TABLE Campana(
 	nombre VARCHAR(30) NOT NULL,
 	objetivo VARCHAR(99) NOT NULL,
 	idResponsable VARCHAR(35) NOT NULL,
+	estado BOOL NOT NULL,
 	CONSTRAINT fk_idResp FOREIGN KEY(idResponsable) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
 ALTER TABLE Campana ALTER codigoCampana SET DEFAULT nextval('camp_seq');

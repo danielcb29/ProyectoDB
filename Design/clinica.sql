@@ -119,7 +119,7 @@ CREATE SEQUENCE causa_seq;
 --Creación de la tabla Causa.
 CREATE TABLE Causa(
 	codigoCausa VARCHAR(30) NOT NULL PRIMARY KEY,
-	nombre VARCHAR(30) NOT NULL,
+	nombre VARCHAR(30) NOT NULL UNIQUE,
 	descripcion TEXT NOT NULL,
 	estado BOOL NOT NULL
 );
@@ -163,7 +163,7 @@ CREATE SEQUENCE camp_seq;
 CREATE TABLE Campana(
 	codigoCampana VARCHAR(35) NOT NULL PRIMARY KEY,
 	fecha DATE NOT NULL,
-	nombre VARCHAR(30) NOT NULL,
+	nombre VARCHAR(30) NOT NULL UNIQUE,
 	objetivo VARCHAR(99) NOT NULL,
 	idResponsable VARCHAR(35) NOT NULL,
 	estado BOOL NOT NULL,
