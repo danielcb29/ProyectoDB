@@ -241,8 +241,44 @@ public class DAOCampana {
         return null;
 
     }
-
+    /**
+     * Permite actualizar los datos de una campaña en la base de datos 
+     * @param codigo codigo de la campaña a actualizar
+     * @param nuevaCampana nuevos datos de la campaña
+     * @return valor de confirmacion
+     */
     public int actualizarCampana(String codigo, Campana nuevaCampana) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sql1,sql2,sql3,sql4;
+        String nuevoNombre = nuevaCampana.getNombre();
+        String nuevoObjetivo = nuevaCampana.getObjetivo();
+        boolean nuevoEstado =  nuevaCampana.getEstado();
+        String nuevaFecha = nuevaCampana.getFecha().toString();
+        
+	sql1="UPDATE Campana SET nombre='"+nuevoNombre+"' WHERE codigoCampana='" + codigo + "';";
+        sql2 = "UPDATE Campana SET objetivo='"+nuevoObjetivo+"' WHERE codigoCampana='" + codigo + "';";
+        sql3 = "UPDATE Campana SET estado='"+nuevoEstado+"' WHERE codigoCampana='" + codigo + "';";
+        sql4 = "UPDATE Campana SET fecha='"+nuevaFecha+"' WHERE codigoCampana='" + codigo + "';";
+        
+        try{
+            Statement sentencia = conn.createStatement();
+
+            sentencia.executeUpdate(sql2);
+            sentencia.executeUpdate(sql3);
+            sentencia.executeUpdate(sql4);
+            sentencia.executeUpdate(sql1);
+            
+            
+            return 1;
+            
+        }
+        catch(SQLException e){
+            System.out.println(e); 
+            return -2;
+        }
+        catch(Exception e){ 
+            System.out.println(e);
+            
+        }
+        return -1;
     }
 }

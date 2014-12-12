@@ -302,6 +302,7 @@ public class PanelMedico extends javax.swing.JFrame {
     private void btCrearCampanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearCampanaActionPerformed
         // TODO add your handling code here:
         panelCampana = new PanelCampana(1, doctor, conn);
+        panelCampana.setVisible(true);
         
     }//GEN-LAST:event_btCrearCampanaActionPerformed
 

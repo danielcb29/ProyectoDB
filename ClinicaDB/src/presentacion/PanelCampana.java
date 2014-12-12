@@ -61,6 +61,7 @@ public class PanelCampana extends javax.swing.JFrame {
                 lbEstado.setVisible(false);
                 cbEstado.setVisible(false);
                 chbCambiarFecha.setEnabled(false);
+                btAccion.setText("Editar");
             }else{
                 //eliminar
                 lbTitulo.setText("Gestion de Campañas: Eliminar");
@@ -71,6 +72,7 @@ public class PanelCampana extends javax.swing.JFrame {
                 cbEstado.setVisible(false);
                 chbCambiarFecha.setVisible(false);
                 lbNewHoy.setVisible(false);
+                btAccion.setText("Eliminar");
             }
             
         }

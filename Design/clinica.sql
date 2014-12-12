@@ -162,7 +162,7 @@ CREATE SEQUENCE camp_seq;
 --Creación de la tabla Campana. Se relaciona con Medico.
 CREATE TABLE Campana(
 	codigoCampana VARCHAR(35) NOT NULL PRIMARY KEY,
-	fecha DATE NOT NULL,
+	fecha timestamp NOT NULL,
 	nombre VARCHAR(30) NOT NULL UNIQUE,
 	objetivo VARCHAR(99) NOT NULL,
 	idResponsable VARCHAR(35) NOT NULL,
