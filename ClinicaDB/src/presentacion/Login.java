@@ -20,7 +20,7 @@ public class Login extends javax.swing.JFrame {
     private Connection conn;
     private String email;
     private String contrasena;
-    private VistaCrearUsuario vcu;
+    private VistaAdmin va;
     
     /**
      * Creates new form GestionUsuario
@@ -177,9 +177,9 @@ public class Login extends javax.swing.JFrame {
                             System.out.println("dentro de la vista1" + me1.getNombres());
                             Medico[] list = cm.listMedico();
                             System.out.println("dentro de la vista2" + list[0].getNombres());
-                            vcu=new VistaCrearUsuario();
-                           /* vcu.setVisible(true);
-                            this.setEnabled(false);*/
+                            va=new VistaAdmin(ce);
+                            va.setVisible(true);
+                            this.hide();
                             break;
                         default:
                             System.out.println("default");

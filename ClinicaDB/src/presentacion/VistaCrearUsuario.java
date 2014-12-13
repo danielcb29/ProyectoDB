@@ -5,17 +5,29 @@
  */
 package presentacion;
 
+import almacenamiento.controlador.ControlEmpleado;
+import java.sql.Connection;
+
 /**
  *
  * @author family
  */
 public class VistaCrearUsuario extends javax.swing.JFrame {
+    
+    ControlEmpleado ce;
+    Connection conn;
 
     /**
      * Creates new form VistaCrearUsuario
+     * @param control control de empleado
      */
-    public VistaCrearUsuario() {
+    public VistaCrearUsuario(ControlEmpleado control) {
         initComponents();
+        
+        ce=control;
+        conn=ce.getConn();
+        
+        
         this.setResizable(false);
         lbIdJ.setVisible(false);
         tfIdJ.setVisible(false);
@@ -27,6 +39,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
         tfEspecialidad.setVisible(false);
         lbUniversidad.setVisible(false);
         tfUniversidad.setVisible(false);
+        
     }
 
     /**
