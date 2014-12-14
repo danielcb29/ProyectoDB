@@ -13,57 +13,56 @@ import java.sql.Connection;
  * @author Fernando
  */
 
-public class ControlMedico {
+public class ControlEnfermera {
     
 
-    DAOMedico daoMe;
+    DAOEnfermera daoEnf;
     DAOEmpleado daoEm;
     
     /**
      * constructor
      * @param conn conexion base de datos
      * **/
-    public ControlMedico(Connection conn){
-        daoMe=new DAOMedico(conn);
+    public ControlEnfermera(Connection conn){
+        daoEnf=new DAOEnfermera(conn);
         daoEm= new DAOEmpleado();
         daoEm.connectDB();
     }
     public void connectDB(){
-        daoMe.connectDB();
+        daoEnf.connectDB();
     }
     public Connection getConn(){
-        return daoMe.getConn();
+        return daoEnf.getConn();
     }
      /**
      * metodo encargado de pasar el usuario a ingresar a la base de
      * satos al DAOusuario. 
-     * @param id cedula del medico
-     * @param nombres nombre del medico
-     * @param apellidos  apellidos del medico
-     * @param telefono telefono del medico
-     * @param direccion direccion del medico
-     * @param sal salario del medico
-     * @param email email del medico
-     * @param cargo cargo del medico
-     * @param contrasena contrasena del medico
-     * @param jefe jefe del medico, "-1" si no tiene jefe
-     * @param area area del medico, objeto null si es administrador
-     * @param estado estado del medico
-     * @param numeroLicencia  el numero de licencia del medico
-     * @param especialidad especialidad del medico
-     * @param universidad universidad del medico
-     * @return 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente el usuario.
+     * @param id cedula del enfermera
+     * @param nombres nombre del enfermera
+     * @param apellidos  apellidos del enfermera
+     * @param telefono telefono del enfermera
+     * @param direccion direccion del enfermera
+     * @param sal salario del enfermera
+     * @param email email del enfermera
+     * @param cargo cargo del enfermera
+     * @param contrasena contrasena del enfermera
+     * @param jefe jefe del enfermera, "-1" si no tiene jefe
+     * @param area area del enfermera, objeto null si es administrador
+     * @param estado estado del enfermera
+     * @param anos años de experiencia del enfermera
+     * @param habs habilidades de la enfermera
+     * @return 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente la enfermera.
      */
-    public int   createMedico (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int numeroLicencia, String especialidad, String universidad)
+    public int   createEnfermera (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int anos, String[] habs)
     {
         Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
         daoEm.createEmpleado(em);
         
-        Medico med = new Medico(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, numeroLicencia, especialidad, universidad);
+        Enfermera enf = new Enfermera(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, anos, habs);
         
         
         //Se llama al dao para guardar
-        int result = daoMe.createMedico(med);
+        int result = daoEnf.createEnfermera(enf);
         
          
         
@@ -71,17 +70,16 @@ public class ControlMedico {
 
     }
     /**
-     * metodo encargado de pasar el username a Dao para que consulte si el 
-     * usuario existe
+     * metodo encargado de pasar el username a Dao para que consulte si la enfermera existe
      * @param em objeto Empleado
      * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
     */
-    public Medico   readMedico (Empleado em){
+    public Enfermera   readEnfermera (Empleado em){
 
         
         System.out.println("antes readMedico");
-        Medico me= daoMe.readMedico(em);
-        return me;
+        Enfermera enf= daoEnf.readEnfermera(em);
+        return enf;
 
     }
     
@@ -91,7 +89,7 @@ public class ControlMedico {
     /** metodo que llama al Dao para consultar cuantos usuarios existen
      * @return cantidad de usuarios existentes en la base de datos
      */
-    public Medico[] listMedico ()  
+  /* public Medico[] listMedico ()  
     {
         Medico [] me = daoMe.listMedico();
         return  me;
@@ -118,7 +116,7 @@ public class ControlMedico {
      * Cerrar conexion base de datos
      */
     public void cerrarConexionBD(){
-        daoMe.closeConectionDB();
+        daoEnf.closeConectionDB();
     }
 
 }//fin clase

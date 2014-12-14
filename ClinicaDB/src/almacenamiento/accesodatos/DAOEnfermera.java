@@ -12,7 +12,7 @@ import java.sql.*;
  *
  * @author family
  */
-public class DAOMedico {
+public class DAOEnfermera {
      /**
      * @param db objeto encargado de la conexión a la base de datos.
      * @param conn objeto para ejecutar las sentencias de SQL
@@ -26,7 +26,7 @@ public class DAOMedico {
      * constructor, inicializa los atributos.
      * @param conn conexion base de datos
      */
-    public DAOMedico(Connection conn){
+    public DAOEnfermera(Connection conn){
         db=new BaseDatos();
         this.conn=conn;
         daoEm=new DAOEmpleado();
@@ -46,15 +46,23 @@ public class DAOMedico {
     * @param me el objeto Medico a agregar.
     * @return devuelve el número de tuplas que se agregaron a la tabla.
     */
-    public int createMedico(Medico me){
-        String sql_me;
+    public int createEnfermera(Enfermera en){
+        String sql_en ;
+        String sql_hab[];
         int numRows=0;
-        
-        sql_me="INSERT INTO medico (identificacion, numeroLicencia, especialidad, universidad) VALUES ('"+ me.getIdentificacion() +"', "+ me.getNumeroLicencia()+ ", '"+ me.getEspecialidad() + "', '"+ me.getUniversidad() + "')";
+        int numHabs = en.getMisHabilidades().length;
+        sql_hab= new String[numHabs];
+        for(int i=0; i<numHabs ; i++){
+            sql_hab[i]= "INSERT INTO habilidades_enfermera (identificacion, habilidad) VALUES ('"+en.getIdentificacion() + "', '"+ en.getMisHabilidades()[i] +"')";
+        }
+        sql_en="INSERT INTO medico (identificacion, anosexp) VALUES ('"+ en.getIdentificacion() +"', "+ en.getAnosExp()  +")";
         try{
 
             Statement st = conn.createStatement();
-            numRows = st.executeUpdate(sql_me);
+            numRows = st.executeUpdate(sql_en);
+            for(int i=0; i<numHabs ; i++){
+                st.executeUpdate(sql_hab[i]);
+            }
             
             System.out.println("numRowsDAO: " + numRows);
             return numRows;
@@ -62,24 +70,24 @@ public class DAOMedico {
         }
         catch(SQLException e){
             
-            System.out.println("createMedico "+e); 
+            System.out.println("createEnfermera"+e); 
             return -2;
         }
         catch(Exception e){ 
-            System.out.println("createMedico "+e);
+            System.out.println("createEnfermera "+e);
         }
         return -1;
     }//fin saveUser
     
         /**
-        * consultar el medico de acuerdo al objeto Empleado
+        * consultar la enfermera de acuerdo al objeto Empleado
         * @param em objeto Empleado con la informacion del medico a consultar
         * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
         */
-    public Medico readMedico(Empleado em){
-        Medico me= new Medico();
-        String sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";
-        
+    public Enfermera readEnfermera(Empleado em){
+        Enfermera enf= new Enfermera();
+        String sql_select="SELECT enfermera.identificacion, enfermera.numeroLicencia FROM  enfermera WHERE enfermera.identificacion='" + em.getIdentificacion()+ "'";
+        String sql_hab= "SELECT habilidades_enfermera.identificacion, habilidades_enfermera.habilidad FROM  habilidades_enfermera WHERE habilidades_enfermera.identificacion='" + em.getIdentificacion()+ "'";
         
         try{
             
@@ -90,42 +98,53 @@ public class DAOMedico {
             
             ResultSet table = statement.executeQuery(sql_select);
             
+            ResultSet table2 = statement.executeQuery(sql_hab);
+            
+            ResultSet table3 = statement.executeQuery(sql_hab);
             
             while(table.next()){
                 
-                me.setNombres(em.getNombres());
+                enf.setNombres(em.getNombres());
                 
-                me.setApellidos(em.getApellidos());
+                enf.setApellidos(em.getApellidos());
                 
-                me.setTelefono(em.getTelefono());
+                enf.setTelefono(em.getTelefono());
                 
-                me.setDireccion(em.getDireccion());
+                enf.setDireccion(em.getDireccion());
                 
-                me.setSalario(em.getSalario());
+                enf.setSalario(em.getSalario());
                 
-                me.setEmail(em.getEmail());
+                enf.setEmail(em.getEmail());
                 
-                me.setCargo(em.getCargo());
+                enf.setCargo(em.getCargo());
                 
-                me.setContrasena(em.getContrasena());
+                enf.setContrasena(em.getContrasena());
                 
-                me.setJefe(em.getJefe());
+                enf.setJefe(em.getJefe());
                 
-                me.setArea(em.getArea());
+                enf.setArea(em.getArea());
                 
-                me.setEstado(em.getEstado());
+                enf.setEstado(em.getEstado());
                 
-                me.setIdentificacion(table.getString(1));
+                enf.setIdentificacion(table.getString(1));
                 
-                me.setNumeroLicencia(table.getInt(2));
+                enf.setAnosExp(table.getInt(2));
                 
-                me.setEspecialidad(table.getString(3));
-                
-                me.setUniversidad(table.getString(4));
-               
+                String habs [];
+                int numHabs=0;
+                while(table2.next()){
+                    numHabs++;
+                }
+                habs = new String [numHabs];
+                int i=0;
+                while(table3.next()){
+                    habs[i] = table3.getString(2);
+                    i++;
+                }
+                enf.setMisHabilidades(habs);
                 System.out.println("ok");
             }
-            return me;
+            return enf;
         }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println("excepcion del dao"); System.out.println(e); }
@@ -219,7 +238,7 @@ public class DAOMedico {
      * listar todas las tuplas de los usuarios existentes.
      * @return los objetos tipo Medico enlistados en un arreglo.
      */ 
-    public Medico[] listMedico(){
+  /*  public Medico[] listMedico(){
         
         String sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  persona, empleado, medico WHERE empleado.identificacion=persona.identificacion AND medico.identificacion=persona.identificacion";
         try{

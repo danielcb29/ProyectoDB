@@ -19,6 +19,8 @@ public class Enfermera extends Empleado{
         anosExp=aExp;
         misHabilidades=habs;
     }
+    
+    public Enfermera(){}
 
     /**
      * @return the anosExp

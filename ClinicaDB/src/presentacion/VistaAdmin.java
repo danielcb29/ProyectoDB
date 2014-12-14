@@ -7,6 +7,7 @@ package presentacion;
 import almacenamiento.controlador.ControlMedico;
 import almacenamiento.controlador.ControlEmpleado;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,14 +17,16 @@ public class VistaAdmin extends javax.swing.JFrame {
     ControlEmpleado ce;
     Connection conn;
     VistaCrearUsuario cvu;
+    VistaEditarUsuario veu;
+    
     /**
      * Creates new form GestionUsuarios
-     * @param control control de empleado (usuario)
+     * @param controlEm control de empleado (usuario)
      */
-    public VistaAdmin(ControlEmpleado control) {
+    public VistaAdmin(ControlEmpleado controlEm) {
         initComponents();
         this.setTitle("Panel Administrador");
-        ce= control;
+        ce= controlEm;
         conn = ce.getConn();
         
     }
@@ -49,7 +52,6 @@ public class VistaAdmin extends javax.swing.JFrame {
         btEliminarUsuario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(694, 516));
 
         lbBienvenido.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lbBienvenido.setText("Bienvenido");
@@ -59,6 +61,11 @@ public class VistaAdmin extends javax.swing.JFrame {
         lbSubT.setText("Aqui encontrara el menu de administracion de la aplicacion");
 
         btSalir.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/Login-out-icon.png")); // NOI18N
+        btSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalirActionPerformed(evt);
+            }
+        });
 
         lbLogo.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/logo2.png")); // NOI18N
 
@@ -169,19 +176,18 @@ public class VistaAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
         cvu = new VistaCrearUsuario(ce);
         cvu.setVisible(true);
-        this.setEnabled(false);
     }//GEN-LAST:event_btCrearUsuarioActionPerformed
 
     private void btEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarUsuarioActionPerformed
-    /*    // TODO add your handling code here:
+        // TODO add your handling code here:
 
-        if(objUserController.countUsers()== 0){
+        if(ce.listEmpleado().length== 0){
             JOptionPane.showMessageDialog(null, "No hay Usuarios para editar","", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            objVistaEditarUsuario = new VistaEditarUsuario(objUserController, objConvController,1);
-            objVistaEditarUsuario.setVisible(true);
-        }*/
+            veu = new VistaEditarUsuario(ce);
+            veu.setVisible(true);
+        }
     }//GEN-LAST:event_btEditarUsuarioActionPerformed
 
     private void btEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarUsuarioActionPerformed
@@ -195,6 +201,12 @@ public class VistaAdmin extends javax.swing.JFrame {
             objVistaEditarUsuario.setVisible(true);
         }*/
     }//GEN-LAST:event_btEliminarUsuarioActionPerformed
+
+    private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed
+        // TODO add your handling code here:
+        ce.cerrarConexionBD();
+        System.exit(0); 
+    }//GEN-LAST:event_btSalirActionPerformed
 
   
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -18,6 +18,7 @@ public class ControlEmpleado {
 
     DAOEmpleado daoEm;
     ControlMedico controlMe;
+    ControlEnfermera controlEnf;
 
     
     /**
@@ -30,6 +31,7 @@ public class ControlEmpleado {
     public void connectDB(){
         daoEm.connectDB();
         controlMe=new ControlMedico(daoEm.getConn());
+        controlEnf=new ControlEnfermera(daoEm.getConn());
     }
     public Connection getConn(){
         return daoEm.getConn();
@@ -68,18 +70,23 @@ public class ControlEmpleado {
      * usuario existe
      * @param req el correo o identificacion del empleado que se quiere consultar.
      * @param tipoCon 1 si es correo electronico, 2 si es identificacion
+     * @param cargo 0 si va a leer un empleado diferente de médico, 1 si va a leer un médico
      * @return null si hay error en la consulta a la base de datos. Objeto tipo Empleado si el objeto del usuario que se consulto. 
     */
     public Empleado   readEmpleado (String req, int tipoCon, int cargo){
         Empleado em;
         switch(cargo){
-            case 0:
+            case 0://Empleado
                 em = daoEm.readEmpleado(req, tipoCon);
                 break;
-            case 1:
+            case 1://Médico
                 System.out.println("antes readEmplado");
                 Empleado em1 = daoEm.readEmpleado(req, tipoCon);
                 em= controlMe.readMedico(em1);
+                break;
+            case 2://Enfermera
+                Empleado em2 = daoEm.readEmpleado(req, tipoCon);
+                em= controlEnf.readEnfermera(em2);
                 break;
             default:
                 em=null;
@@ -92,7 +99,7 @@ public class ControlEmpleado {
     
  
      
-    /** metodo que llama al Dao para consultar cuantos usuarios existen
+    /** metodo que llama al Dao para listar los empleados que existen
      * @return cantidad de usuarios existentes en la base de datos
      */
     public Empleado[] listEmpleado ()  

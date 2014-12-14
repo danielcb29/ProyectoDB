@@ -118,6 +118,9 @@
           <Image iconType="2" name="/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/Login-out-icon.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSalirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbLogo">
       <Properties>
