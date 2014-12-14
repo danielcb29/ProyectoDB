@@ -27,6 +27,8 @@ public class VistaCrearArea extends javax.swing.JFrame {
      * @param tip
      */
     public VistaCrearArea(Connection conex, int tip) {
+        
+        initComponents();
         conn=conex;
         tipo=tip;
         ca = new ControlArea(conn);
@@ -35,13 +37,14 @@ public class VistaCrearArea extends javax.swing.JFrame {
                 lbBuscar.setVisible(false);
                 tfBuscar.setVisible(false);
                 btBuscar.setVisible(false);
+                lbEstado.setVisible(false);
+                comboEstado.setVisible(false);
                 btAccion.setText("Crear");
                 break;
             case 2://editar
                 tfCodigo.setEditable(false);
                 
         }
-        initComponents();
     }
 
     /**
@@ -153,13 +156,13 @@ public class VistaCrearArea extends javax.swing.JFrame {
                                     .addComponent(lbEstado))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfCodigo)
-                                    .addComponent(tfNombre)
-                                    .addComponent(comboEstado, 0, 237, Short.MAX_VALUE)))
+                                    .addComponent(comboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                                    .addComponent(tfNombre)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)))
+                                .addComponent(btBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lbDescripcion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

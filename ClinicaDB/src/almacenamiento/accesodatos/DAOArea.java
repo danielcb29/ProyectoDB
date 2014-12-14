@@ -48,7 +48,7 @@ public class DAOArea {
         int numRows=0;
         
         
-        sql_ar="INSERT INTO area (codigoArea, nombre, descripcion, estado) VALUES ("+ ar.getCodigoArea() +", '"+ ar.getNombre()+ "', '"+ ar.getDescripcion() + ","+ ar.getEstado() + ")";
+        sql_ar="INSERT INTO area (codigoArea, nombre, descripcion, estado) VALUES ("+ ar.getCodigoArea() +", '"+ ar.getNombre()+ "', '"+ ar.getDescripcion() + "',"+ ar.getEstado() + ")";
         try{
             Statement st = conn.createStatement();
             numRows = st.executeUpdate(sql_ar);

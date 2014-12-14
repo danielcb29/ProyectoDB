@@ -45,15 +45,15 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tfCodigo" max="32767" attributes="0"/>
+                                  <Component id="comboEstado" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                                  <Component id="tfCodigo" pref="248" max="32767" attributes="0"/>
                                   <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="comboEstado" alignment="0" pref="237" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="tfBuscar" min="-2" pref="241" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btBuscar" pref="61" max="32767" attributes="0"/>
+                              <Component id="btBuscar" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
