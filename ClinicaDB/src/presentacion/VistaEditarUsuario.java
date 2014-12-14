@@ -52,7 +52,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
         tfUniversidad.setVisible(false);
         lbHabs1.setVisible(false);
         lbHabs2.setVisible(false);
-        taHabs.setVisible(false);
+        jScrollPane1.setVisible(false);
     }
 
     /**
@@ -123,6 +123,11 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
         lbEstado.setText("Estado:");
 
         tfBuscarId.setText("Busqueda por identificación del usuario");
+        tfBuscarId.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfBuscarIdMouseClicked(evt);
+            }
+        });
         tfBuscarId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfBuscarIdActionPerformed(evt);
@@ -200,7 +205,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             }
         });
 
-        comboCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gerente", "Médico", "Enfermera", "Secretaria", "Bodeguero", "Administrador" }));
+        comboCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gerente", "Medico", "Enfermera", "Secretaria", "Bodeguero", "Administrador" }));
         comboCargo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboCargoItemStateChanged(evt);
@@ -251,7 +256,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             }
         });
 
-        comboAnos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "67", "68", "69", "70" }));
+        comboAnos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "67", "68", "69", "70" }));
 
         lbAnos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbAnos.setText("Años experiencia:");
@@ -291,7 +296,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
 
         taHabs.setColumns(20);
         taHabs.setRows(5);
-        taHabs.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        taHabs.setBorder(null);
         jScrollPane1.setViewportView(taHabs);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -366,7 +371,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
                             .addGap(38, 38, 38)
                             .addComponent(btCancelar)))
                     .addComponent(lbEspecialidad))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -504,8 +509,10 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             }else{
                 comboEstado.setSelectedIndex(0);
             }
+            System.out.println("cargo "+em.getCargo());
             switch(em.getCargo()){
                 case "Medico": 
+                    System.out.println("Medico");
                     Medico me = cm.readMedico(em);
                     tfNL.setText(me.getNumeroLicencia()+"");
                     tfEspecialidad.setText(me.getEspecialidad());
@@ -513,7 +520,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
                     break;
                 case "Enfermera":
                     Enfermera enf = cEnf.readEnfermera(em);
-                    comboAnos.setSelectedIndex(enf.getAnosExp()-1);
+                    comboAnos.setSelectedIndex(enf.getAnosExp());
                     String impHabs="";
                     for(int i=0; i<enf.getMisHabilidades().length; i++){
                         impHabs+=enf.getMisHabilidades()[i]+"\n";
@@ -536,66 +543,119 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         int result;
         String menj;
-        boolean estado;
-        boolean empty = validateInformation(tfBuscarId.getText(), tfNombres.getText(), tfApellidos.getText(),tfTelefono.getText(), tfDireccion.getText() , tfEmail.getText(), tfContrasena.getText(), tfSalario.getText());
-        if(cbAJ.isSelected()&&tfIdJ.getText().trim().length()==0) empty=true;
-        if (!empty){
-            if(tipo==2){
-                menj = "eliminado";
-                result = ce.deleteEmpleado(tfBuscarId.getText());
+        int tipo=1;
+        if(tipo==2 ){
+     /*       menj = "eliminado";
+            result = ce.deleteEmpleado(tfBuscarId.getText());
+       */ }else{
+            menj= "editado";
+            String identificacion=tfBuscarId.getText();
+            String nombres=tfNombres.getText();
+            String apellidos=tfApellidos.getText();
+            String telefono=tfTelefono.getText();
+            String direccion=tfDireccion.getText();
+            String salario= tfSalario.getText();
+            String email= tfEmail.getText();
+            String contrasena=tfContrasena.getText();
+            String codigoArea = tfArea.getText();
+            String jefe;
+            if(cbAJ.isSelected()){
+                jefe=tfIdJ.getText();
             }else{
-                menj= "editado";
-                
-                Empleado em;
-            Area ar;
-            try{
-                if(cCargo!=5) ar = ca.readArea(Integer.parseInt(codigoArea));
-                else ar=null;
-                
+                jefe="-1";
+            }
+            String numLic="";
+            String especialidad="";
+            String universidad = "";
+            int anosExperiencia=0;
+            String habs[] = null;
+            int cCargo =  comboCargo.getSelectedIndex();
+            switch(cCargo){
+                case 1://Medico
+                    numLic = tfNL.getText();
+                    especialidad = tfEspecialidad.getText();
+                    universidad = tfUniversidad.getText();
+                    break;
+                case 2: //Enfermera
+                    anosExperiencia = comboAnos.getSelectedIndex();
+                    habs = taHabs.getText().split("\n");
+                    break;
+            }
+            String cargo = comboCargo.getSelectedItem().toString();
+            System.out.println("cargo"+cargo);
+            boolean estado;
+            if(comboEstado.getSelectedIndex()==0){
+                estado=true;
+            }else{
+                estado=false;
+            }
             
-                if(cCargo!=5 && (ar==null || !ar.getEstado())){
-                    JOptionPane.showMessageDialog(this, "Posiblemente estas ingresando un código de un área que no existe o fue desactivada.","Error",JOptionPane.ERROR_MESSAGE);
-                }else{
-                
-                    int result;
-                    //Se instancia la clase controlador para hacer uso de ella
-                    switch(cCargo){
-                        case 1: //Medico
-                            if(especialidad.trim().length()!=0 || universidad.trim().length()!=0) result= cm.createMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, Integer.parseInt(numLic), especialidad, universidad);
-                            else result = -3;
-                            break;
-                        case 2: //Enfermera
-                            if(habs.length!=0) result= cEnf.createEnfermera(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, anosExperiencia, habs);
-                            else result =-3;
-                            break;
-                        default: 
-                            result = ce.createEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true);
-                    }
-                    if(result == -1 || result == -2){
-                        JOptionPane.showMessageDialog(this, "Posiblemente estas ingresando a una persona que ya existe \nIntenta ingresar a una persona diferente (identificacion diferente)\nSi el problema persiste ha ocurrido un error en la base de datos,consulta al personal encargado","Error",JOptionPane.ERROR_MESSAGE);
+            boolean empty = validateInformation(identificacion, nombres, apellidos, telefono, direccion, salario, email, contrasena, jefe);
+            
+            if (empty){
+                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                Area ar;
+                try{
+                    if(cCargo!=5) ar = ca.readArea(Integer.parseInt(codigoArea));
+                    else ar=null;
+                    
+            
+                    if(cCargo!=5 && (ar==null || !ar.getEstado())){
+                        JOptionPane.showMessageDialog(this, "Posiblemente estas ingresando un código de un área que no existe o fue desactivada.","Error",JOptionPane.ERROR_MESSAGE);
                     }else{
-                        if(result== -3){//para campos vacíos de enfermera o médico
-                            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-                        }else{
-                            //Se imprime el mensaje para informar el exito de la operacion
-                            JOptionPane.showMessageDialog(this, "El usuario "+ nombres+" se ha creado con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
-                            //Cerramos la ventana
-                            this.dispose();
+                        
+                        
+                        //Se instancia la clase controlador para hacer uso de ella
+                        switch(cCargo){
+                            case 1: //Medico
+                                if(especialidad.trim().length()!=0 || universidad.trim().length()!=0){
+                                    result= cm.updateMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado, Integer.parseInt(numLic), especialidad, universidad);
+                                    System.out.println("result: "+result);
+                                    if(result==0){//si el resultado es 0 es porque el médico no existe, entonces toca crearlo
+                                        cm.createMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado, Integer.parseInt(numLic), especialidad, universidad, 1);
+                                        result = ce.updateEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado);
+                                    }
+                                }
+                                else{
+                                    result = -3;
+                                }
+                                break;
+                            case 2: //Enfermera
+                                if(habs.length!=0){
+                                    result= cEnf.createEnfermera(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, anosExperiencia, habs, 1);
+                                }
+                                else result =-3;
+                                break;
+                            default:
+                                result = ce.updateEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado);
                         }
-                    }
+                        
+                        if(result == -1 || result == -2){
+                            JOptionPane.showMessageDialog(this, "Posiblemente estás actualizando a un correo electrónico que ya existe. \n Intente digitando otro correo electrónico. \nSi el problema persiste ha ocurrido un error en la base de datos,consulta al personal encargado","Error",JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            if(result== -3){//para campos vacíos de enfermera o médico
+                                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                            }else{
+                                //Se imprime el mensaje para informar el exito de la operacion
+                                JOptionPane.showMessageDialog(this, "El usuario "+ nombres+" ha sido "+ menj+ " con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
+                                //Cerramos la ventana
+                                this.dispose();
+                            }
+                        }
                 
+                    }
+                }catch(NumberFormatException ex){
+                    JOptionPane.showMessageDialog(this, "El código del área, el salario y número de licencia, en caso del médico, deben ser números enteros.","Error",JOptionPane.ERROR_MESSAGE);
                 }
-            }catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(this, "El código del área, el salario y número de licencia, en caso del médico, deben ser números enteros.","Error",JOptionPane.ERROR_MESSAGE);
             }
         }
-        }else{
-            JOptionPane.showMessageDialog(this,"No puedes realizar acciones con campos vacios","Termina de llenar los campos",JOptionPane.ERROR_MESSAGE);
-        }
+            
+        
 
     }//GEN-LAST:event_bModificarActionPerformed
-    public boolean validateInformation(String d1, String d2, String d3, String d4, String d5, String d6, String d7, String d8){
-        return (d1.trim().length()==0 || d2.trim().length()==0 || d3.trim().length()==0|| d4.trim().length()==0|| d5.trim().length()==0|| d6.trim().length()==0|| d7.trim().length()==0|| d8.trim().length()==0);
+    public boolean validateInformation(String d1, String d2, String d3, String d4, String d5, String d6, String d7, String d8, String d9){
+        return (d1.trim().length()==0 || d2.trim().length()==0 || d3.trim().length()==0|| d4.trim().length()==0|| d5.trim().length()==0|| d6.trim().length()==0|| d7.trim().length()==0|| d8.trim().length()==0|| d9.trim().length()==0);
     }
     private void tfDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDireccionActionPerformed
         // TODO add your handling code here:
@@ -625,6 +685,9 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             tfEspecialidad.setVisible(true);
             lbUniversidad.setVisible(true);
             tfUniversidad.setVisible(true);
+            lbHabs1.setVisible(false);
+            lbHabs2.setVisible(false);
+            jScrollPane1.setVisible(false);
             break;
             case 2:
             tfArea.setEditable(true);
@@ -636,6 +699,9 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             tfEspecialidad.setVisible(false);
             lbUniversidad.setVisible(false);
             tfUniversidad.setVisible(false);
+            lbHabs1.setVisible(true);
+            lbHabs2.setVisible(true);
+            jScrollPane1.setVisible(true);
             break;
             case 5:
             tfArea.setText("");
@@ -648,6 +714,9 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             tfEspecialidad.setVisible(false);
             lbUniversidad.setVisible(false);
             tfUniversidad.setVisible(false);
+            lbHabs1.setVisible(false);
+            lbHabs2.setVisible(false);
+            jScrollPane1.setVisible(false);
             default:
             tfArea.setEditable(true);
             lbAnos.setVisible(false);
@@ -658,6 +727,9 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             tfEspecialidad.setVisible(false);
             lbUniversidad.setVisible(false);
             tfUniversidad.setVisible(false);
+            lbHabs1.setVisible(false);
+            lbHabs2.setVisible(false);
+            jScrollPane1.setVisible(false);
         }
     }//GEN-LAST:event_comboCargoItemStateChanged
 
@@ -702,6 +774,11 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
     private void tfUniversidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfUniversidadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfUniversidadActionPerformed
+
+    private void tfBuscarIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarIdMouseClicked
+        tfBuscarId.setSelectionStart(0); 
+        tfBuscarId.setSelectionEnd(tfBuscarId.getText().length()); 
+    }//GEN-LAST:event_tfBuscarIdMouseClicked
 
     /**
      * @param args the command line arguments

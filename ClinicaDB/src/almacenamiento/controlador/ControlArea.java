@@ -78,17 +78,14 @@ public class ControlArea {
                 
     }
     
-/**
-    public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
-        int result;
-        result = 0;
-        Usuario user = new Usuario(name,lastName,userName,password,email,perfil,cedula,convo);
-        user.setState(estado);
-        result = daoUser.updateUser(user, cedula);
+    public int updateArea(int codigoArea, String nombre, String descripcion, boolean estado){
+        Area ar = new Area(codigoArea, nombre, descripcion, estado);
+        
+        int result = daoAr.updateArea(ar, codigoArea);
 
         return result;
     }
-
+/**
     public int  deleteUser(String text) {
         return daoUser.deleteUser(text);
     }

@@ -152,16 +152,16 @@ public class DAOEmpleado {
             }
             return em;
          }
-         catch(SQLException e){ System.out.println(e); }
-         catch(Exception e){ System.out.println("excepcion del dao"); System.out.println(e); }
+         catch(SQLException e){ System.out.println("readEmpleado "+ e); }
+         catch(Exception e){ System.out.println("excepcion del readEmpleado"); System.out.println(e); }
         return null;
     }//fin readUser
 
    
     /**
      * actualizar la informacion de un usuario, con la cedula que entra por parametro.
-     * @param us objeto de Usuario con los atributos a modificar en la base de datos.
-     * @param cedula la cedula del usuario que se quiere actualizar.
+     * @param em objeto de Empleado con los atributos a modificar en la base de datos.
+     * @param identificacion la identificacion del Empleado que se quiere actualizar.
      * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
      */
     public int updateEmpleado(Empleado em, String identificacion){
@@ -172,8 +172,8 @@ public class DAOEmpleado {
         sql_save4="UPDATE persona SET direccion='"+em.getDireccion()+"' WHERE identificacion='" + em.getIdentificacion() + "'";
         sql_save5="UPDATE empleado SET salario="+em.getSalario()+" WHERE identificacion='" + em.getIdentificacion() + "'";
         sql_save6="UPDATE empleado SET email='"+em.getEmail()+"' WHERE identificacion='" + em.getIdentificacion() + "'";
-        sql_save7="UPDATE empleado SET cargo='"+em.getEmail()+"' WHERE identificacion='" + em.getIdentificacion() + "'";
-        sql_save8="UPDATE empleado SET contrasena='"+em.getEmail()+"' WHERE identificacion='" + em.getIdentificacion() + "'";
+        sql_save7="UPDATE empleado SET cargo='"+em.getCargo()+"' WHERE identificacion='" + em.getIdentificacion() + "'";
+        sql_save8="UPDATE empleado SET contrasena='"+em.getContrasena()+"' WHERE identificacion='" + em.getIdentificacion() + "'";
         
         if(em.getJefe().equals("-1")){
             sql_save9="UPDATE empleado SET jefe=NULL WHERE identificacion='" + em.getIdentificacion() + "'";
@@ -198,13 +198,30 @@ public class DAOEmpleado {
             statement.executeUpdate(sql_save4);
             statement.executeUpdate(sql_save5);
             statement.executeUpdate(sql_save6);
-            statement.executeUpdate(sql_save7);
+            
+            ResultSet table ;
+            switch(em.getCargo()){
+                case "Medico":
+                    String sql_save12= "SELECT * FROM medico WHERE identificacion='"+identificacion+"'";
+                    table= statement.executeQuery(sql_save12);
+                    boolean thereIs=false;
+                    while(table.next()){
+                        thereIs=true;
+                    }
+                    if(thereIs){
+                        statement.executeUpdate(sql_save7);
+                    }else{
+                        String sql_save13 = "INSERT  ";
+                    }
+            }
+            
+           
             statement.executeUpdate(sql_save8);
             statement.executeUpdate(sql_save9);
             statement.executeUpdate(sql_save10);
             statement.executeUpdate(sql_save11);
             
-           System.out.println("ok");
+            System.out.println("ok");
            
         }
         catch(SQLException e){

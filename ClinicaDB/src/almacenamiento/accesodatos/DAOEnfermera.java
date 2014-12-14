@@ -55,7 +55,7 @@ public class DAOEnfermera {
         for(int i=0; i<numHabs ; i++){
             sql_hab[i]= "INSERT INTO habilidades_enfermera (identificacion, habilidad) VALUES ('"+en.getIdentificacion() + "', '"+ en.getMisHabilidades()[i] +"')";
         }
-        sql_en="INSERT INTO medico (identificacion, anosexp) VALUES ('"+ en.getIdentificacion() +"', "+ en.getAnosExp()  +")";
+        sql_en="INSERT INTO enfermera (identificacion, anosexp) VALUES ('"+ en.getIdentificacion() +"', "+ en.getAnosExp()  +")";
         try{
 
             Statement st = conn.createStatement();
@@ -86,7 +86,7 @@ public class DAOEnfermera {
         */
     public Enfermera readEnfermera(Empleado em){
         Enfermera enf= new Enfermera();
-        String sql_select="SELECT enfermera.identificacion, enfermera.numeroLicencia FROM  enfermera WHERE enfermera.identificacion='" + em.getIdentificacion()+ "'";
+        String sql_select="SELECT enfermera.identificacion, enfermera.anosexp FROM  enfermera WHERE enfermera.identificacion='" + em.getIdentificacion()+ "'";
         String sql_hab= "SELECT habilidades_enfermera.identificacion, habilidades_enfermera.habilidad FROM  habilidades_enfermera WHERE habilidades_enfermera.identificacion='" + em.getIdentificacion()+ "'";
         
         try{
@@ -98,12 +98,7 @@ public class DAOEnfermera {
             
             ResultSet table = statement.executeQuery(sql_select);
             
-            ResultSet table2 = statement.executeQuery(sql_hab);
-            
-            ResultSet table3 = statement.executeQuery(sql_hab);
-            
             while(table.next()){
-                
                 enf.setNombres(em.getNombres());
                 
                 enf.setApellidos(em.getApellidos());
@@ -129,25 +124,35 @@ public class DAOEnfermera {
                 enf.setIdentificacion(table.getString(1));
                 
                 enf.setAnosExp(table.getInt(2));
+            
                 
-                String habs [];
-                int numHabs=0;
-                while(table2.next()){
-                    numHabs++;
-                }
-                habs = new String [numHabs];
-                int i=0;
-                while(table3.next()){
-                    habs[i] = table3.getString(2);
-                    i++;
-                }
-                enf.setMisHabilidades(habs);
                 System.out.println("ok");
             }
+            
+            ResultSet table2 = statement.executeQuery(sql_hab);
+        
+            String habs [];
+            int numHabs=0;
+            while(table2.next()){
+                numHabs++;
+            }
+                
+            ResultSet table3 = statement.executeQuery(sql_hab);
+            habs = new String [numHabs];
+            int i=0;
+            while(table3.next()){
+                habs[i] = table3.getString(2);
+                i++;
+            }
+                
+            enf.setMisHabilidades(habs);
+            
+            
             return enf;
+            
         }
-         catch(SQLException e){ System.out.println(e); }
-         catch(Exception e){ System.out.println("excepcion del dao"); System.out.println(e); }
+        catch(SQLException e){ System.out.println("readEnf "+e); }
+        catch(Exception e){ System.out.println("excepcion del dao"); System.out.println(e); }
         return null;
     }//fin readUser
 

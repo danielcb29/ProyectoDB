@@ -39,6 +39,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
         cEnf = new ControlEnfermera(conn);
         ca = new ControlArea(conn);
         
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
         this.setResizable(false);
         lbIdJ.setVisible(false);
         tfIdJ.setVisible(false);
@@ -52,7 +53,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
         tfUniversidad.setVisible(false);
         lbHabs1.setVisible(false);
         lbHabs2.setVisible(false);
-        taHabs.setVisible(false);
+        jScrollPane3.setVisible(false);
         
     }
 
@@ -147,7 +148,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
         lbSalario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbSalario.setText("Salario:");
 
-        comboCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gerente", "Médico", "Enfermera", "Secretaria", "Bodeguero", "Administrador" }));
+        comboCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Gerente", "Medico", "Enfermera", "Secretaria", "Bodeguero", "Administrador" }));
         comboCargo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboCargoItemStateChanged(evt);
@@ -211,7 +212,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
         lbAnos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbAnos.setText("Años experiencia:");
 
-        comboAnos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "67", "68", "69", "70" }));
+        comboAnos.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "67", "68", "69", "70" }));
 
         lbNL.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbNL.setText("Numero de Licencia:");
@@ -251,7 +252,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
 
         taHabs.setColumns(20);
         taHabs.setRows(5);
-        taHabs.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        taHabs.setBorder(null);
         jScrollPane3.setViewportView(taHabs);
 
         lbHabs2.setFont(new java.awt.Font("Ubuntu", 2, 12)); // NOI18N
@@ -324,7 +325,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                             .addComponent(cbAJ)
                             .addComponent(lbHabs1)
                             .addComponent(lbHabs2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 450, Short.MAX_VALUE)))
+                        .addGap(0, 453, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -408,7 +409,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(lbHabs2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -470,7 +471,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                 universidad = tfUniversidad.getText();
                 break;
             case 2: //Enfermera
-                anosExperiencia = comboAnos.getSelectedIndex()+1;
+                anosExperiencia = comboAnos.getSelectedIndex();
                 habs = taHabs.getText().split("\n");
                 break;
         }
@@ -496,12 +497,18 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                     //Se instancia la clase controlador para hacer uso de ella
                     switch(cCargo){
                         case 1: //Medico
-                            if(especialidad.trim().length()!=0 || universidad.trim().length()!=0) result= cm.createMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, Integer.parseInt(numLic), especialidad, universidad);
-                            else result = -3;
+                            if(especialidad.trim().length()!=0 || universidad.trim().length()!=0){
+                                result= cm.createMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, Integer.parseInt(numLic), especialidad, universidad, 0);
+                            }else{
+                                result = -3;
+                            }
                             break;
                         case 2: //Enfermera
-                            if(habs.length!=0) result= cEnf.createEnfermera(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, anosExperiencia, habs);
-                            else result =-3;
+                            if(habs.length!=0){
+                                result= cEnf.createEnfermera(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, anosExperiencia, habs, 0);
+                            }else{
+                                result =-3;
+                            }
                             break;
                         default: 
                             result = ce.createEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true);
@@ -557,7 +564,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                 tfUniversidad.setVisible(true);
                 lbHabs1.setVisible(false);
                 lbHabs2.setVisible(false);
-                taHabs.setVisible(false);
+                jScrollPane3.setVisible(false);
                 break;
             case 2://Enfermera
                 tfArea.setEditable(true);
@@ -571,7 +578,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                 tfUniversidad.setVisible(false);
                 lbHabs1.setVisible(true);
                 lbHabs2.setVisible(true);
-                taHabs.setVisible(true);
+                jScrollPane3.setVisible(true);
                 break;
             case 5:
                 tfArea.setText("");
@@ -586,7 +593,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                 tfUniversidad.setVisible(false);
                 lbHabs1.setVisible(false);
                 lbHabs2.setVisible(false);
-                taHabs.setVisible(false);
+                jScrollPane3.setVisible(false);
             default:
                 tfArea.setEditable(true);
                 lbAnos.setVisible(false);
@@ -599,7 +606,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                 tfUniversidad.setVisible(false);
                 lbHabs1.setVisible(false);
                 lbHabs2.setVisible(false);
-                taHabs.setVisible(false);
+                jScrollPane3.setVisible(false);
         }
     }//GEN-LAST:event_comboCargoItemStateChanged
 

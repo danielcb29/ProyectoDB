@@ -110,17 +110,16 @@ public class ControlEmpleado {
     }
     
 
-   /** public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
-        int result;
-        result = 0;
-        Usuario user = new Usuario(name,lastName,userName,password,email,perfil,cedula,convo);
-        user.setState(estado);
-        result = daoUser.updateUser(user, cedula);
+    public int updateEmpleado(String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado) {
+        
+        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
+        
+        int result = daoEm.updateEmpleado(em, id);
 
         return result;
     }
 
-    public int  deleteUser(String text) {
+    /*public int  deleteUser(String text) {
         return daoUser.deleteUser(text);
     }
     

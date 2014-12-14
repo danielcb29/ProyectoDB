@@ -52,12 +52,15 @@ public class ControlMedico {
      * @param numeroLicencia  el numero de licencia del medico
      * @param especialidad especialidad del medico
      * @param universidad universidad del medico
+     * @param flagEm
      * @return 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente el usuario.
      */
-    public int   createMedico (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int numeroLicencia, String especialidad, String universidad)
+    public int   createMedico (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int numeroLicencia, String especialidad, String universidad, int flagEm)
     {
-        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
-        daoEm.createEmpleado(em);
+        if(flagEm==0){
+            Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
+            daoEm.createEmpleado(em);
+        }
         
         Medico med = new Medico(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, numeroLicencia, especialidad, universidad);
         
@@ -88,7 +91,7 @@ public class ControlMedico {
     
  
      
-    /** metodo que llama al Dao para consultar cuantos usuarios existen
+    /** metodo que llama al Dao para consultar los medicos que existen
      * @return cantidad de usuarios existentes en la base de datos
      */
     public Medico[] listMedico ()  
@@ -98,17 +101,35 @@ public class ControlMedico {
                 
     }
     /**
+     * metodo que llama al DAO para actualizar el médico.
+     * @param id
+     * @param nombres
+     * @param apellidos
+     * @param telefono
+     * @param direccion
+     * @param sal
+     * @param email
+     * @param cargo
+     * @param contrasena
+     * @param jefe
+     * @param area
+     * @param estado
+     * @param numeroLicencia
+     * @param especialidad
+     * @param universidad
+     * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
+     */
 
-    public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
-        int result;
-        result = 0;
-        Usuario user = new Usuario(name,lastName,userName,password,email,perfil,cedula,convo);
-        user.setState(estado);
-        result = daoUser.updateUser(user, cedula);
+    public int updateMedico(String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int numeroLicencia, String especialidad, String universidad) {
+        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
+        daoEm.updateEmpleado(em, id);
+        
+        Medico me = new Medico(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, numeroLicencia, especialidad, universidad);
+        int result = daoMe.updateMedico(me, id);
 
         return result;
     }
-
+/*
     public int  deleteUser(String text) {
         return daoUser.deleteUser(text);
     }

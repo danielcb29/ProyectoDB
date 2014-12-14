@@ -41,7 +41,7 @@ public class DAOArea {
         /**
         * crear o agregar un area a la tabla.
         * @param ar el objeto Area a agregar.
-        * @return devuelve el número de tuplas que se agregaron a la tabla.
+        * @return devuelve el número de tuplas que se agregaron a la tabla. -2 si hay algun error de sql y -1 si hay cualquier otro error.
         */
     public int createArea(Area ar){
         String sql_ar;
@@ -107,75 +107,26 @@ public class DAOArea {
 
    
     /**
-     * actualizar la informacion de un usuario, con la cedula que entra por parametro.
-     * @param us objeto de Usuario con los atributos a modificar en la base de datos.
-     * @param cedula la cedula del usuario que se quiere actualizar.
+     * actualizar la informacion de un area, con el codigo que entra por parametro.
+     * @param ar objeto Area con atributos modificados
+     * @param cod codigo del area a modificar
      * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
      */
-  /**  public int updateUser(Usuario us, String cedula){
-        String sql_save1,  sql_save2,  sql_save3, sql_save4,  sql_save5,  sql_save6,  sql_save7;
-	sql_save1="UPDATE usuario SET name='"+us.getName()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save2="UPDATE usuario SET lastname='"+us.getLastName()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save3="UPDATE usuario SET userName='"+us.getUserName()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save4="UPDATE usuario SET contrasena='"+us.getPassword()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save5="UPDATE usuario SET email='"+us.getMail()+"' WHERE cedula='" + us.getCedula() + "'";
+    public int updateArea(Area ar, int cod){
+        String sql_save1,  sql_save2,  sql_save3;
+	sql_save1="UPDATE area SET nombre="+ar.getNombre()+" WHERE codigoArea=" + cod+ "";
+        sql_save2="UPDATE area SET descripcion="+ar.getDescripcion()+" WHERE codigoArea=" + cod+ "";
+        sql_save3="UPDATE area SET estado="+ar.getEstado()+" WHERE codigoArea=" + cod+ "";
         
-        sql_save7=null;
-        switch(us.getProfile()){
-            case "Digitador":   sql_save6="UPDATE usuario SET id_perfil='1' WHERE cedula='" + us.getCedula() + "'";
-                                break;
-            case "Coordinador": sql_save6="UPDATE usuario SET id_perfil='2' WHERE cedula='" + us.getCedula() + "'";
-                                break;
-            case "Administrador":   sql_save6="UPDATE usuario SET id_perfil='3' WHERE cedula='" + us.getCedula() + "'";
-                                    sql_save7="UPDATE convousuario SET estado=false WHERE cedula='" + us.getCedula() + "' AND estado=true";
-                                    break;
-            default: return -3;
-                       
-        }
-        
-        
-        
-
         try{
             Statement statement = conn.createStatement();
 
-            statement.executeUpdate(sql_save1);
+            int rowCount = statement.executeUpdate(sql_save1);
             statement.executeUpdate(sql_save2);
             statement.executeUpdate(sql_save3);
-            statement.executeUpdate(sql_save4);
-            statement.executeUpdate(sql_save5);
-            statement.executeUpdate(sql_save6);
-            if(sql_save7!=null) statement.executeUpdate(sql_save7);
             
-            if(!us.getProfile().equals("Administrador")){
-                String sql_save= "SELECT codigo FROM convoUsuario WHERE cedula='"+us.getCedula()+"' AND estado=true";
-                ResultSet table= statement.executeQuery(sql_save);
-                String cod="";
-                while(table.next()){
-                    cod = table.getString(1);
-                }
-                String usCod=Integer.toString(us.getConvocatoria().getCode());
-                if(!usCod.equals(cod)){
-                    sql_save="UPDATE convoUsuario SET estado=false WHERE codigo= "+cod+" AND cedula = '"+us.getCedula()+"'";
-                    statement.executeUpdate(sql_save);
-                    sql_save= "SELECT codigo FROM convoUsuario WHERE cedula='"+us.getCedula()+"'";
-                    table= statement.executeQuery(sql_save);
-                    boolean flag=false;
-                    while(table.next()){
-                        cod = table.getString(1);
-                        if(usCod.equals(cod)){
-                            sql_save="UPDATE convoUsuario SET estado=true WHERE codigo= "+usCod+" AND cedula = '"+us.getCedula()+"'";
-                            statement.executeUpdate(sql_save);
-                            flag=true;
-                            break;
-                        }
-                    }
-                    if(!flag){
-                        sql_save = "INSERT INTO convoUsuario VALUES('"+us.getCedula() +"', "+ usCod +", true )";
-                        statement.executeUpdate(sql_save);
-                    }
-                }
-            }
+            System.out.println("ok");
+            return rowCount;
         }
         catch(SQLException e){
             System.out.println(e); 
@@ -185,8 +136,8 @@ public class DAOArea {
             System.out.println(e);
             return -1;
         }
-        return 1;
-    }//fin updateUser
+        
+    }//fin updateArea
 
    /**
      * listar todas las tuplas de los usuarios existentes.

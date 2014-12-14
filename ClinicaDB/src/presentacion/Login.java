@@ -22,6 +22,7 @@ public class Login extends javax.swing.JFrame {
     private String email;
     private String contrasena;
     private VistaAdmin va;
+    private VistaCrearArea vca;
     
     /**
      * Creates new form GestionUsuario
@@ -180,6 +181,8 @@ public class Login extends javax.swing.JFrame {
                             break;
                         case "Medico":
                             System.out.println("Medico");
+                            vca= new VistaCrearArea(conn, 1);
+                            vca.setVisible(true);
                             Empleado me1 = ce.readEmpleado(email, 1, 1);
                             System.out.println("dentro de la vista1" + me1.getNombres());
                             Medico[] list = cm.listMedico();
@@ -188,6 +191,14 @@ public class Login extends javax.swing.JFrame {
                             this.dispose();
                             break;
                         case "Enfermera":
+                            System.out.println("Medico");
+                            Empleado enf1 = ce.readEmpleado(email, 1, 2);
+                            System.out.println("dentro de la vista1" + enf1.getNombres());
+                            
+                            
+                            this.setEnabled(false);
+                            this.dispose();
+                            break;
                         default:
                             System.out.println("default");
                     }

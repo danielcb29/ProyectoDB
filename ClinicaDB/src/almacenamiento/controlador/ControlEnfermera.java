@@ -51,12 +51,15 @@ public class ControlEnfermera {
      * @param estado estado del enfermera
      * @param anos años de experiencia del enfermera
      * @param habs habilidades de la enfermera
+     * @param flagEm
      * @return 0 si no fue posible crear el usuario. 1 si se creo satisfactoriamente la enfermera.
      */
-    public int   createEnfermera (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int anos, String[] habs)
+    public int   createEnfermera (String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int anos, String[] habs, int flagEm)
     {
-        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
-        daoEm.createEmpleado(em);
+        if(flagEm==0){
+            Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
+            daoEm.createEmpleado(em);
+        }
         
         Enfermera enf = new Enfermera(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, anos, habs);
         
@@ -77,7 +80,7 @@ public class ControlEnfermera {
     public Enfermera   readEnfermera (Empleado em){
 
         
-        System.out.println("antes readMedico");
+        System.out.println("antes readEnfermera");
         Enfermera enf= daoEnf.readEnfermera(em);
         return enf;
 
