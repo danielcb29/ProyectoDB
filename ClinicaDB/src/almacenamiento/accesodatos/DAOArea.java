@@ -71,7 +71,7 @@ public class DAOArea {
         /**
         * consultar el area que tiene codigo el parametro.
         * @param cod el correo o identificacion del empleado que se quiere consultar.
-        * @return null si hay error en la consulta a la base de datos. Objeto tipo Area si el objeto del usuario que se consulto. 
+        * @return null si hay error en la consulta a la base de datos. Objeto tipo Area si el objeto del area que se consulto existe. 
         */
     public Area readArea(int cod){
         Area ar= new Area();
@@ -192,65 +192,42 @@ public class DAOArea {
      * listar todas las tuplas de los usuarios existentes.
      * @return los objetos tipo Usuario enlistados en un arreglo.
      */ 
-/** public Usuario[] listUsers(){
+    public Area[] listArea(){
         
         String sql_select;
-        sql_select="SELECT usuario.cedula, usuario.name, usuario.lastName,usuario.userName, usuario.contrasena, usuario.email ,  perfiles.nombre, usuario.estado FROM  usuario, perfiles WHERE usuario.id_perfil=perfiles.id_perfil";
+        sql_select="SELECT codigoArea, nombre, descripcion, estado FROM  area ";        
         try{
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
             ResultSet table = statement.executeQuery(sql_select);
-            ResultSet table2= table;
+            
             int numRows=0;
             while(table.next()){
                 numRows++;
             }
             System.out.println(numRows);
-            Usuario us[]= new Usuario[numRows];
+            Area ar[]= new Area[numRows];
             for(int i=0; i<numRows; i++){
-                us[i]=new Usuario();
+                ar[i]=new Area();
             }
+            ResultSet table2= statement.executeQuery(sql_select);
             String sql_conv="";
             int j=0;
             while(table2.next()){
                 
-                us[j].setCedula(table.getString(1));
+                ar[j].setCodigoArea(table2.getInt(1));
+                
+                ar[j].setNombre(table2.getString(2));
+                
+                ar[j].setDescripcion(table2.getString(3));
+                
+                ar[j].setEstado(table2.getBoolean(4));
                
-                us[j].setName(table.getString(2));
-                
-                us[j].setLastName(table.getString(3));
-                
-                us[j].setUserName(table.getString(4));               
-
-                us[j].setPassword(table.getString(5));
-
-                us[j].setMail(table.getString(6));
- 
-                us[j].setProfile(table.getString(7));
-                
-                us[j].setState(table.getBoolean(8));
-                
-                if(!us[j].getProfile().equals("Administrador")){
-                    sql_conv= "SELECT convocatoria.nombre FROM convoUsuario, convocatoria WHERE cedula='"+us[j].getCedula() +"' AND estado=true AND convoUsuario.codigo=convocatoria.codigo";
-                    ResultSet table3= statement.executeQuery(sql_conv);
-                    String nom="";
-                    while(table3.next()){
-                
-                        nom = table3.getString(1);
-              
-                        //System.out.println("ok");
-                    }
-                    DAOConvocatoria daoc=new DAOConvocatoria(conn);
-                    Convocatoria conv = daoc.readConv(nom);
-                    us[j].setConvocatoria(conv);
-                }
-
-
-                j++;
                 System.out.println("ok");
+                j++;
             }
            
-            return us;
+            return ar;
          }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println(e); }

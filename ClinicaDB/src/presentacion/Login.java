@@ -20,7 +20,7 @@ public class Login extends javax.swing.JFrame {
     private Connection conn;
     private String email;
     private String contrasena;
-    private VistaCrearUsuario vcu;
+    private VistaAdmin va;
     
     /**
      * Creates new form GestionUsuario
@@ -33,7 +33,6 @@ public class Login extends javax.swing.JFrame {
         ce.connectDB();
         conn= ce.getConn();
         cm = new ControlMedico(conn);
-//        cm.connectDB();
         this.setTitle("Clínica 2014 Universidad del Valle");
         this.setResizable(false);
         
@@ -174,10 +173,13 @@ public class Login extends javax.swing.JFrame {
                             break;
                         case "Medico":
                             System.out.println("Medico");
-                            Medico me1 = cm.readMedico(email, 1);
-                            vcu=new VistaCrearUsuario();
-                            vcu.setVisible(true);
-                            this.setEnabled(false);
+                            Empleado me1 = ce.readEmpleado(email, 1, 1);
+                            System.out.println("dentro de la vista1" + me1.getNombres());
+                            Medico[] list = cm.listMedico();
+                            System.out.println("dentro de la vista2" + list[0].getNombres());
+                            va=new VistaAdmin(ce);
+                            va.setVisible(true);
+                            this.hide();
                             break;
                         default:
                             System.out.println("default");

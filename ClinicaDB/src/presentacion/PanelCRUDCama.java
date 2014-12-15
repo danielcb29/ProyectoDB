@@ -6,17 +6,71 @@
 
 package presentacion;
 
+import almacenamiento.controlador.ControlArea;
+import almacenamiento.controlador.ControladorCama;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
+import proceso.*;
+
 /**
  *
  * @author alvaro
  */
 public class PanelCRUDCama extends javax.swing.JFrame {
 
+    
+    private int tipo;
+    private Connection conn;
+    Area [] misAreas;
+    ControladorCama controladorCama;
+    Cama camaNuevaEditElim;
+
     /**
      * Creates new form PanelCRUDCama
      */
-    public PanelCRUDCama() {
+    public PanelCRUDCama(Connection conn, int tipo) {
+        
+        this.tipo = tipo;
+        this.conn = conn;
+        ControlArea consultArea = new ControlArea(conn);
         initComponents();
+        controladorCama = new ControladorCama(conn);
+        
+        
+        misAreas = consultArea.listArea();
+        for(int i = 0; i<misAreas.length; i++){
+            cmbArea.addItem(misAreas[i]);
+        }
+        
+        btBuscarCam.setVisible(false);
+        lblEstado.setVisible(false);
+        boxEstado.setVisible(false);
+        cmbActiva.setVisible(false);
+        lblActiva.setVisible(false);
+        
+        if(tipo ==2){
+            lblTitulo.setText("Editar Cama");
+            lblDescripcion.setText("Edicion la informacion de las camas, busque la cama y luego edite la informacion");
+            btBuscarCam.setVisible(true);
+            btCrearCam.setText("Editar");
+            lblEstado.setVisible(true);
+            boxEstado.setVisible(true);
+            cmbActiva.setVisible(true);
+            lblActiva.setVisible(true);
+            
+        }else if(tipo==3){
+            lblTitulo.setText("Eliminar Cama");
+            lblDescripcion.setText("Eliminacion de camas, busque la cama y eliminela");
+            btBuscarCam.setVisible(true);
+            btCrearCam.setText("Eliminar");
+            lblEstado.setVisible(true);
+            boxEstado.setVisible(true);
+            txtarCamDes.setEditable(false);
+            cmbArea.setEnabled(false);
+            cmbActiva.setEnabled(false);
+            boxEstado.setEnabled(false);
+        
+        }
     }
 
     /**
@@ -41,9 +95,13 @@ public class PanelCRUDCama extends javax.swing.JFrame {
         txtarCamDes = new javax.swing.JTextArea();
         btCrearCam = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
-        btAsigCama = new javax.swing.JButton();
+        btBuscarCam = new javax.swing.JButton();
+        lblEstado = new javax.swing.JLabel();
+        boxEstado = new javax.swing.JComboBox();
+        lblActiva = new javax.swing.JLabel();
+        cmbActiva = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/logo2.png"))); // NOI18N
 
@@ -70,15 +128,28 @@ public class PanelCRUDCama extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtarCamDes);
 
         btCrearCam.setText("Crear");
+        btCrearCam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearCamActionPerformed(evt);
+            }
+        });
 
         btCancelar.setText("Cancelar");
 
-        btAsigCama.setText("Asignar Cama");
-        btAsigCama.addActionListener(new java.awt.event.ActionListener() {
+        btBuscarCam.setText("Buscar");
+        btBuscarCam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAsigCamaActionPerformed(evt);
+                btBuscarCamActionPerformed(evt);
             }
         });
+
+        lblEstado.setText("Estado");
+
+        boxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ocupada", "Vacia" }));
+
+        lblActiva.setText("Activa");
+
+        cmbActiva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Si", "No" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,39 +162,42 @@ public class PanelCRUDCama extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTitulo)
-                            .addComponent(lblDescripcion))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
+                        .addGap(296, 296, 296)
                         .addComponent(lblLogo)
                         .addGap(30, 30, 30))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jSeparator1)
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumCama)
+                    .addComponent(lblArea)
+                    .addComponent(lblCamaDescr)
+                    .addComponent(lblEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNumCama)
-                            .addComponent(lblArea)
-                            .addComponent(lblCamaDescr))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(109, 109, 109)
+                        .addComponent(lblActiva)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cmbActiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cmbArea, javax.swing.GroupLayout.Alignment.LEADING, 0, 231, Short.MAX_VALUE)
+                                .addComponent(txtNumCama, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(51, 51, 51)
+                            .addComponent(btBuscarCam, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 80, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cmbArea, javax.swing.GroupLayout.Alignment.LEADING, 0, 231, Short.MAX_VALUE)
-                                    .addComponent(txtNumCama, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btAsigCama)
-                        .addGap(48, 48, 48)
-                        .addComponent(btCrearCam, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(btCancelar)))
-                .addGap(41, 41, 41))
+                                .addComponent(btCrearCam, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +214,8 @@ public class PanelCRUDCama extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumCama)
-                    .addComponent(txtNumCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumCama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btBuscarCam))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblArea)
@@ -149,11 +224,16 @@ public class PanelCRUDCama extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCamaDescr)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstado)
+                    .addComponent(boxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblActiva)
+                    .addComponent(cmbActiva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCrearCam)
-                    .addComponent(btCancelar)
-                    .addComponent(btAsigCama))
+                    .addComponent(btCancelar))
                 .addContainerGap())
         );
 
@@ -164,55 +244,131 @@ public class PanelCRUDCama extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNumCamaActionPerformed
 
-    private void btAsigCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsigCamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btAsigCamaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+    private void btBuscarCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarCamActionPerformed
+        
+        switch (tipo){
+                case 1:                    
+                    camaNuevaEditElim = controladorCama.leerCama(txtNumCama.getText(), false);
                     break;
+                case 2:
+                    camaNuevaEditElim = controladorCama.leerCama(txtNumCama.getText(), false);
+                    break;
+                case 3:
+                    camaNuevaEditElim = controladorCama.leerCama(txtNumCama.getText(), true);
+                    break;
+        }
+        
+        if(camaNuevaEditElim==null){
+            JOptionPane.showMessageDialog(this, "La cama buscada no existe, por favor reviselo", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            txtarCamDes.setText(camaNuevaEditElim.getDescripcion()); 
+            int index;
+            index = 0;
+            for(int i= 0; i<misAreas.length; i++){
+                if(misAreas[i].getCodigoArea()==camaNuevaEditElim.getArea()){
+                    index = i;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PanelCRUDCama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PanelCRUDCama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PanelCRUDCama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PanelCRUDCama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PanelCRUDCama().setVisible(true);
+            cmbArea.setSelectedIndex(index);
+            
+            if(!camaNuevaEditElim.isEstado()){
+                index = 0; 
+            }else{
+                
+                index = 1;
             }
-        });
+            boxEstado.setSelectedIndex(index);
+            
+            if(camaNuevaEditElim.isActiva()){
+                index = 0; 
+            }else{
+                
+                index = 1;
+            }
+            cmbActiva.setSelectedIndex(index);
+        }
+    }//GEN-LAST:event_btBuscarCamActionPerformed
+
+    private void btCrearCamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearCamActionPerformed
+
+        String numeroCama, descripcion;
+        int area;
+        boolean estado, activa;
+        numeroCama = txtNumCama.getText();
+        area = misAreas[cmbArea.getSelectedIndex()].getCodigoArea();
+        descripcion = txtarCamDes.getText();
+        int resultado;
+        estado = boxEstado.getSelectedIndex() != 0;
+        activa = cmbActiva.getSelectedIndex() == 0;
+        if (validarInfo(numeroCama, descripcion)) {
+
+            switch (tipo) {
+                case 1:
+                    camaNuevaEditElim = new Cama(numeroCama, true, descripcion, area, true);
+                    resultado = controladorCama.crearCama(camaNuevaEditElim);
+                    if (resultado > 0) {
+                        JOptionPane.showMessageDialog(this, "Cama creada", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    } else {
+                        if (resultado == -2) {
+                            JOptionPane.showMessageDialog(this, "Por favor revise de la cama, ya que el numero de Cama ya existe en la base de datos", "Mensaje de error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Error al crear la cama, si el problema persiste contacte al administrador", "Mensaje de error", JOptionPane.ERROR_MESSAGE);
+
+                        }
+                    }
+                    break;
+                case 2:
+                    camaNuevaEditElim.setDescripcion(descripcion);
+                    camaNuevaEditElim.setArea(area);
+                    camaNuevaEditElim.setActiva(activa);
+                    camaNuevaEditElim.setEstado(estado);
+                    resultado = controladorCama.actualizarCama(camaNuevaEditElim.getNumeroCama(), camaNuevaEditElim);
+                    if (resultado > 0) {
+                        JOptionPane.showMessageDialog(this, "Cama modificada", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al modificar la cama, si el problema persiste contacte al administrador", "Mensaje de error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    break;
+                case 3:
+                    resultado = controladorCama.eliminarCama(camaNuevaEditElim.getNumeroCama());
+                    if (resultado > 0) {
+                        JOptionPane.showMessageDialog(this, "Cama eliminada", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al eliminar la cama, si el problema persiste contacte al administrador", "Mensaje de error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error, exiten campos vacios por favor revise que todos los campos esten completos");
+        }
+
+    }//GEN-LAST:event_btCrearCamActionPerformed
+
+    
+    private boolean validarInfo(String numeroCama, String descripcion){
+        return !((numeroCama.length()==0)||(descripcion.length()==0));
+        
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAsigCama;
+    private javax.swing.JComboBox boxEstado;
+    private javax.swing.JButton btBuscarCam;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btCrearCam;
+    private javax.swing.JComboBox cmbActiva;
     private javax.swing.JComboBox cmbArea;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblActiva;
     private javax.swing.JLabel lblArea;
     private javax.swing.JLabel lblCamaDescr;
     private javax.swing.JLabel lblDescripcion;
+    private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNumCama;
     private javax.swing.JLabel lblTitulo;

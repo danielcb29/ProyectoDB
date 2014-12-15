@@ -76,11 +76,11 @@ public class ControlMedico {
      * @param tipoCon 1 si es correo electronico, 2 si es identificacion
      * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
     */
-    public Medico   readMedico (String req, int tipoCon){
+    public Medico   readMedico (Empleado em){
 
         
         System.out.println("antes readMedico");
-        Medico me= daoMe.readMedico(req, tipoCon);
+        Medico me= daoMe.readMedico(em);
         return me;
 
     }
@@ -91,14 +91,13 @@ public class ControlMedico {
     /** metodo que llama al Dao para consultar cuantos usuarios existen
      * @return cantidad de usuarios existentes en la base de datos
      */
- /**   public int countUsers ()  
+    public Medico[] listMedico ()  
     {
-        Usuario [] users = new Usuario [5];
-        int size =  users.length;
-        return size;
+        Medico [] me = daoMe.listMedico();
+        return  me;
                 
     }
-    
+    /**
 
     public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
         int result;

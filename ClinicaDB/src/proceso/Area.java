@@ -81,4 +81,9 @@ public class Area {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    @Override
+    public String toString(){
+        return nombre;
+    }
 }

@@ -93,7 +93,7 @@ public class DAOCitas {
     public ArrayList<ArrayList<String>> listCita(String fecha){
         
         DAOMedico daoMed= new DAOMedico(conn);
-        Medico[] medicosCitas = daoMed.listMedicos();        
+        Medico[] medicosCitas =  new Medico[5];  // daoMed.listMedicos();        
         
         citasUsuario = new ArrayList<>();
         citasSistema = new ArrayList<>();
