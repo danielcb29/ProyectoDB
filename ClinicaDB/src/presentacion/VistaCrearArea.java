@@ -43,7 +43,13 @@ public class VistaCrearArea extends javax.swing.JFrame {
                 break;
             case 2://editar
                 tfCodigo.setEditable(false);
-                
+                btAccion.setText("Editar");
+            case 3://eliminar
+                tfCodigo.setEditable(false);
+                tfNombre.setEditable(false);
+                taDescripcion.setEditable(false);
+                comboEstado.setEditable(false);
+                btAccion.setText("Eliminar");
         }
     }
 
@@ -295,15 +301,26 @@ public class VistaCrearArea extends javax.swing.JFrame {
                         menError = "Ha ocurrido un error en la base de datos. Por favor consulte al personal encargado.";
                         break;
                     case 3:
-                    
+
                 }
                 if(result == -1 || result == -2){
                     JOptionPane.showMessageDialog(this, menError,"Error",JOptionPane.ERROR_MESSAGE);
                 }else{
                     //Se imprime el mensaje para informar el exito de la operacion
-                    JOptionPane.showMessageDialog(this, "El área "+ nombre+" ha sido "+ menj+ " con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
-                    //Cerramos la ventana
-                    this.dispose();
+                    if(tipo==3){//Eliminar
+                        int opc =JOptionPane.showConfirmDialog(this, "¿Desea eliminar el usuario "+nombre+ "?.\n Favor verificar los datos.");
+                        if(opc==1){
+                            JOptionPane.showMessageDialog(this, "El área "+ nombre+" ha sido "+ menj+ " con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
+                            //Cerramos la ventana
+                            this.dispose();
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(this, "El área "+ nombre+" ha sido "+ menj+ " con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
+                        //Cerramos la ventana
+                        this.dispose();
+                    }
+                    
+                    
                 }
             }
             

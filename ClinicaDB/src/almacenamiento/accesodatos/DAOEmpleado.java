@@ -234,6 +234,85 @@ public class DAOEmpleado {
         }
         return 1;
     }//fin updateUser
+    
+    /**
+     * listar todos los empleados por un area determinada por el parámetro
+     * @param codigoArea codigo del área en la que se deben listar los empleados
+     * @return Empleados que pertenecen a esa área
+     */
+    
+    public Empleado[] listEmpleadoPorArea(int codigoArea){
+        
+        String sql_select;
+        sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado FROM  persona, empleado WHERE empleado.identificacion=persona.identificacion AND empleado.codigoArea="+codigoArea;
+        try{
+            System.out.println("consultando en la bd");
+            Statement statement = conn.createStatement();
+            ResultSet table = statement.executeQuery(sql_select);
+            
+            int numRows=0;
+            while(table.next()){
+                numRows++;
+            }
+            System.out.println(numRows);
+            Empleado em[]= new Empleado[numRows];
+            for(int i=0; i<numRows; i++){
+                em[i]=new Empleado();
+            }
+            ResultSet table2= statement.executeQuery(sql_select);
+            int j=0;
+            while(table2.next()){
+                
+                em[j].setIdentificacion(table2.getString(1));
+               
+                em[j].setNombres(table2.getString(2));
+                
+                em[j].setApellidos(table2.getString(3));
+                
+                em[j].setTelefono(table2.getString(4));               
+
+                em[j].setDireccion(table2.getString(5));
+
+                em[j].setSalario(table2.getInt(6));
+                
+                em[j].setEmail(table2.getString(7));
+                
+                em[j].setCargo(table2.getString(8));
+                
+                em[j].setContrasena(table2.getString(9));
+                
+                String jefe = table2.getString(10);
+                
+                System.out.println("jefe "+jefe);
+                
+                if(jefe==null){
+                    em[j].setJefe("-1");
+                }else{
+                    em[j].setJefe(jefe);
+                }
+                
+                String area = table2.getString(11);
+                
+                System.out.println(area);
+                if(area==null){
+                    em[j].setArea(null);
+                }else{
+                    DAOArea daoa= new DAOArea(conn);
+                    Area ar = daoa.readArea(Integer.parseInt(area));
+                    em[j].setArea(ar);
+                }
+                
+                em[j].setEstado(table2.getBoolean(12));
+                j++;
+                System.out.println("ok");
+            }
+           
+            return em;
+         }
+         catch(SQLException e){ System.out.println(e); }
+         catch(Exception e){ System.out.println(e); }
+        return null;
+    }
 
    /**
      * listar todas las tuplas de los usuarios existentes.

@@ -191,7 +191,7 @@ public class Login extends javax.swing.JFrame {
                             break;
                         case "Enfermera":
                             System.out.println("Medico");
-                            Empleado enf1 = ce.readEmpleado(email, 1, 2);
+                            Enfermera enf1 = cEnf.readEnfermera(em);
                             System.out.println("dentro de la vista1" + enf1.getNombres());
                             this.setEnabled(false);
                             this.dispose();

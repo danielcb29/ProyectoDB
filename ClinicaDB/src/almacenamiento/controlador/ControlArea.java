@@ -78,6 +78,8 @@ public class ControlArea {
                 
     }
     
+    
+    
     public int updateArea(int codigoArea, String nombre, String descripcion, boolean estado){
         Area ar = new Area(codigoArea, nombre, descripcion, estado);
         

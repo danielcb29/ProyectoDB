@@ -97,6 +97,15 @@ public class ControlEmpleado {
 
     }
     
+    /**
+     * listar todos los empleados por un area determinada por el parámetro
+     * @param codigoArea codigo del área en la que se deben listar los empleados
+     * @return Empleados que pertenecen a esa área
+     */
+    public Empleado[] listEmpleadoPorArea(int codigoArea){
+        Empleado[] em = daoEm.listEmpleadoPorArea(codigoArea);
+        return em;
+    }
  
      
     /** metodo que llama al Dao para listar los empleados que existen
