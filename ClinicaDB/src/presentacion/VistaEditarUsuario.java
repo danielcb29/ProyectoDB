@@ -26,12 +26,14 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
     ControlEnfermera cEnf;
     ControlArea ca;
     Connection conn;
+    int tipo;
 
     /**
      * Creates new form VistaEditarUsuario
      * @param controlEm control del empleado
      */
-    public VistaEditarUsuario(ControlEmpleado controlEm) {
+    public VistaEditarUsuario(ControlEmpleado controlEm, int tipo) {
+        this.tipo=tipo;
         initComponents();
         ce=controlEm;
         conn=ce.getConn();
@@ -53,6 +55,25 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
         lbHabs1.setVisible(false);
         lbHabs2.setVisible(false);
         jScrollPane1.setVisible(false);
+        if(tipo==2){//eliminar
+            cbAJ.setEnabled(false);
+            comboAnos.setEnabled(false);
+            comboCargo.setEnabled(false);
+            comboEstado.setEnabled(false);
+            taHabs.setEnabled(false);
+            tfApellidos.setEnabled(false);
+            tfArea.setEnabled(false);
+            tfContrasena.setEnabled(false);
+            tfDireccion.setEnabled(false);
+            tfEmail.setEnabled(false);
+            tfEspecialidad.setEnabled(false);
+            tfIdJ.setEnabled(false);
+            tfNL.setEnabled(false);
+            tfNombres.setEnabled(false);
+            tfSalario.setEnabled(false);
+            tfTelefono.setEnabled(false);
+            tfUniversidad.setEnabled(false);
+        }
     }
 
     /**

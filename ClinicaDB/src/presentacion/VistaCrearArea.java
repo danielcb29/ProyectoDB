@@ -34,6 +34,7 @@ public class VistaCrearArea extends javax.swing.JFrame {
         ca = new ControlArea(conn);
         switch(tipo){
             case 1://crear
+                
                 lbBuscar.setVisible(false);
                 tfBuscar.setVisible(false);
                 btBuscar.setVisible(false);
@@ -52,17 +53,18 @@ public class VistaCrearArea extends javax.swing.JFrame {
                 btBuscar.setVisible(true);
                 lbEstado.setVisible(true);
                 comboEstado.setVisible(true);
-                tfCodigo.setEditable(true);
                 tfNombre.setEditable(true);
                 taDescripcion.setEditable(true);
                 comboEstado.setEditable(true);
+                lbTitle.setText("Editar Area");
                 btAccion.setText("Editar");
                 break;
             case 3://eliminar
                 tfCodigo.setEditable(false);
                 tfNombre.setEditable(false);
                 taDescripcion.setEditable(false);
-                comboEstado.setEditable(false);
+                comboEstado.setEnabled(false);
+                lbTitle.setText("Eliminar Area");
                 btAccion.setText("Eliminar");
                 break;
         }
@@ -271,6 +273,7 @@ public class VistaCrearArea extends javax.swing.JFrame {
                 comboEstado.setSelectedIndex(1);
             }
             taDescripcion.setText(ar.getDescripcion());
+            
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "El código del área debe ser número entero.","Error",JOptionPane.ERROR_MESSAGE);
         }
@@ -301,7 +304,7 @@ public class VistaCrearArea extends javax.swing.JFrame {
             boolean empty =validateInformation(nombre, descripcion);
             int result=0;
             if(empty){
-                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear/editar el área.", "Error", JOptionPane.ERROR_MESSAGE);
             }else{
                 String menError="";
                 switch(tipo){
@@ -312,6 +315,7 @@ public class VistaCrearArea extends javax.swing.JFrame {
                         break;
                     case 2://editar
                         result=ca.updateArea(codigo, nombre, descripcion, estado);
+                        System.out.println("rowcount "+result);
                         menj="editada";
                         menError = "Ha ocurrido un error en la base de datos. Por favor consulte al personal encargado.";
                         break;
@@ -326,7 +330,8 @@ public class VistaCrearArea extends javax.swing.JFrame {
                     //Se imprime el mensaje para informar el exito de la operacion
                     if(tipo==3){//Eliminar
                         int opc =JOptionPane.showConfirmDialog(this, "¿Desea eliminar el usuario "+nombre+ "?.\n Favor verificar los datos.");
-                        if(opc==1){
+                        System.out.println("opc"+opc);
+                        if(opc==0){
                             JOptionPane.showMessageDialog(this, "El área "+ nombre+" ha sido desactivada con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
                             //Cerramos la ventana
                             this.dispose();

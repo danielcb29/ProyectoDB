@@ -185,7 +185,7 @@ public class VistaAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay Usuarios para editar","", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            veu = new VistaEditarUsuario(ce);
+            veu = new VistaEditarUsuario(ce, 1);
             veu.setVisible(true);
         }
     }//GEN-LAST:event_btEditarUsuarioActionPerformed

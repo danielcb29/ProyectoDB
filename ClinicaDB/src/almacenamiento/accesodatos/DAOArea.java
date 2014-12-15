@@ -114,9 +114,9 @@ public class DAOArea {
      */
     public int updateArea(Area ar, int cod){
         String sql_save1,  sql_save2,  sql_save3;
-	sql_save1="UPDATE area SET nombre="+ar.getNombre()+" WHERE codigoArea=" + cod+ "";
-        sql_save2="UPDATE area SET descripcion="+ar.getDescripcion()+" WHERE codigoArea=" + cod+ "";
-        sql_save3="UPDATE area SET estado="+ar.getEstado()+" WHERE codigoArea=" + cod+ "";
+	sql_save1="UPDATE area SET nombre='"+ar.getNombre()+"' WHERE codigoArea=" + cod;
+        sql_save2="UPDATE area SET descripcion='"+ar.getDescripcion()+"' WHERE codigoArea=" + cod;
+        sql_save3="UPDATE area SET estado="+ar.getEstado()+" WHERE codigoArea=" + cod;
         
         try{
             Statement statement = conn.createStatement();
@@ -192,7 +192,7 @@ public class DAOArea {
     public int deleteArea(int codigoArea){	
         String sql_save;
 
-        sql_save="UPDATE area SET estado=false WHERE codigoArea='" + codigoArea + "'";
+        sql_save="UPDATE area SET estado=false WHERE codigoArea=" + codigoArea ;
         
         try{
             Statement statement = conn.createStatement();
