@@ -6,17 +6,26 @@
 package proceso;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  *
  * @author cenesis
  */
-class HistoriaClinica {
+public class HistoriaClinica {
     
     private String numHistoria;
     private Date fechaAper;
-    private Registro[] registrosConsultasPacientes;
-
+    private Vector<Registro> registrosConsultasPacientes;
+    private Paciente persona;
+    public HistoriaClinica(Date fechaAper,Paciente paciente){
+        
+        this.fechaAper=fechaAper;
+        persona=paciente;
+    }
+    public HistoriaClinica(){
+        
+    }
     /**
      * @return the numHistoria
      */
@@ -48,15 +57,29 @@ class HistoriaClinica {
     /**
      * @return the registrosConsultasPacientes
      */
-    public Registro[] getRegistrosConsultasPacientes() {
+    public Vector<Registro> getRegistrosConsultasPacientes() {
         return registrosConsultasPacientes;
     }
 
     /**
      * @param registrosConsultasPacientes the registrosConsultasPacientes to set
      */
-    public void setRegistrosConsultasPacientes(Registro[] registrosConsultasPacientes) {
+    public void setRegistrosConsultasPacientes(Vector<Registro> registrosConsultasPacientes) {
         this.registrosConsultasPacientes = registrosConsultasPacientes;
+    }
+
+    /**
+     * @return the persona
+     */
+    public Paciente getPersona() {
+        return persona;
+    }
+
+    /**
+     * @param persona the persona to set
+     */
+    public void setPersona(Paciente persona) {
+        this.persona = persona;
     }
     
 }

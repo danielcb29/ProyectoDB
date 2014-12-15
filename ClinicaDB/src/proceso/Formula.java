@@ -6,6 +6,7 @@
 package proceso;
 
 import java.util.Date;
+import java.util.Vector;
 
 /**
  *
@@ -14,10 +15,21 @@ import java.util.Date;
 public class Formula {
     
     private Medico medicoForm;
-    private Medicamento[] medicamentosForm;
+    private Vector<Medicamento> medicamentosForm;
     private HistoriaClinica historiaPaciente;
     private Date fecha;
     private double costo;
+    
+    public Formula(){
+        
+    }
+    public Formula(Medico paramMed,Vector<Medicamento> paramMedicamentos, HistoriaClinica paramHistoria, Date paramFecha){
+        medicoForm=paramMed;
+        medicamentosForm=paramMedicamentos;
+        historiaPaciente=paramHistoria;
+        fecha=paramFecha;
+        
+    }
 
     /**
      * @return the medicoForm
@@ -36,14 +48,14 @@ public class Formula {
     /**
      * @return the medicamentosForm
      */
-    public Medicamento[] getMedicamentosForm() {
+    public Vector<Medicamento> getMedicamentosForm() {
         return medicamentosForm;
     }
 
     /**
      * @param medicamentosForm the medicamentosForm to set
      */
-    public void setMedicamentosForm(Medicamento[] medicamentosForm) {
+    public void setMedicamentosForm(Vector<Medicamento> medicamentosForm) {
         this.medicamentosForm = medicamentosForm;
     }
 
@@ -83,8 +95,8 @@ public class Formula {
         
         costo=0;
         
-        for(int i=0;  i<medicamentosForm.length; i++){
-            costo +=medicamentosForm[i].getCosto();
+        for(int i=0;  i<medicamentosForm.size(); i++){
+            costo +=medicamentosForm.get(i).getCosto();
         }
         return costo;
     }

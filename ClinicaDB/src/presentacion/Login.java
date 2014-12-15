@@ -22,7 +22,8 @@ public class Login extends javax.swing.JFrame {
     private String email;
     private String contrasena;
     private VistaAdmin va;
-    private VistaCrearArea vca;
+    private PanelBodega pb;
+    private PanelMedico pm;
     
     /**
      * Creates new form GestionUsuario
@@ -181,12 +182,10 @@ public class Login extends javax.swing.JFrame {
                             break;
                         case "Medico":
                             System.out.println("Medico");
-                            vca= new VistaCrearArea(conn, 1);
-                            vca.setVisible(true);
-                            Empleado me1 = ce.readEmpleado(email, 1, 1);
+                            Medico me1 = cm.readMedico(em);
                             System.out.println("dentro de la vista1" + me1.getNombres());
-                            Medico[] list = cm.listMedico();
-                            System.out.println("dentro de la vista2" + list[0].getNombres());
+                            pm = new PanelMedico(conn, me1);
+                            pm.setVisible(true);
                             this.setEnabled(false);
                             this.dispose();
                             break;
@@ -194,8 +193,13 @@ public class Login extends javax.swing.JFrame {
                             System.out.println("Medico");
                             Empleado enf1 = ce.readEmpleado(email, 1, 2);
                             System.out.println("dentro de la vista1" + enf1.getNombres());
-                            
-                            
+                            this.setEnabled(false);
+                            this.dispose();
+                            break;
+                        case "Bodeguero":
+                            System.out.println("Bodeguero");
+                            pb = new PanelBodega(conn, em.getNombres());
+                            pb.setVisible(true);
                             this.setEnabled(false);
                             this.dispose();
                             break;
