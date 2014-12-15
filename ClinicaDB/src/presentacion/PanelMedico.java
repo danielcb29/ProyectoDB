@@ -252,7 +252,7 @@ public class PanelMedico extends javax.swing.JFrame {
     private void btCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarActionPerformed
         // TODO add your handling code here:
         //TEMPORAL 
-        db.cerrar();
+        //db.cerrar();
         System.exit(0);
         
     }//GEN-LAST:event_btCerrarActionPerformed
@@ -330,8 +330,8 @@ public class PanelMedico extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     *//*
-    public static void main(String args[]) {
+     */
+    /*public static void main(String args[]) {
         /*
          * Set the Nimbus look and feel
          */
@@ -359,6 +359,7 @@ public class PanelMedico extends javax.swing.JFrame {
         }
         //</editor-fold>
         //TEMPORAL
+        /*
          db = new ClinicaDB();
         final Connection conn = db.conectar();
         /*

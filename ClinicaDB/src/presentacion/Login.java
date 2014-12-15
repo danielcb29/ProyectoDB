@@ -24,8 +24,9 @@ public class Login extends javax.swing.JFrame {
     private VistaAdmin va;
     private PanelBodega pb;
     private PanelMedico pm;
+    private PanelEnfermera pEnf;
     private PanelGerente pg;
-    
+    private PanelSecretaria pSec;
     /**
      * Creates new form GestionUsuario
      */
@@ -194,6 +195,8 @@ public class Login extends javax.swing.JFrame {
                             System.out.println("Medico");
                             Enfermera enf1 = cEnf.readEnfermera(em);
                             System.out.println("dentro de la vista1" + enf1.getNombres());
+                            pEnf= new PanelEnfermera(conn);
+                            pEnf.setVisible(true);
                             this.setEnabled(false);
                             this.dispose();
                             break;
@@ -208,6 +211,13 @@ public class Login extends javax.swing.JFrame {
                             System.out.println("Gerente");
                             pg = new PanelGerente(conn);
                             pg.setVisible(true);
+                            this.setEnabled(false);
+                            this.dispose();
+                            break;
+                        case "Secretaria":
+                            System.out.println("Secretaria");
+                            pSec = new PanelSecretaria(conn);
+                            pSec.setVisible(true);
                             this.setEnabled(false);
                             this.dispose();
                             break;

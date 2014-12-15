@@ -64,4 +64,12 @@ public class ControlCampana {
         int resul = dao.actualizarCampana(codigo,nuevaCampana);
         return resul;
     }
+
+    public Campana[] listarCampComp(boolean b) {
+        return dao.listarCampanasCompletas(b);
+    }
+
+    public int asignarPacCam(String ident, String codigoCampana) {
+        return dao.asignarPacCam(ident, codigoCampana);
+    }
 }
