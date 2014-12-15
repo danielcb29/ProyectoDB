@@ -74,12 +74,13 @@ public class DAOArea {
         * @return null si hay error en la consulta a la base de datos. Objeto tipo Area si el objeto del area que se consulto existe. 
         */
     public Area readArea(int cod){
-        Area ar= new Area();
+        Area ar;
         String sql_select;
         sql_select="SELECT codigoArea, nombre, descripcion, estado FROM  area WHERE codigoArea=" + cod ;        
         
         
         try{
+            ar = new Area();
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
             
