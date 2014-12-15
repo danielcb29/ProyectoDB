@@ -140,21 +140,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Crear"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCrearCamaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btModifCama">
       <Properties>
         <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btModifCamaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btElimCama">
       <Properties>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btElimCamaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btAsigPac">
       <Properties>
         <Property name="text" type="java.lang.String" value="Asignar Paciente"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAsigPacActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btElmPac">
       <Properties>
@@ -181,6 +193,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Asignar Paciente"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAsignCamaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

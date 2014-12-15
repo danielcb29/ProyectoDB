@@ -6,18 +6,26 @@
 package presentacion;
 import almacenamiento.controlador.ControlMedico;
 import almacenamiento.controlador.ControlEmpleado;
+import java.sql.Connection;
 
 /**
  *
  * @author family
  */
 public class VistaAdmin extends javax.swing.JFrame {
-
+    ControlEmpleado ce;
+    Connection conn;
+    VistaCrearUsuario cvu;
     /**
      * Creates new form GestionUsuarios
+     * @param control control de empleado (usuario)
      */
-    public VistaAdmin() {
+    public VistaAdmin(ControlEmpleado control) {
         initComponents();
+        this.setTitle("Panel Administrador");
+        ce= control;
+        conn = ce.getConn();
+        
     }
 
     /**
@@ -158,9 +166,10 @@ public class VistaAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btCrearUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearUsuarioActionPerformed
- /*       // TODO add your handling code here:
-        objVistaCrearUsuario = new VistaCrearUsuario(objUserController,objConvController);
-        objVistaCrearUsuario.setVisible(true);*/
+        // TODO add your handling code here:
+        cvu = new VistaCrearUsuario(ce);
+        cvu.setVisible(true);
+        this.setEnabled(false);
     }//GEN-LAST:event_btCrearUsuarioActionPerformed
 
     private void btEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarUsuarioActionPerformed

@@ -5,17 +5,29 @@
  */
 package presentacion;
 
+import almacenamiento.controlador.ControlEmpleado;
+import java.sql.Connection;
+
 /**
  *
  * @author family
  */
 public class VistaCrearUsuario extends javax.swing.JFrame {
+    
+    ControlEmpleado ce;
+    Connection conn;
 
     /**
      * Creates new form VistaCrearUsuario
+     * @param control control de empleado
      */
-    public VistaCrearUsuario() {
+    public VistaCrearUsuario(ControlEmpleado control) {
         initComponents();
+        
+        ce=control;
+        conn=ce.getConn();
+        
+        
         this.setResizable(false);
         lbIdJ.setVisible(false);
         tfIdJ.setVisible(false);
@@ -27,6 +39,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
         tfEspecialidad.setVisible(false);
         lbUniversidad.setVisible(false);
         tfUniversidad.setVisible(false);
+        
     }
 
     /**
@@ -89,8 +102,6 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
 
         lblDescripcion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblDescripcion.setText("<html>Aquí encontrará el formulario de creación de usuarios. Seleccione el cargo para empezar a digitar los datos.</html>");
-
-        lbLogo.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/logo2.png")); // NOI18N
 
         lbIdentificacion.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lbIdentificacion.setText("Identificación:");

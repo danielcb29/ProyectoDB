@@ -5,7 +5,13 @@
  */
 package presentacion;
 
+import almacenamiento.controlador.ControlCitas;
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,17 +20,38 @@ import javax.swing.JOptionPane;
  */
 public class PanelCRUDCitas extends javax.swing.JFrame {
 
+    ControlCitas controladorCitas;
+    Connection conn;
+    ArrayList<ArrayList <String>> citasDisp;
+    int tipo;
+    
+    
     /**
      * Creates new form PanelCRUDCitas
      */
-    public PanelCRUDCitas(int opcion) {
-        
+    public PanelCRUDCitas(int opcion, Connection conn) {
+        tipo = opcion;
+        this.conn = conn;
         initComponents();
-        if(opcion==2){
+        controladorCitas = new ControlCitas(conn);
+        lblDocumento.setVisible(false);
+        lblNum.setVisible(false);
+        cmbTipoD.setVisible(false);
+        txtNumD.setVisible(false);
+        if (opcion == 2) {
             lbTitulo.setText("Cancelar cita");
             lblInfo.setText("Por favor busque la fecha de la cita que desea cancelar");
+            lblInfo2.setText("Fecha, Hora, Identificacion del medico");
             btAsignar.setText("Cancelar");
+            lblFecha.setVisible(false);
+            campFecha.setVisible(false);
+
+            lblDocumento.setVisible(true);
+            lblNum.setVisible(true);
+            cmbTipoD.setVisible(true);
+            txtNumD.setVisible(true);
         }
+        campFecha.setDateFormatString("yyyy-MM-dd");
     }
 
     /**
@@ -45,8 +72,13 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         contCitas = new javax.swing.JList();
         btAsignar = new javax.swing.JToggleButton();
+        lblDocumento = new javax.swing.JLabel();
+        txtNumD = new javax.swing.JTextField();
+        cmbTipoD = new javax.swing.JComboBox();
+        lblNum = new javax.swing.JLabel();
+        lblInfo2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lbTitulo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         lbTitulo.setText("Crear cita");
@@ -68,43 +100,66 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
             }
         });
 
-        contCitas.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(contCitas);
 
         btAsignar.setText("Asignar cita");
+        btAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignarActionPerformed(evt);
+            }
+        });
+
+        lblDocumento.setText("Documento");
+
+        txtNumD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumDActionPerformed(evt);
+            }
+        });
+
+        cmbTipoD.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
+
+        lblNum.setText("Num");
+
+        lblInfo2.setText("Fecha ,  Hora,  Nombres y Apellidos del Doctor");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(208, 208, 208)
+                .addComponent(btAsignar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblInfo)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblFecha)
-                        .addGap(18, 18, 18)
-                        .addComponent(campFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(btBuscar)
-                        .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbTitulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblLogo)
-                        .addGap(34, 34, 34))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(178, 178, 178)
-                .addComponent(btAsignar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(34, 34, 34))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblInfo2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblInfo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lblFecha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(campFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btBuscar)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblDocumento)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(cmbTipoD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                                        .addComponent(lblNum)))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNumD, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,41 +173,142 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
                         .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblInfo)
-                .addGap(20, 20, 20)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblFecha)
-                    .addComponent(campFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btBuscar))
-                .addGap(18, 18, 18)
+                    .addComponent(campFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDocumento)
+                    .addComponent(txtNumD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbTipoD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNum))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(lblInfo2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btAsignar)
-                .addContainerGap())
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        
-        Date fechaCita = campFecha.getDate();
-        if(fechaCita==null){
-              JOptionPane.showMessageDialog(this, "Por favor ingrese la fecha", "Error", JOptionPane.CANCEL_OPTION);
-        }else{
-            
+
+        if (tipo == 1) {
+            Date fechaCita = campFecha.getDate();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            formato.format(fechaCita);
+            System.out.println("fecha " + formato.format(fechaCita));
+
+            if (fechaCita == null) {
+                JOptionPane.showMessageDialog(this, "Por favor ingrese la fecha", "Error", JOptionPane.CANCEL_OPTION);
+            } else {
+                citasDisp = controladorCitas.listarCita(formato.format(fechaCita));
+
+                if (citasDisp == null) {
+                    JOptionPane.showMessageDialog(this, "No hay citas disponibles para este dia, por favor ingrese otro");
+                } else {
+                    DefaultListModel modelo = new DefaultListModel();
+
+                    for (int i = 0; i < citasDisp.size(); i++) {
+                        for (int j = 0; j < citasDisp.get(i).size(); j++) {
+
+                            modelo.addElement(citasDisp.get(i).get(j));
+                        }
+
+                    }
+                    contCitas.setModel(modelo);
+
+                }
+
+            }
+
+        } else {
+            String documento = cmbTipoD.getSelectedItem() + txtNumD.getText();
+            if (txtNumD.getText() == "") {
+                JOptionPane.showMessageDialog(this, "Por favor ingrese la fecha", "Error", JOptionPane.CANCEL_OPTION);
+            } else {
+                String[] citasU = controladorCitas.listarCitasU(documento);
+                if(citasU.length==0){
+                    JOptionPane.showMessageDialog(this, "No hay citas asignadas para este paciente", "Error", JOptionPane.CANCEL_OPTION);
+                }else{
+                    contCitas.setListData(citasU);
+                }
+
+                
+            }
         }
+
     }//GEN-LAST:event_btBuscarActionPerformed
+
+    private void btAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarActionPerformed
+        
+        if (tipo == 1) {
+            String idPac;
+            idPac = JOptionPane.showInputDialog(this, "Por favor ingrese la cedula del paciente", "Asignacion de citas", JOptionPane.INFORMATION_MESSAGE);
+            String cita = contCitas.getSelectedValue().toString();
+            ArrayList<ArrayList<String>> citasSiste = controladorCitas.getCitasSis();
+            int indice, resultado;
+            resultado = 0;
+            
+            for (int i = 0; i < citasSiste.size(); i++) {
+                indice = citasDisp.get(i).indexOf(cita);
+                if (indice >= 0) {
+                    resultado = controladorCitas.crearCita(citasSiste.get(i).get(indice) + "'" + idPac + "'," + "'true'");
+                    i += citasDisp.size();
+                }
+            }
+            if (resultado > 0) {
+
+                JOptionPane.showMessageDialog(this, "Cita asignada correctamente", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Se produjo un error, confirme los datos o contacte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            
+            String idPac;
+            idPac = cmbTipoD.getSelectedItem()+txtNumD.getText();
+            String cita = contCitas.getSelectedValue().toString();
+            int resultado;
+            resultado = 0;
+            resultado = controladorCitas.eliminarCita(cita);
+            if (resultado > 0) {
+
+                JOptionPane.showMessageDialog(this, "Cita eliminada", "Mensaje de confirmacion", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Se produjo un error, confirme los datos o contacte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+        
+    }//GEN-LAST:event_btAsignarActionPerformed
+
+    private void txtNumDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumDActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btAsignar;
     private javax.swing.JToggleButton btBuscar;
     private com.toedter.calendar.JDateChooser campFecha;
+    private javax.swing.JComboBox cmbTipoD;
     private javax.swing.JList contCitas;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JLabel lblDocumento;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblInfo;
+    private javax.swing.JLabel lblInfo2;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblNum;
+    private javax.swing.JTextField txtNumD;
     // End of variables declaration//GEN-END:variables
 }

@@ -76,15 +76,9 @@ public class DAOMedico {
         * @param em objeto Empleado con la informacion del medico a consultar
         * @return null si hay error en la consulta a la base de datos. Objeto tipo Medico si el objeto del usuario que se consulto. 
         */
-    public Medico readMedico(String req, int tipoCon){
+    public Medico readMedico(Empleado em){
         Medico me= new Medico();
-        String sql_select;
-        if(tipoCon==1){
-            //System.out.println("entramos al caso de username");
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  persona, empleado, medico WHERE empleado.identificacion=persona.identificacion AND empleado.email='" + req +  "'";        
-        }else{
-            sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  persona, empleado, medico WHERE empleado.identificacion=persona.identificacion AND empleado.identificacion='" + req +  "'";
-        }
+        String sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico WHERE medico.identificacion='" + em.getIdentificacion()+ "'";
         
         
         try{
@@ -99,54 +93,35 @@ public class DAOMedico {
             
             while(table.next()){
                 
+                me.setNombres(em.getNombres());
+                
+                me.setApellidos(em.getApellidos());
+                
+                me.setTelefono(em.getTelefono());
+                
+                me.setDireccion(em.getDireccion());
+                
+                me.setSalario(em.getSalario());
+                
+                me.setEmail(em.getEmail());
+                
+                me.setCargo(em.getCargo());
+                
+                me.setContrasena(em.getContrasena());
+                
+                me.setJefe(em.getJefe());
+                
+                me.setArea(em.getArea());
+                
+                me.setEstado(em.getEstado());
+                
                 me.setIdentificacion(table.getString(1));
                 
-                me.setNombres(table.getString(2));
+                me.setNumeroLicencia(table.getInt(2));
                 
-                me.setApellidos(table.getString(3));
+                me.setEspecialidad(table.getString(3));
                 
-                me.setTelefono(table.getString(4));
-                
-                me.setDireccion(table.getString(5));
-                
-                me.setSalario(table.getInt(6));
-                
-                me.setEmail(table.getString(7));
-                
-                me.setCargo(table.getString(8));
-                
-                me.setContrasena(table.getString(9));
-                
-               String jefe = table.getString(10);
-                
-                System.out.println("jefe "+jefe);
-                
-                if(jefe==null){
-                    me.setJefe("-1");
-                }else{
-                    me.setJefe(jefe);
-                }
-                
-                String area = table.getString(11);
-                
-                System.out.println(area);
-                if(area==null){
-                    me.setArea(null);
-                }else{
-                    DAOArea daoa= new DAOArea(conn);
-                    Area ar = daoa.readArea(Integer.parseInt(area));
-                    me.setArea(ar);
-                }
-                
-                me.setEstado(table.getBoolean(12));
-                
-                
-                
-                me.setNumeroLicencia(table.getInt(13));
-                
-                me.setEspecialidad(table.getString(14));
-                
-                me.setUniversidad(table.getString(15));
+                me.setUniversidad(table.getString(4));
                
                 System.out.println("ok");
             }
@@ -242,66 +217,82 @@ public class DAOMedico {
 
    /**
      * listar todas las tuplas de los usuarios existentes.
-     * @return los objetos tipo Usuario enlistados en un arreglo.
+     * @return los objetos tipo Medico enlistados en un arreglo.
      */ 
- /*public Medico[] listMedico(){
+    public Medico[] listMedico(){
         
-        String sql_select="SELECT medico.identificacion, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  medico";
+        String sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  persona, empleado, medico WHERE empleado.identificacion=persona.identificacion AND medico.identificacion=persona.identificacion";
         try{
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
             ResultSet table = statement.executeQuery(sql_select);
-            ResultSet table2= table;
+            
             int numRows=0;
             while(table.next()){
                 numRows++;
             }
             System.out.println(numRows);
             Medico me[]= new Medico[numRows];
-            for(int i=0; i<numRows; i++){
-                me[i]=new Medico();
-            }
-            String sql_conv="";
+            ResultSet table2= statement.executeQuery(sql_select);
             int j=0;
+            
             while(table2.next()){
+                me[j] = new Medico();
+                me[j].setIdentificacion(table2.getString(1));
                 
-                me[j].setNombres(em.getNombres());
+                me[j].setNombres(table2.getString(2));
                 
-                me[j].setApellidos(em.getApellidos());
+                me[j].setApellidos(table2.getString(3));
                 
-                me[j].setTelefono(em.getTelefono());
+                me[j].setTelefono(table2.getString(4));
                 
-                me[j].setDireccion(em.getDireccion());
+                me[j].setDireccion(table2.getString(5));
                 
-                me[j].setSalario(em.getSalario());
+                me[j].setSalario(table2.getInt(6));
                 
-                me[j].setEmail(em.getEmail());
+                me[j].setEmail(table2.getString(7));
                 
-                me[j].setCargo(em.getCargo());
+                me[j].setCargo(table2.getString(8));
                 
-                me[j].setContrasena(em.getContrasena());
+                me[j].setContrasena(table2.getString(9));
                 
-                me[j].setJefe(em.getJefe());
+                String jefe = table2.getString(10);
                 
-                me[j].setArea(em.getArea());
+                System.out.println("jefe "+jefe);
                 
-                me[j].setEstado(em.getEstado());
+                if(jefe==null){
+                    me[j].setJefe("-1");
+                }else{
+                    me[j].setJefe(jefe);
+                }
                 
-                me[j].setIdentificacion(table.getString(1));
+                String area = table2.getString(11);
                 
-                me[j].setNumeroLicencia(table.getInt(2));
+                System.out.println(area);
+                if(area==null){
+                    me[j].setArea(null);
+                }else{
+                    DAOArea daoa= new DAOArea(conn);
+                    Area ar = daoa.readArea(Integer.parseInt(area));
+                    me[j].setArea(ar);
+                }
                 
-                me[j].setEspecialidad(table.getString(3));
+                me[j].setEstado(table2.getBoolean(12));
                 
-                me[j].setUniversidad(table.getString(4));
-               
-                j++;
+                
+                
+                me[j].setNumeroLicencia(table2.getInt(13));
+                
+                me[j].setEspecialidad(table2.getString(14));
+                
+                me[j].setUniversidad(table2.getString(15));
                
                 System.out.println("ok");
+                j++;
                 
             }
            
-            return us;
+            return me;
          }
          catch(SQLException e){ System.out.println(e); }
          catch(Exception e){ System.out.println(e); }

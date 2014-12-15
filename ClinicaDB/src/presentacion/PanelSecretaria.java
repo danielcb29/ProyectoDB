@@ -14,6 +14,7 @@ public class PanelSecretaria extends javax.swing.JFrame {
 
     
     PanelCrearPaciente panelCreaPaciente;
+    PanelCRUDCitas panelCitas;
     PanelElimModificarPaciente panelElimModPaciente;
    private Connection conn;
     /**
@@ -182,7 +183,8 @@ public class PanelSecretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_btEliminarPacActionPerformed
 
     private void btAsigCitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsigCitActionPerformed
-        // TODO add your handling code here:
+        panelCitas = new PanelCRUDCitas(1, conn);
+        panelCitas.setVisible(true);
     }//GEN-LAST:event_btAsigCitActionPerformed
 
     private void btCrearPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearPacActionPerformed
@@ -191,7 +193,8 @@ public class PanelSecretaria extends javax.swing.JFrame {
     }//GEN-LAST:event_btCrearPacActionPerformed
 
     private void btCancelarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarCitasActionPerformed
-        // TODO add your handling code here:
+        panelCitas = new PanelCRUDCitas(2, conn);
+        panelCitas.setVisible(true);
     }//GEN-LAST:event_btCancelarCitasActionPerformed
 
 

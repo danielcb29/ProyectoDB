@@ -67,17 +67,18 @@ public class ControlArea {
     
  
      
-    /** metodo que llama al Dao para consultar cuantos usuarios existen
-     * @return cantidad de usuarios existentes en la base de datos
+    /** metodo que llama al Dao para listar las areas que existen
+     * @return arreglo de Area
      */
- /**   public int countUsers ()  
+    public Area[] listArea ()  
     {
-        Usuario [] users = new Usuario [5];
-        int size =  users.length;
-        return size;
+        Area [] ar = daoAr.listArea();
+        
+        return ar;
                 
     }
     
+    /*
 
     public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
         int result;
@@ -91,7 +92,7 @@ public class ControlArea {
 
     public int  deleteUser(String text) {
         return daoUser.deleteUser(text);
-    }
+    }*/
     
     
     /*

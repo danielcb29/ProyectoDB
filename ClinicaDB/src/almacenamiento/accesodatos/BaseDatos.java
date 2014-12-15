@@ -20,7 +20,7 @@ public class BaseDatos {
      public BaseDatos(){
       url = "jdbc:postgresql://localhost:5432/clinica";
       usuario="alvaro";
-      password="juan";
+      password="juanito";
       
     }
     public Connection conectar(){

@@ -5,6 +5,8 @@
  */
 package presentacion;
 
+import java.sql.Connection;
+
 /**
  *
  * @author alvaromartinez
@@ -14,10 +16,18 @@ public class PanelEnfermera extends javax.swing.JFrame {
     /**
      * Creates new form PanelEnfermera
      */
-    public PanelEnfermera() {
+    
+        PanelCRUDCama ventCama;
+        PanelAsigCamas ventAsigCam;
+        private Connection conn;
+
+    public PanelEnfermera(Connection conn) {
+        this.conn = conn;
         initComponents();
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,12 +62,32 @@ public class PanelEnfermera extends javax.swing.JFrame {
         jSeparator1.setMaximumSize(new java.awt.Dimension(290, 290));
 
         btCrearCama.setText("Crear");
+        btCrearCama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCrearCamaActionPerformed(evt);
+            }
+        });
 
         btModifCama.setText("Modificar");
+        btModifCama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btModifCamaActionPerformed(evt);
+            }
+        });
 
         btElimCama.setText("Eliminar");
+        btElimCama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btElimCamaActionPerformed(evt);
+            }
+        });
 
         btAsigPac.setText("Asignar Paciente");
+        btAsigPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsigPacActionPerformed(evt);
+            }
+        });
 
         btElmPac.setText("Eliminar Paciente");
 
@@ -68,6 +98,11 @@ public class PanelEnfermera extends javax.swing.JFrame {
         tituloCita.setText("Gestion de Campañas");
 
         btAsignCama.setText("Asignar Paciente");
+        btAsignCama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAsignCamaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,40 +176,31 @@ public class PanelEnfermera extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PanelEnfermera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PanelEnfermera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PanelEnfermera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PanelEnfermera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btCrearCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCrearCamaActionPerformed
+        ventCama = new PanelCRUDCama(conn, 1);
+        ventCama.setVisible(true);
+    }//GEN-LAST:event_btCrearCamaActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PanelEnfermera().setVisible(true);
-            }
-        });
-    }
+    private void btModifCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModifCamaActionPerformed
+        ventCama = new PanelCRUDCama(conn, 2);
+        ventCama.setVisible(true);
+    }//GEN-LAST:event_btModifCamaActionPerformed
+
+    private void btElimCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btElimCamaActionPerformed
+        ventCama = new PanelCRUDCama(conn, 3);
+        ventCama.setVisible(true);
+    }//GEN-LAST:event_btElimCamaActionPerformed
+
+    private void btAsignCamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignCamaActionPerformed
+        ventAsigCam = new PanelAsigCamas(conn);
+        ventAsigCam.setVisible(true);
+    }//GEN-LAST:event_btAsignCamaActionPerformed
+
+    private void btAsigPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsigPacActionPerformed
+        PanelPacCampa vistaCamp = new PanelPacCampa(conn);
+        vistaCamp.setVisible(true);
+    }//GEN-LAST:event_btAsigPacActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAsigPac;
