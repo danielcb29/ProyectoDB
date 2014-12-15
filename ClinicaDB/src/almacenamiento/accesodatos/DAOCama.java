@@ -62,7 +62,7 @@ public class DAOCama {
         return -1;
     }
 
-    public Cama leerCama(String identificacion, boolean tipo) {
+   /* public Cama leerCama(String identificacion, boolean tipo) {
         Cama camaEdit= new Cama();
         String sql_select;
         sql_select="SELECT * FROM cama WHERE numeroCama= '" +identificacion+"';";        
@@ -230,6 +230,6 @@ public class DAOCama {
             System.out.println(e);
         }
         return -1;
-    }
+    }*/
     
 }

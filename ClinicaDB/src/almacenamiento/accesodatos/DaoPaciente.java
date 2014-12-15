@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -141,7 +141,6 @@ public class DaoPaciente {
       
         
         try{
-            System.out.println(sql3);
                 Statement sentencia = conn.createStatement();
 
                 sentencia.executeUpdate(sql1);
@@ -183,7 +182,10 @@ public class DaoPaciente {
             numRows = table.getInt(1);
             ResultSet table2 = sentence.executeQuery(sql_select);
             System.out.println(numRows);
-            Paciente listPacientes[]= new Paciente[numRows];   
+            Paciente listPacientes[]= new Paciente[numRows];
+            for(int i=0; i<numRows; i++){
+                listPacientes[i]= new Paciente();
+            }
             
             int j=0;
             while(table2.next())
@@ -212,7 +214,7 @@ public class DaoPaciente {
     
      public int eliminarPaciente(String identificacion) {
         String sql1;
-	sql1 = "UPDATE Paciente SET estado='false' WHERE identificacion='" + identificacion + "';";
+	sql1 = "UPDATE Persona SET estado='false' WHERE identificacion='" + identificacion + "';";
         try{
                 Statement sentencia = conn.createStatement();
 
@@ -250,7 +252,7 @@ public class DaoPaciente {
         fecha = format.parse("2010-05-02");
         Paciente ejemPaciente = new Paciente("4425", "Alvaro", "Martinez", "55524878", "cl 57#32a-24", "44512", "Est", fecha, true );
         fecha = format.parse("2011-05-02");
-        Paciente ejemPaciente1 = new Paciente("4427", "Alvaro", "Kant", "55524878", "cr 57#32a-24", "44512", "Est", fecha, true );
+        Paciente ejemPaciente1 = new Paciente("4427", "Daniel", "Kant", "55524878", "cr 57#32a-24", "44512", "Est", fecha, true );
 
         System.out.println(crearPaciente(ejemPaciente));
         System.out.println(crearPaciente(ejemPaciente1));

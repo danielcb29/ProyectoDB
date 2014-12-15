@@ -17,10 +17,13 @@ public class Login extends javax.swing.JFrame {
     
     private ControlEmpleado ce;
     private ControlMedico cm;
+    private ControlEnfermera cEnf;
     private Connection conn;
     private String email;
     private String contrasena;
     private VistaAdmin va;
+    private PanelBodega pb;
+    private PanelMedico pm;
     
     /**
      * Creates new form GestionUsuario
@@ -33,6 +36,8 @@ public class Login extends javax.swing.JFrame {
         ce.connectDB();
         conn= ce.getConn();
         cm = new ControlMedico(conn);
+        cEnf = new ControlEnfermera(conn);
+        
         this.setTitle("Clínica 2014 Universidad del Valle");
         this.setResizable(false);
         
@@ -170,16 +175,33 @@ public class Login extends javax.swing.JFrame {
                     switch(cargo){
                         case "Administrador":
                             System.out.println("admin");
+                            va=new VistaAdmin(ce);
+                            va.setVisible(true);
+                            this.setEnabled(false);
+                            this.dispose();
                             break;
                         case "Medico":
                             System.out.println("Medico");
-                            Empleado me1 = ce.readEmpleado(email, 1, 1);
+                            Medico me1 = cm.readMedico(em);
                             System.out.println("dentro de la vista1" + me1.getNombres());
-                            Medico[] list = cm.listMedico();
-                            System.out.println("dentro de la vista2" + list[0].getNombres());
-                            va=new VistaAdmin(ce);
-                            va.setVisible(true);
-                            this.hide();
+                            pm = new PanelMedico(conn, me1);
+                            pm.setVisible(true);
+                            this.setEnabled(false);
+                            this.dispose();
+                            break;
+                        case "Enfermera":
+                            System.out.println("Medico");
+                            Enfermera enf1 = cEnf.readEnfermera(em);
+                            System.out.println("dentro de la vista1" + enf1.getNombres());
+                            this.setEnabled(false);
+                            this.dispose();
+                            break;
+                        case "Bodeguero":
+                            System.out.println("Bodeguero");
+                            pb = new PanelBodega(conn, em.getNombres());
+                            pb.setVisible(true);
+                            this.setEnabled(false);
+                            this.dispose();
                             break;
                         default:
                             System.out.println("default");

@@ -9,11 +9,21 @@ package proceso;
  *
  * @author cenesis
  */
-class Causa {
+public class Causa {
     
     private String codigoCausa;
     private String nombre;
     private String descripcion;
+    private boolean estado;
+    public Causa(String nombre , String desc ){
+        this.nombre=nombre;
+        descripcion=desc;
+        estado=true;
+               
+    }
+    public Causa(){
+        
+    }
 
     /**
      * @return the codigoCausa
@@ -55,5 +65,19 @@ class Causa {
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }
