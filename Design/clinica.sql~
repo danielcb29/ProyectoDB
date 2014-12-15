@@ -1,5 +1,5 @@
 --Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martienez , Brayan Rodriguez
-DROP TABLE IF EXISTS Cuasas_Registro;
+DROP TABLE IF EXISTS Causas_Registro;
 DROP TABLE IF EXISTS RegistroHC;
 DROP TABLE IF EXISTS Pacientes_Campana;
 DROP TABLE IF EXISTS Campana;
@@ -48,6 +48,7 @@ CREATE TABLE Paciente(
 	numeroSegSocial VARCHAR(40) NOT NULL,
 	actEcon VARCHAR(30) NOT NULL,
 	fechaNac DATE NOT NULL,
+	estado BOOLEAN NOT NULL,
 	CONSTRAINT fk_identificacion FOREIGN KEY(identificacion) REFERENCES Persona(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION 
 );
 
@@ -59,6 +60,7 @@ CREATE TABLE Empleado(
 	cargo VARCHAR(40) NOT NULL,
 	jefe VARCHAR(35) NOT NULL,
 	codigoArea INT NOT NULL,
+	estado BOOLEAN NOT NULL,
 	CONSTRAINT fk_identificacion FOREIGN KEY(identificacion) REFERENCES Persona(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_jefe FOREIGN KEY(jefe) REFERENCES Empleado(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_codigoArea FOREIGN KEY(codigoArea) REFERENCES Area(codigoArea) ON UPDATE CASCADE ON DELETE NO ACTION
@@ -106,8 +108,9 @@ CREATE TABLE Cita(
 CREATE TABLE Medicamentos(
 	codigoMedicamento VARCHAR(30) NOT NULL PRIMARY KEY,
 	nombre VARCHAR(30) NOT NULL,
-	costo MONEY NOT NULL,
-	descripcion TEXT NOT NULL
+	costo REAL NOT NULL,
+	descripcion TEXT NOT NULL,
+	estado BOOL NOT NULL
 );
 --Secuencia para las causas
 
@@ -116,7 +119,7 @@ CREATE SEQUENCE causa_seq;
 --Creación de la tabla Causa.
 CREATE TABLE Causa(
 	codigoCausa VARCHAR(30) NOT NULL PRIMARY KEY,
-	nombre VARCHAR(30) NOT NULL,
+	nombre VARCHAR(30) NOT NULL UNIQUE,
 	descripcion TEXT NOT NULL,
 	estado BOOL NOT NULL
 );
@@ -127,7 +130,7 @@ CREATE SEQUENCE hist_seq;
 --Creación de la tabla HistoriaClinica. Está relacionada con Paciente.
 CREATE TABLE HistoriaClinica(
 	numHistoria VARCHAR(35) NOT NULL PRIMARY KEY,
-	fechaAper DATE NOT NULL,
+	fechaAper timestamp NOT NULL,
 	idPaciente VARCHAR(35) NOT NULL,
 	CONSTRAINT fk_idPacHC FOREIGN KEY(idPaciente) REFERENCES Paciente(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
@@ -146,24 +149,27 @@ CREATE TABLE Formula(
 	idMedicamento VARCHAR(20) NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
 	numHistoria VARCHAR(35) NOT NULL,
-	fechaAsignacion DATE NOT NULL,
+	fechaAsignacion timestamp NOT NULL,
 	CONSTRAINT pk_formula PRIMARY KEY(idMedico, idMedicamento, numHistoria, fechaAsignacion), 
 	CONSTRAINT fk_idNumHist FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_idMedicamento FOREIGN KEY(idMedicamento) REFERENCES Medicamentos(codigoMedicamento) ON UPDATE CASCADE ON DELETE NO ACTION,
 	CONSTRAINT fk_idMedicoOnFormula FOREIGN KEY(idMedico) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 
 );
-
+--Secuencia para las campanas
+DROP SEQUENCE IF EXISTS camp_seq;
+CREATE SEQUENCE camp_seq;
 --Creación de la tabla Campana. Se relaciona con Medico.
 CREATE TABLE Campana(
 	codigoCampana VARCHAR(35) NOT NULL PRIMARY KEY,
 	fecha DATE NOT NULL,
-	nombre VARCHAR(30) NOT NULL,
+	nombre VARCHAR(30) NOT NULL UNIQUE,
 	objetivo VARCHAR(99) NOT NULL,
 	idResponsable VARCHAR(35) NOT NULL,
+	estado BOOL NOT NULL,
 	CONSTRAINT fk_idResp FOREIGN KEY(idResponsable) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
 );
-
+ALTER TABLE Campana ALTER codigoCampana SET DEFAULT nextval('camp_seq');
 --Creación de la tabla Pacientes_Campana. Relaciona a Paciente con Cama.
 CREATE TABLE Pacientes_Campana(
 	idPaciente VARCHAR(35) NOT NULL,
@@ -181,8 +187,8 @@ CREATE TABLE RegistroHC(
 	numHistoria VARCHAR(35) NOT NULL,
 	--codigoCausa VARCHAR (30) NOT NULL,
 	idMedico VARCHAR(35) NOT NULL,
-	fecha DATE NOT NULL,
-	precio MONEY NOT NULL,
+	fecha timestamp NOT NULL,
+	precio REAL NOT NULL,
 	--CONSTRAINT pk_registroHC PRIMARY KEY(codigoCausa, numHistoria, idMedico,fecha), 
 	CONSTRAINT fk_numHC FOREIGN KEY(numHistoria) REFERENCES HistoriaClinica(numHistoria) ON UPDATE CASCADE ON DELETE NO ACTION,
 	--CONSTRAINT fk_codCau FOREIGN KEY(codigoCausa) REFERENCES Causa(codigoCausa) ON UPDATE CASCADE ON DELETE NO ACTION,

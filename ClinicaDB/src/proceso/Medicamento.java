@@ -15,7 +15,18 @@ public class Medicamento{
     private String nombre;
     private double costo;
     private String descripcion;
+    private boolean estado;
 
+    public Medicamento(){
+        
+    }
+    public Medicamento(String codigo , String nombre , double costo, String descripcion){
+        codigoMedicamento=codigo;
+        this.nombre=nombre;
+        this.costo=costo;
+        this.descripcion=descripcion;
+        estado=true;
+    }
     /**
      * @return the codigoMedicamento
      */
@@ -70,5 +81,19 @@ public class Medicamento{
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the estado
+     */
+    public boolean getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

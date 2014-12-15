@@ -22,7 +22,7 @@ public class ClinicaDB {
     public static void main(String[] args) throws ParseException {
         
         BaseDatos conect = new BaseDatos();
-        PanelSecretaria ventanaEnfermera = new PanelSecretaria(conect.getConnetion());
+        PanelEnfermera ventanaEnfermera = new PanelEnfermera(conect.getConnetion());
         ventanaEnfermera.setVisible(true);
         
         // TODO code application logic here

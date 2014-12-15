@@ -12,6 +12,8 @@ package proceso;
 public class Enfermera extends Empleado{
     
     private int anosExp;
+
+    
     private String[] misHabilidades;
     
     public Enfermera(String id, String nom, String ap, String tel, String dir, int sal, String mail, String car, String con, String je, Area ar, boolean est, int aExp, String[] habs){

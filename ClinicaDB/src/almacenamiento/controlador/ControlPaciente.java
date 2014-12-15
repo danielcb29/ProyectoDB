@@ -7,6 +7,9 @@ package almacenamiento.controlador;
 
 import almacenamiento.accesodatos.*;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import proceso.Paciente;
 
 /**
@@ -19,6 +22,12 @@ public class ControlPaciente {
     
     public ControlPaciente(Connection conn){
         dao = new DaoPaciente(conn);
+        /*try {
+            System.out.println("creando paciente NEW");
+            dao.pruebaCrearPaciente();
+        } catch (ParseException ex) {
+            Logger.getLogger(ControlPaciente.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         
     }
     /**

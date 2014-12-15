@@ -29,6 +29,8 @@ public class Persona {
     public Persona() {
     }
 
+   
+
     /**
      * @return the identificacion
      */

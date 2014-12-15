@@ -43,6 +43,7 @@ public class BaseDatos {
                   //Crear objeto Statement para realizar queries a la base de datos
              } catch( Exception e ) {
                 System.out.println( "No se pudo abrir la bd." );
+                System.out.println(e);
                 return null;
              }
 

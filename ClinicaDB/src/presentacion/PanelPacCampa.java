@@ -5,7 +5,10 @@
  */
 package presentacion;
 
+import almacenamiento.controlador.ControlCampana;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
+import proceso.Campana;
 
 /**
  *
@@ -15,12 +18,20 @@ public class PanelPacCampa extends javax.swing.JFrame {
 
     
     Connection conn;
+    ControlCampana controlCam;
+    Campana[] misCamp;
     /**
      * Creates new form PanelPacCampa
      */
     public PanelPacCampa(Connection conn) {
         this.conn = conn;
         initComponents();
+        controlCam = new ControlCampana(conn);
+        misCamp = controlCam.listarCampComp(true);
+        for(int i = 0; i<misCamp.length; i++){
+            cmbCam.addItem(misCamp[i].getNombre());
+        }
+        
     }
 
     /**
@@ -37,11 +48,11 @@ public class PanelPacCampa extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         lblLogo = new javax.swing.JLabel();
         lblCam = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbCam = new javax.swing.JComboBox();
         lblTiDoc = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
+        cmbTipoDoc = new javax.swing.JComboBox();
         lblNumeroD = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNum = new javax.swing.JTextField();
         btAceptar = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,11 +69,16 @@ public class PanelPacCampa extends javax.swing.JFrame {
 
         lblTiDoc.setText("Documento: ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
+        cmbTipoDoc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
 
         lblNumeroD.setText("Numero: ");
 
         btAceptar.setText("Asignar");
+        btAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,15 +103,15 @@ public class PanelPacCampa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblCam)
                         .addGap(30, 30, 30)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cmbCam, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTiDoc)
                             .addComponent(lblNumeroD))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -117,15 +133,15 @@ public class PanelPacCampa extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCam)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbCam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTiDoc)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbTipoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumeroD)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btAceptar)
                 .addContainerGap())
@@ -134,19 +150,39 @@ public class PanelPacCampa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAceptarActionPerformed
+        String ident;
+        ident = cmbTipoDoc.getSelectedItem()+txtNum.getText();
+        if(txtNum.getText()==null){
+            JOptionPane.showMessageDialog(this, "Por favor ingrese todos los datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+            int resultado = controlCam.asignarPacCam(ident, misCamp[cmbCam.getSelectedIndex()].getCodigoCampana());
+            if(resultado>0){
+                JOptionPane.showMessageDialog(this, "Paciente asignado exitosamente", "mensaje de confirmacion", JOptionPane.OK_OPTION);
+            }else{
+                if(resultado==-1){
+                    JOptionPane.showMessageDialog(this, "Error al asignar paciente revise los datos", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Error al asignar paciente, si el problema continua contacte al administrador", "Error", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        }
+    }//GEN-LAST:event_btAceptarActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btAceptar;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox cmbCam;
+    private javax.swing.JComboBox cmbTipoDoc;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblCam;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNumeroD;
     private javax.swing.JLabel lblTiDoc;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtNum;
     // End of variables declaration//GEN-END:variables
 }
