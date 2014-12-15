@@ -39,17 +39,32 @@ public class VistaCrearArea extends javax.swing.JFrame {
                 btBuscar.setVisible(false);
                 lbEstado.setVisible(false);
                 comboEstado.setVisible(false);
+                tfCodigo.setEditable(true);
+                tfNombre.setEditable(true);
+                taDescripcion.setEditable(true);
+                comboEstado.setEditable(true);
                 btAccion.setText("Crear");
                 break;
             case 2://editar
                 tfCodigo.setEditable(false);
+                lbBuscar.setVisible(true);
+                tfBuscar.setVisible(true);
+                btBuscar.setVisible(true);
+                lbEstado.setVisible(true);
+                comboEstado.setVisible(true);
+                tfCodigo.setEditable(true);
+                tfNombre.setEditable(true);
+                taDescripcion.setEditable(true);
+                comboEstado.setEditable(true);
                 btAccion.setText("Editar");
+                break;
             case 3://eliminar
                 tfCodigo.setEditable(false);
                 tfNombre.setEditable(false);
                 taDescripcion.setEditable(false);
                 comboEstado.setEditable(false);
                 btAccion.setText("Eliminar");
+                break;
         }
     }
 

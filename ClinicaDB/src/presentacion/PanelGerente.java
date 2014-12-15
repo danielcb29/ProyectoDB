@@ -227,10 +227,12 @@ public class PanelGerente extends javax.swing.JFrame {
 
     private void botonBuscarHojasDeVidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarHojasDeVidaActionPerformed
         PanelBusquedaHojasDeVida pbh = new PanelBusquedaHojasDeVida();
+        pbh.setVisible(true);
     }//GEN-LAST:event_botonBuscarHojasDeVidaActionPerformed
 
     private void botonFacturaPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFacturaPacienteActionPerformed
         PanelFacturaPaciente pn = new PanelFacturaPaciente();
+        pn.setVisible(true);
     }//GEN-LAST:event_botonFacturaPacienteActionPerformed
 
     private void butonEmpleadosPorAreasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonEmpleadosPorAreasActionPerformed

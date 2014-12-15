@@ -162,71 +162,27 @@ public class DAOEnfermera {
      * @param en objeto de Enfermera con los atributos a modificar en la base de datos.
      * @param identificacion la cedula del usuario que se quiere actualizar.
      * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
-     *//*
+     */
     public int updateEnfermera(Enfermera en, String identificacion){
-        String sql_save1,  sql_save2,  sql_save3, sql_save4,  sql_save5,  sql_save6,  sql_save7;
-	sql_save1="UPDATE usuario SET name='"+us.getName()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save2="UPDATE usuario SET lastname='"+us.getLastName()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save3="UPDATE usuario SET userName='"+us.getUserName()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save4="UPDATE usuario SET contrasena='"+us.getPassword()+"' WHERE cedula='" + us.getCedula() + "'";
-        sql_save5="UPDATE usuario SET email='"+us.getMail()+"' WHERE cedula='" + us.getCedula() + "'";
-        
-        sql_save7=null;
-        switch(us.getProfile()){
-            case "Digitador":   sql_save6="UPDATE usuario SET id_perfil='1' WHERE cedula='" + us.getCedula() + "'";
-                                break;
-            case "Coordinador": sql_save6="UPDATE usuario SET id_perfil='2' WHERE cedula='" + us.getCedula() + "'";
-                                break;
-            case "Administrador":   sql_save6="UPDATE usuario SET id_perfil='3' WHERE cedula='" + us.getCedula() + "'";
-                                    sql_save7="UPDATE convousuario SET estado=false WHERE cedula='" + us.getCedula() + "' AND estado=true";
-                                    break;
-            default: return -3;
-                       
-        }
-        
-        
-        
-
+        String sql_save1;
+	sql_save1="UPDATE enfermera SET anosExp="+en.getAnosExp()+" WHERE identificacion='" + en.getIdentificacion()+ "'";
+        String sql_deHabs=  "DELETE FROM habilidades_enfermera WHERE identificacion='"+ en.getIdentificacion() +"'";
         try{
             Statement statement = conn.createStatement();
 
-            statement.executeUpdate(sql_save1);
-            statement.executeUpdate(sql_save2);
-            statement.executeUpdate(sql_save3);
-            statement.executeUpdate(sql_save4);
-            statement.executeUpdate(sql_save5);
-            statement.executeUpdate(sql_save6);
-            if(sql_save7!=null) statement.executeUpdate(sql_save7);
+            int rowCount = statement.executeUpdate(sql_save1);
             
-            if(!us.getProfile().equals("Administrador")){
-                String sql_save= "SELECT codigo FROM convoUsuario WHERE cedula='"+us.getCedula()+"' AND estado=true";
-                ResultSet table= statement.executeQuery(sql_save);
-                String cod="";
-                while(table.next()){
-                    cod = table.getString(1);
-                }
-                String usCod=Integer.toString(us.getConvocatoria().getCode());
-                if(!usCod.equals(cod)){
-                    sql_save="UPDATE convoUsuario SET estado=false WHERE codigo= "+cod+" AND cedula = '"+us.getCedula()+"'";
-                    statement.executeUpdate(sql_save);
-                    sql_save= "SELECT codigo FROM convoUsuario WHERE cedula='"+us.getCedula()+"'";
-                    table= statement.executeQuery(sql_save);
-                    boolean flag=false;
-                    while(table.next()){
-                        cod = table.getString(1);
-                        if(usCod.equals(cod)){
-                            sql_save="UPDATE convoUsuario SET estado=true WHERE codigo= "+usCod+" AND cedula = '"+us.getCedula()+"'";
-                            statement.executeUpdate(sql_save);
-                            flag=true;
-                            break;
-                        }
-                    }
-                    if(!flag){
-                        sql_save = "INSERT INTO convoUsuario VALUES('"+us.getCedula() +"', "+ usCod +", true )";
-                        statement.executeUpdate(sql_save);
-                    }
-                }
+            statement.executeUpdate(sql_deHabs);
+            
+            String [] habs = en.getMisHabilidades();
+            String [] sql_hab = new String[habs.length];
+            for(int i=0; i<habs.length;i++){
+                sql_hab[i]= "INSERT INTO habilidades_enfermera (identificacion, habilidad) VALUES ('"+en.getIdentificacion() + "', '"+ habs[i] +"')";
             }
+            
+            
+            System.out.println("ok");
+            return rowCount;
         }
         catch(SQLException e){
             System.out.println(e); 
@@ -236,120 +192,10 @@ public class DAOEnfermera {
             System.out.println(e);
             return -1;
         }
-        return 1;
     }//fin updateUser
 
-   /**
-     * listar todas las tuplas de los usuarios existentes.
-     * @return los objetos tipo Medico enlistados en un arreglo.
-     */ 
-  /*  public Medico[] listMedico(){
-        
-        String sql_select="SELECT persona.identificacion, persona.nombres, persona.apellidos, persona.telefono, persona.direccion, empleado.salario, empleado.email ,  empleado.cargo , empleado.contrasena, empleado.jefe, empleado.codigoArea, empleado.estado, medico.numeroLicencia, medico.especialidad, medico.universidad FROM  persona, empleado, medico WHERE empleado.identificacion=persona.identificacion AND medico.identificacion=persona.identificacion";
-        try{
-            System.out.println("consultando en la bd");
-            Statement statement = conn.createStatement();
-            ResultSet table = statement.executeQuery(sql_select);
-            
-            int numRows=0;
-            while(table.next()){
-                numRows++;
-            }
-            System.out.println(numRows);
-            Medico me[]= new Medico[numRows];
-            for(int i=0; i<numRows; i++){
-                me[i]=new Medico();
-            }
-            ResultSet table2= statement.executeQuery(sql_select);
-            int j=0;
-            
-            while(table2.next()){
-                
-                me[j].setIdentificacion(table2.getString(1));
-                
-                me[j].setNombres(table2.getString(2));
-                
-                me[j].setApellidos(table2.getString(3));
-                
-                me[j].setTelefono(table2.getString(4));
-                
-                me[j].setDireccion(table2.getString(5));
-                
-                me[j].setSalario(table2.getInt(6));
-                
-                me[j].setEmail(table2.getString(7));
-                
-                me[j].setCargo(table2.getString(8));
-                
-                me[j].setContrasena(table2.getString(9));
-                
-                String jefe = table2.getString(10);
-                
-                System.out.println("jefe "+jefe);
-                
-                if(jefe==null){
-                    me[j].setJefe("-1");
-                }else{
-                    me[j].setJefe(jefe);
-                }
-                
-                String area = table2.getString(11);
-                
-                System.out.println(area);
-                if(area==null){
-                    me[j].setArea(null);
-                }else{
-                    DAOArea daoa= new DAOArea(conn);
-                    Area ar = daoa.readArea(Integer.parseInt(area));
-                    me[j].setArea(ar);
-                }
-                
-                me[j].setEstado(table2.getBoolean(12));
-                
-                
-                
-                me[j].setNumeroLicencia(table2.getInt(13));
-                
-                me[j].setEspecialidad(table2.getString(14));
-                
-                me[j].setUniversidad(table2.getString(15));
-               
-                System.out.println("ok");
-                
-            }
-           
-            return me;
-         }
-         catch(SQLException e){ System.out.println(e); }
-         catch(Exception e){ System.out.println(e); }
-        return null;
-    }
-   /**
-    * borrar un usuario de la tabla.
-    * @param cedula la cedula del usuario que se quiere borrar.
-    */
-/**    public int deleteUser(String cedula){	
-        String sql_save;
-
-        sql_save="UPDATE usuario SET estado=false WHERE cedula='" + cedula + "'";
-        
-        try{
-            Statement statement = conn.createStatement();
-
-            statement.executeUpdate(sql_save);            
-            return 1;
-        }
-        catch(SQLException e){
-            System.out.println(e);
-            return -1;
-        }
-        catch(Exception e){ 
-            System.out.println(e);
-            
-        }
-        return -2;
-        
-    }
+   
+   
     /**
      * cerrar la conexion con la base de datos.
      */

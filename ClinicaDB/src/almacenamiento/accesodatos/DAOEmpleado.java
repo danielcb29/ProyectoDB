@@ -391,13 +391,13 @@ public class DAOEmpleado {
         return null;
     }
    /**
-    * borrar un usuario de la tabla.
-    * @param cedula la cedula del usuario que se quiere borrar.
+    * borrar un empleado de la tabla.
+    * @param identificacion la cedula del usuario que se quiere borrar.
     */
- /**   public int deleteUser(String cedula){	
+    public int deleteEmpleado(String identificacion){	
         String sql_save;
 
-        sql_save="UPDATE usuario SET estado=false WHERE cedula='" + cedula + "'";
+        sql_save="UPDATE empleado SET estado=false WHERE identificacion='" + identificacion + "'";
         
         try{
             Statement statement = conn.createStatement();

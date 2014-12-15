@@ -1,4 +1,4 @@
---Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martinez , Brayan Rodriguez, Camilo Narvaez
+--Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martinez , Brayan Rodriguez
 DROP TABLE IF EXISTS Causas_Registro;
 DROP TABLE IF EXISTS RegistroHC;
 DROP TABLE IF EXISTS Pacientes_Campana;

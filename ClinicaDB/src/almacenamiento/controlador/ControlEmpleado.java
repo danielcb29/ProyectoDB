@@ -128,8 +128,8 @@ public class ControlEmpleado {
         return result;
     }
 
-    /*public int  deleteUser(String text) {
-        return daoUser.deleteUser(text);
+    public int  deleteEmpleado(String id) {
+        return daoEm.deleteEmpleado(id);
     }
     
     
