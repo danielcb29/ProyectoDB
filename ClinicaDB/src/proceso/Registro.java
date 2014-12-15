@@ -20,6 +20,8 @@ public class Registro {
     private Vector<Causa> causasPaciente;
     private HistoriaClinica historiaPaciente;
     private String idMedico; //TEMPORAL MIENTRAS DAOMEDICO
+    private String codigoRegistro;
+    private String numHistoria;
 
     public Registro(){
         
@@ -53,6 +55,35 @@ public class Registro {
     public Date getFecha() {
         return fecha;
     }
+    //=====================================EDITADO CAMILO ===================
+    /**
+     * @return the codighoRgistro
+     */
+    public String getCodigo() {
+        return codigoRegistro;
+    }
+    
+    /**
+     * @return the numHistoria
+     */
+    public String getnumHistoria() {
+        return numHistoria;
+    }
+    
+    /**
+     * @return the numHistoria
+     */
+    public String getCausas() {
+        String respuesta = "";
+        for(int i = 0 ; i < causasPaciente.size() ; i++){
+            respuesta += causasPaciente.get(i) + ", ";
+        }
+        return respuesta.substring(0, respuesta.length()-2);
+    }
+    
+    
+    //=========================================================================
+    
 
     /**
      * @param fecha the fecha to set
@@ -122,6 +153,14 @@ public class Registro {
      */
     public void setIdMedico(String idMedico) {
         this.idMedico = idMedico;
+    }
+
+    public void setCodigo(String codigoRegistro) {
+        this.codigoRegistro = codigoRegistro;
+    }
+
+    public void setNumHistori(String numHistoria) {
+        this.numHistoria = numHistoria;
     }
     
 }

@@ -35,15 +35,30 @@ public class ControlHistoria {
         boolean resultado = dao.existePaciente(cedula);
         return resultado;
     }
+    
+    
     /**
-     * Metodo que permite buscar a un paciente en la base de datos
-     * @param cedula cedula del paciente a buscar
-     * @return paciente 
+     * Metodo que permite consultar la una historia clinica 
+     * @param cedula: cedula del paciente al cual corresponde la hc
+     * @return valor de verdad sobre la existencia
      */
-    public Paciente buscarPaciente(String cedula){
-        Paciente paciente = controlPac.leerPaciente(cedula);
-        return paciente;
+    //=================================CAMILO AGREGO======================
+    public Vector<Registro> consultarRegistros(String cedula){
+        Vector<Registro> resultado = dao.leerRegistrosHistoria(cedula);
+        return resultado;
     }
+    
+    public Double[] contularCostosAnio(String cedula,String anio){
+        Double[] resultado = dao.consultarCostoAnio(cedula,anio);
+        return resultado;
+    }
+    
+      public Double[] contularCostosAnioMes(String cedula,String anio, String mes){
+        Double[] resultado = dao.consultarCostoAnioMes(cedula,anio,mes);
+        return resultado;
+    }
+    //=============================================================================================
+
     /**
      * Metodo que permite almacenar una historia clinica en la base de datos
      * @param hc: historia clinica a almacenar
@@ -85,7 +100,15 @@ public class ControlHistoria {
         
     }
     
-    
+    /**
+     * Metodo que permite buscar a un paciente en la base de datos
+     * @param cedula cedula del paciente a buscar
+     * @return paciente 
+     */
+    public Paciente buscarPaciente(String cedula){
+        Paciente paciente = controlPac.leerPaciente(cedula);
+        return paciente;
+    }
     
     
 }

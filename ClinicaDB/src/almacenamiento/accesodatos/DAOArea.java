@@ -186,12 +186,13 @@ public class DAOArea {
     }
    /**
     * borrar un usuario de la tabla.
-    * @param cedula la cedula del usuario que se quiere borrar.
+    * @param codigoArea el codigo del area que se quiere borrar.
+    * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
     */
-/**    public int deleteUser(String cedula){	
+    public int deleteArea(int codigoArea){	
         String sql_save;
 
-        sql_save="UPDATE usuario SET estado=false WHERE cedula='" + cedula + "'";
+        sql_save="UPDATE area SET estado=false WHERE codigoArea='" + codigoArea + "'";
         
         try{
             Statement statement = conn.createStatement();
@@ -205,9 +206,9 @@ public class DAOArea {
         }
         catch(Exception e){ 
             System.out.println(e);
-            
+            return -2;
         }
-        return -2;
+        
         
     }
     /**

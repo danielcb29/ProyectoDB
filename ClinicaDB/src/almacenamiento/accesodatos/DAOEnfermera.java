@@ -159,11 +159,11 @@ public class DAOEnfermera {
    
     /**
      * actualizar la informacion de un usuario, con la cedula que entra por parametro.
-     * @param us objeto de Usuario con los atributos a modificar en la base de datos.
-     * @param cedula la cedula del usuario que se quiere actualizar.
+     * @param en objeto de Enfermera con los atributos a modificar en la base de datos.
+     * @param identificacion la cedula del usuario que se quiere actualizar.
      * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
-     */
-  /**  public int updateUser(Usuario us, String cedula){
+     *//*
+    public int updateEnfermera(Enfermera en, String identificacion){
         String sql_save1,  sql_save2,  sql_save3, sql_save4,  sql_save5,  sql_save6,  sql_save7;
 	sql_save1="UPDATE usuario SET name='"+us.getName()+"' WHERE cedula='" + us.getCedula() + "'";
         sql_save2="UPDATE usuario SET lastname='"+us.getLastName()+"' WHERE cedula='" + us.getCedula() + "'";
