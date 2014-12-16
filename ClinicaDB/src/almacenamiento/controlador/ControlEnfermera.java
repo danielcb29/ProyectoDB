@@ -25,8 +25,8 @@ public class ControlEnfermera {
      * **/
     public ControlEnfermera(Connection conn){
         daoEnf=new DAOEnfermera(conn);
-        daoEm= new DAOEmpleado();
-        daoEm.connectDB();
+        daoEm= new DAOEmpleado(conn);
+        
     }
     public void connectDB(){
         daoEnf.connectDB();
@@ -90,26 +90,34 @@ public class ControlEnfermera {
  
      
     /** metodo que llama al Dao para consultar cuantos usuarios existen
+     * @param id
+     * @param nombres
+     * @param apellidos
+     * @param telefono
+     * @param direccion
+     * @param sal
+     * @param email
+     * @param cargo
+     * @param area
+     * @param jefe
+     * @param habs
+     * @param contrasena
+     * @param anos
+     * @param estado
      * @return cantidad de usuarios existentes en la base de datos
      */
-  /* public Medico[] listMedico ()  
-    {
-        Medico [] me = daoMe.listMedico();
-        return  me;
-                
-    }
-    /**
+  
 
-    public int editUser(String cedula, String name, String lastName, String userName, String password, String email, String perfil, Convocatoria convo,boolean estado) {
-        int result;
-        result = 0;
-        Usuario user = new Usuario(name,lastName,userName,password,email,perfil,cedula,convo);
-        user.setState(estado);
-        result = daoUser.updateUser(user, cedula);
+    public int updateEnfermera(String id, String nombres, String apellidos, String telefono, String direccion, int sal, String email ,String cargo, String contrasena , String jefe, Area area, boolean estado, int anos, String[] habs) {
+        Empleado em = new Empleado(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado);
+        daoEm.updateEmpleado(em, id);
+        
+        Enfermera enf = new Enfermera(id, nombres, apellidos, telefono, direccion, sal, email, cargo,  contrasena, jefe, area, estado, anos, habs);
+        int result = daoEnf.updateEnfermera(enf, id);
 
         return result;
     }
-
+/*
     public int  deleteUser(String text) {
         return daoUser.deleteUser(text);
     }

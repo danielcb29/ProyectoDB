@@ -34,7 +34,6 @@ public class BaseDatos {
             } catch( Exception e ) {
                 System.out.println( "No se pudo cargar el driver." );
             }
-
             try{
                      //Crear el objeto de conexion a la base de datos
                      conexion = DriverManager.getConnection(url, usuario, password);

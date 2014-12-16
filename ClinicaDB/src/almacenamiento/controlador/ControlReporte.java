@@ -9,6 +9,7 @@ import almacenamiento.accesodatos.DAOCausa;
 import almacenamiento.accesodatos.DAOReportes;
 import java.sql.Connection;
 import java.util.Vector;
+import javax.xml.ws.Service;
 import proceso.CitasReporte;
 
 /**
@@ -30,7 +31,7 @@ public class ControlReporte {
      * @return numero de citas encontras para dicho medico
      */
     public int numeroDeCitasMedico(String cedula, String mes , String year){
-        int resultado = dao.cantidadCitasPorMes(cedula, mes, year);
+        int resultado = dao.cantidadCitasPorMes(cedula, sacarMes(mes), year);
         return resultado;
     }
     /**
@@ -41,7 +42,57 @@ public class ControlReporte {
      * @return vector con las respectivas citas del medico
      */
     public Vector<CitasReporte> agendaMedico(String cedula, String mes , String year){
-        Vector<CitasReporte> agenda = dao.agendaMedico(cedula, mes, year);
+        Vector<CitasReporte> agenda = dao.agendaMedico(cedula, sacarMes(mes), year);
         return agenda;
     }
+    /**
+     * Permite obtener el numero de mes dado un mes 
+     * @param mes mes a convertir
+     * @return mes en numero
+     */
+    private String sacarMes(String mes){
+        String mesSalida ="";
+        switch(mes){
+            case "Enero":
+                mesSalida="1";
+                break;
+            case "Febrero":
+                mesSalida="2";
+                break;
+            case "Marzo":
+                mesSalida="3";
+                break;
+            case "Abril":
+                mesSalida="4";
+                break;
+            case "Mayo":
+                mesSalida="5";
+                break;
+            case "Junio":
+                mesSalida="6";
+                break;
+            case "Julio":
+                mesSalida="7";
+                break;
+            case "Agosto":
+                mesSalida="8";
+                break;
+            case "Septiembre":
+                mesSalida="9";
+                break;
+            case "Octubre":
+                mesSalida="10";
+            case "Noviembre":
+                mesSalida="11";
+                break;
+            case "Diciembre":
+                mesSalida="12";
+                break;
+             
+        }
+        return mesSalida;
+            
+                
+    }
+    
 }
