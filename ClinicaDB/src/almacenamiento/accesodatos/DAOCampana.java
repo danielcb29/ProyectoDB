@@ -314,4 +314,64 @@ public class DAOCampana {
         }
         return -2; 
     }
+
+    public String[] listarUsuarioCamp(String codigoCampana) {
+            
+    
+            String sql_select, sql_count;
+        
+            sql_select = "SELECT idpaciente FROM pacientes_campana WHERE idCampana ='"+codigoCampana+"';";
+            sql_count = "SELECT COUNT(*) FROM pacientes_campana WHERE idCampana ='"+codigoCampana+"';";
+
+
+
+        try {
+            System.out.println("consultando en la bd");
+            Statement sentence = conn.createStatement();
+            ResultSet tablaTam = sentence.executeQuery(sql_count);
+            tablaTam.next();
+            int tamano = tablaTam.getInt(1);
+            ResultSet table = sentence.executeQuery(sql_select);
+
+            System.out.println(tamano);
+            String usuarioCamp[] = new String[tamano];
+            
+            int j = 0;
+
+            while (table.next()) {
+                
+                usuarioCamp[j] = table.getString(1);
+                j++;
+                System.out.println("ok");
+            }
+
+            return usuarioCamp;
+        } catch (SQLException e) {
+            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;    }
+
+    public int eliminarPacCamp(String docum, String codCamp) {
+        String sql1;
+	sql1 = "DELETE FROM pacientes_campana WHERE idpaciente='"+docum+"' AND idcampana ='"+codCamp+"';";
+                System.out.println(sql1);
+
+        try{
+                Statement sentencia = conn.createStatement();
+
+                sentencia.executeUpdate(sql1);
+
+                return 1;
+            }
+        catch(SQLException e){
+            System.out.println(e); 
+            return -2;
+            }
+        catch(Exception e){ 
+            System.out.println(e);
+            return -1;
+        }
+    }
 }

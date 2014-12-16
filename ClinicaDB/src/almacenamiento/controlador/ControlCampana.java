@@ -72,4 +72,12 @@ public class ControlCampana {
     public int asignarPacCam(String ident, String codigoCampana) {
         return dao.asignarPacCam(ident, codigoCampana);
     }
+
+    public String[] listarUsuCamp(String codigoCampana) {
+        return dao.listarUsuarioCamp(codigoCampana);
+     }
+
+    public int eliminarPacCamp(String docum, String codCamp) {
+        return dao.eliminarPacCamp(docum, codCamp);
+    }
 }

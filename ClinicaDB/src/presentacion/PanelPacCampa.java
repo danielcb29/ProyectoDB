@@ -32,6 +32,7 @@ public class PanelPacCampa extends javax.swing.JFrame {
             cmbCam.addItem(misCamp[i].getNombre());
         }
         
+        
     }
 
     /**
@@ -168,6 +169,7 @@ public class PanelPacCampa extends javax.swing.JFrame {
                 }
             }
         }
+        this.dispose();
     }//GEN-LAST:event_btAceptarActionPerformed
 
 

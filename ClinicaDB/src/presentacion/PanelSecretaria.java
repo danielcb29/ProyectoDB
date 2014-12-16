@@ -46,6 +46,7 @@ public class PanelSecretaria extends javax.swing.JFrame {
         btCrearPac = new javax.swing.JButton();
         btCancelarCitas = new javax.swing.JButton();
         lblLogo = new javax.swing.JLabel();
+        btCerrarSe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(700, 350));
@@ -101,6 +102,13 @@ public class PanelSecretaria extends javax.swing.JFrame {
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/logo2.png"))); // NOI18N
 
+        btCerrarSe.setText("Cerrar sesion");
+        btCerrarSe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCerrarSeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,9 +116,6 @@ public class PanelSecretaria extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btEliminarPac, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -132,12 +137,16 @@ public class PanelSecretaria extends javax.swing.JFrame {
                                     .addComponent(tituloCita, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbTitulo)
-                            .addComponent(infoPanel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                        .addComponent(lblLogo)
-                        .addGap(105, 105, 105))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbTitulo)
+                                    .addComponent(infoPanel))
+                                .addGap(59, 59, 59)
+                                .addComponent(lblLogo))
+                            .addComponent(btCerrarSe)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +174,9 @@ public class PanelSecretaria extends javax.swing.JFrame {
                     .addComponent(btCancelarCitas))
                 .addGap(18, 18, 18)
                 .addComponent(btEliminarPac)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btCerrarSe)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,10 +208,15 @@ public class PanelSecretaria extends javax.swing.JFrame {
         panelCitas.setVisible(true);
     }//GEN-LAST:event_btCancelarCitasActionPerformed
 
+    private void btCerrarSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarSeActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCerrarSeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAsigCit;
     private javax.swing.JButton btCancelarCitas;
+    private javax.swing.JButton btCerrarSe;
     private javax.swing.JButton btCrearPac;
     private javax.swing.JButton btEliminarPac;
     private javax.swing.JButton btModfPac;
