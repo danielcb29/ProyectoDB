@@ -342,7 +342,7 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCedulaPacienteActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        this.hide(); 
+        this.dispose(); 
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed

@@ -181,7 +181,7 @@ public class Login extends javax.swing.JFrame {
                             Vector<Empleado[]> todosEms =ce.listEmpleadoPorArea();
                             for(int i= 0; i<todosEms.size(); i++){
                                 Empleado[] emInterno = todosEms.get(i);
-                                System.out.println(emInterno[0].getArea().getNombre());
+                                //System.out.println(emInterno[0].getArea().getNombre());
                                 for(int j=0;j<emInterno.length;j++){
                                     System.out.println(emInterno[j].getEmail());
                                 }
