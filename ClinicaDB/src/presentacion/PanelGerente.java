@@ -261,7 +261,7 @@ public class PanelGerente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonBuscarHojasDeVidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarHojasDeVidaActionPerformed
-        PanelBusquedaHojasDeVida pbh = new PanelBusquedaHojasDeVida();
+        PanelBusquedaHojasDeVida pbh = new PanelBusquedaHojasDeVida(conn);
         pbh.setVisible(true);
     }//GEN-LAST:event_botonBuscarHojasDeVidaActionPerformed
 

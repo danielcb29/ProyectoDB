@@ -44,6 +44,7 @@ public class ControlHistoria {
      */
     //=================================CAMILO AGREGO======================
     public Vector<Registro> consultarRegistros(String cedula){
+        System.out.println("Control para traer registros");
         Vector<Registro> resultado = dao.leerRegistrosHistoria(cedula);
         return resultado;
     }

@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import proceso.HistoriaClinica;
 import proceso.Paciente;
 import proceso.Registro;
 
@@ -26,13 +27,15 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
     ControlGerente miGerente;
     ControlHistoria miControlHistoria;
     BaseDatos miBD;
+    Connection con;
     /**
      * Creates new form PanelBusquedaHojasDeVida
      */
-    public PanelBusquedaHojasDeVida() {
+    public PanelBusquedaHojasDeVida(Connection conn) {
         initComponents();
-        miBD = new BaseDatos();
-        Connection con = miBD.conectar();
+        //miBD = new BaseDatos();
+        //Connection con = miBD.conectar();
+        con=conn;
         miGerente = new ControlGerente(con);
         miControlHistoria = new ControlHistoria(con);
         setResizable(false);
@@ -338,15 +341,16 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             }else{
                 estadoPaciente.setText("false");
             }
-            
-            Vector<Registro> registrosPaciente = miControlHistoria.consultarRegistros(cedula);
-            System.out.println(registrosPaciente.isEmpty());
-
+            System.out.println("Antes de traer registros");
+            Vector<Registro> registrosPaciente = miControlHistoria.consultarRegistros(identificacion);
+            //System.out.println("hay registros?"+registrosPaciente.isEmpty());
+            //HistoriaClinica hc= miControlHistoria.buscarHistoriaCompleta(cedula);
+            //Vector<Registro> registrosPaciente = hc.getRegistrosConsultasPacientes();
             DefaultTableModel dfRegistros = new DefaultTableModel();
             tablaResultados.setModel(dfRegistros);
-            dfRegistros.setColumnIdentifiers(new Object[] {"Codigo", "Numero Historia", "ID Medico", "Fecha", "Precio", "Causas"});
+            dfRegistros.setColumnIdentifiers(new Object[] { "ID Medico", "Fecha", "Precio", "Causas"});
             for(int i = 0 ; i < registrosPaciente.size(); i++){
-                dfRegistros.addRow(new Object[]{registrosPaciente.get(i).getCodigo(),registrosPaciente.get(i).getnumHistoria(),registrosPaciente.get(i).getIdMedico(),registrosPaciente.get(i).getFecha(),registrosPaciente.get(i).getPrecio(), registrosPaciente.get(i).getCausas()});
+                dfRegistros.addRow(new Object[]{registrosPaciente.get(i).getIdMedico(),registrosPaciente.get(i).getFecha(),registrosPaciente.get(i).getPrecio(), registrosPaciente.get(i).getCausas()});
             }
             
             repaint();

@@ -16,6 +16,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import proceso.Causa;
+import proceso.Empleado;
 import proceso.HistoriaClinica;
 import proceso.Medico;
 import proceso.Paciente;
@@ -30,11 +31,14 @@ public class DAOHistoria {
     private BaseDatos db;
     private Connection conn;
     private DaoPaciente daoPac;
+    
 
     public DAOHistoria(Connection conn) {
         db = new BaseDatos();
         this.conn = conn;
         daoPac = new DaoPaciente(conn);
+        
+        
     }
 
     /**
@@ -158,17 +162,17 @@ public class DAOHistoria {
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
             ResultSet table = sentence.executeQuery(sqlRegistro);
-
+            System.out.println("antes del while");
             while (table.next()) {
                 Registro dbReg = new Registro();
                 String codigoRegistro = table.getString(1);
                 String numHistoria = table.getString(2);
                 String idMedico = table.getString(3);
-                //Medico medico = new Medico();
+                //Medico medico = daoMed.readMedico(null)
                 Date fecha;
                 fecha = format.parse(table.getString(4));
                 double precio = table.getDouble(5);
-
+                System.out.println("Registros de paciente PREVIO: "+codigoRegistro+" "+numHistoria+" "+fecha+" "+precio+" "+idMedico);
                 Vector<Causa> causasRegistro = causasRegistro(codigoRegistro);
                 
                 dbReg.setCodigo(codigoRegistro);
@@ -177,10 +181,10 @@ public class DAOHistoria {
                 dbReg.setFecha(fecha);
                 dbReg.setPrecio(precio);
                 dbReg.setIdMedico(idMedico);
-                
+                System.out.println("Registros de paciente: "+codigoRegistro+" "+numHistoria+" "+fecha+" "+precio+" "+idMedico);
                 registros.add(dbReg);
             }
-            
+            System.out.println("Afuera del while");
             return registros;
             
         } catch (SQLException ex) {
