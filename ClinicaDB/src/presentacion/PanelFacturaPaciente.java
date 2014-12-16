@@ -32,7 +32,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         Connection con = miBD.conectar();
         miGerente = new ControlGerente(con);
         miControlHistoria = new ControlHistoria(con);
-        
+        setResizable(false);
     }
 
     /**
@@ -418,7 +418,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                 
                 String anio = tfAnio.getText();
                 System.out.println("consultara anio");
-                resultado = miControlHistoria.contularCostosAnio(cedula,anio);
+                resultado = miControlHistoria.contularCostosAnio(identificacion,anio);
             }else{
                 if(radioButonMes.isSelected()){
                     String anio = tfAnioMes.getText();
@@ -436,7 +436,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                     if(mes.equals("Noviembre")){ mes = "11";}
                     if(mes.equals("Diciembre")){ mes = "12";}
                     System.out.println("consultara mes");
-                    resultado = miControlHistoria.contularCostosAnioMes(cedula, anio,  mes);
+                    resultado = miControlHistoria.contularCostosAnioMes(identificacion, anio,  mes);
                     
                 }
                     

@@ -35,6 +35,7 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
         Connection con = miBD.conectar();
         miGerente = new ControlGerente(con);
         miControlHistoria = new ControlHistoria(con);
+        setResizable(false);
     }
 
     /**
