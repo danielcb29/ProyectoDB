@@ -7,6 +7,7 @@ package presentacion;
 
 import java.util.Vector;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -27,27 +28,30 @@ public class panelListarAreas extends javax.swing.JFrame {
         initComponents();
         int numAreas = misAreas.length;
         for(int i = 0 ; i < numAreas; i++){
-            //JTabbedPane pestanaAux = new JTabbedPane();
-            JTable tablaAux = new JTable();
-            tablaAux.setEnabled(false);
-            String [] nombresColum = {"ID","Nombres", "Apellidos", "Salario", "Email", "Cargo", "Jefe", "Estado"};
+            
+            
+            
+            
             DefaultTableModel dfAreas = new DefaultTableModel();
             dfAreas.setColumnIdentifiers(new Object[] {"ID","Nombres", "Apellidos", "Salario", "Email", "Cargo", "Jefe", "Estado"});
+            JTable tablaAux = new JTable();
+            tablaAux.setEnabled(false);
             tablaAux.setModel(dfAreas);
             
             
-            JPanel panelArea = new JPanel();
             
+            JScrollPane panelArea = new JScrollPane(tablaAux);
             for(int j = 0 ; j < misEmpleados.get(i).length; j++){
-                System.out.println(misEmpleados.get(i)[j].getIdentificacion());
-                dfAreas.addRow(new Object[]{misEmpleados.get(i)[j].getIdentificacion(),misEmpleados.get(i)[j].getNombres(),misEmpleados.get(i)[j].getApellidos(),misEmpleados.get(i)[j].getSalario(),misEmpleados.get(i)[j].getEmail(), misEmpleados.get(i)[j].getCargo(), misEmpleados.get(i)[j].getEstado()});
+                String jefe = misEmpleados.get(i)[j].getJefe();
+                if(jefe.equals("-1")){
+                    jefe="No tiene jefe asignado";
+                }
+                dfAreas.addRow(new Object[]{misEmpleados.get(i)[j].getIdentificacion(),misEmpleados.get(i)[j].getNombres(),misEmpleados.get(i)[j].getApellidos(),misEmpleados.get(i)[j].getSalario(),misEmpleados.get(i)[j].getEmail(), misEmpleados.get(i)[j].getCargo(),jefe ,misEmpleados.get(i)[j].getEstado()});
                 
             }
-            dfAreas.setColumnIdentifiers(nombresColum);
-            //tablaAux.setColumnModel(nombresColum);
-            panelArea.add(tablaAux);
+            
             pestaniasPanel.addTab(misAreas[i].getNombre(), panelArea);
-            //pestaniasPanel.addTab(misAreas[i].getNombre(), pestanaAux);
+            
             
         }
         this.repaint();
