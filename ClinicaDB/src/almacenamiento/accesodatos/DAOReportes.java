@@ -33,8 +33,32 @@ public class DAOReportes {
      * @return vector con citas en dicho mes y año
      */
     public Vector<CitasReporte> agendaMedico(String idMedico, String mes, String year){
-        
-        
+        String sql = "select fecha,hora,idpaciente, nombres,apellidos from cita,persona where idpaciente=identificacion and estado=true and (select extract(year from fecha)) = '2014' and (select extract(month from fecha)) = '01' and idMedico='1';";
+        System.out.println("consultando en la bd");
+        Vector<CitasReporte> agenda = new Vector<CitasReporte>();   
+        try {
+            Statement sentence = conn.createStatement();
+            ResultSet table = sentence.executeQuery(sql);
+            while(table.next()){
+               CitasReporte cita = new CitasReporte();
+               String fecha = table.getString(1);
+               cita.setFecha(fecha);
+               String hora = table.getString(2);
+               cita.setHora(hora);
+               String idPaciente = table.getString(3);
+               cita.setIdPaciente(idPaciente);
+               String nombres = table.getString(4);
+               cita.setNombrePaciente(nombres);
+               String apellidos = table.getString(5);
+               cita.setApellidosPaciente(apellidos);
+               
+               agenda.add(cita);
+               
+            }
+            return agenda;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
     

@@ -13,7 +13,8 @@ public class CitasReporte {
     private String fecha;
     private String hora;
     private String idPaciente; 
-    private String nombrePaciente;
+    private String nombresPaciente;
+    private String apellidosPaciente;
     
     public CitasReporte(){
         
@@ -65,14 +66,28 @@ public class CitasReporte {
      * @return the nombrePaciente
      */
     public String getNombrePaciente() {
-        return nombrePaciente;
+        return nombresPaciente;
     }
 
     /**
      * @param nombrePaciente the nombrePaciente to set
      */
     public void setNombrePaciente(String nombrePaciente) {
-        this.nombrePaciente = nombrePaciente;
+        this.nombresPaciente = nombrePaciente;
+    }
+
+    /**
+     * @return the apellidosPaciente
+     */
+    public String getApellidosPaciente() {
+        return apellidosPaciente;
+    }
+
+    /**
+     * @param apellidosPaciente the apellidosPaciente to set
+     */
+    public void setApellidosPaciente(String apellidosPaciente) {
+        this.apellidosPaciente = apellidosPaciente;
     }
     
 }
