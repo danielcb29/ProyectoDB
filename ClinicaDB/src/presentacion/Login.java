@@ -7,6 +7,7 @@ package presentacion;
 import almacenamiento.controlador.*;
 import proceso.*;
 import java.sql.Connection;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 /**
@@ -177,6 +178,15 @@ public class Login extends javax.swing.JFrame {
                     switch(cargo){
                         case "Administrador":
                             System.out.println("admin");
+                            Vector<Empleado[]> todosEms =ce.listEmpleadoPorArea();
+                            for(int i= 0; i<todosEms.size(); i++){
+                                Empleado[] emInterno = todosEms.get(i);
+                                System.out.println(emInterno[0].getArea().getNombre());
+                                for(int j=0;j<emInterno.length;j++){
+                                    System.out.println(emInterno[j].getEmail());
+                                }
+                                
+                            }
                             va=new VistaAdmin(ce);
                             va.setVisible(true);
                             this.setEnabled(false);

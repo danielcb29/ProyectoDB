@@ -33,6 +33,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
      * Creates new form VistaEditarUsuario
      *
      * @param controlEm control del empleado
+     * @param tipo 1 si es editar y 2 si es eliminar
      */
     public VistaEditarUsuario(ControlEmpleado controlEm, int tipo) {
         this.tipo = tipo;

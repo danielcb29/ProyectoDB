@@ -7,6 +7,7 @@ package almacenamiento.controlador;
 import proceso.*;
 import almacenamiento.accesodatos.*;
 import java.sql.Connection;
+import java.util.Vector;
 
 /**
  *
@@ -15,7 +16,7 @@ import java.sql.Connection;
 
 public class ControlEmpleado {
     
-
+    DAOArea daoAr;
     DAOEmpleado daoEm;
     ControlMedico controlMe;
     ControlEnfermera controlEnf;
@@ -32,6 +33,7 @@ public class ControlEmpleado {
         daoEm.connectDB();
         controlMe=new ControlMedico(daoEm.getConn());
         controlEnf=new ControlEnfermera(daoEm.getConn());
+        daoAr = new DAOArea(daoEm.getConn());
     }
     public Connection getConn(){
         return daoEm.getConn();
@@ -99,12 +101,17 @@ public class ControlEmpleado {
     
     /**
      * listar todos los empleados por un area determinada por el parámetro
-     * @param codigoArea codigo del área en la que se deben listar los empleados
      * @return Empleados que pertenecen a esa área
      */
-    public Empleado[] listEmpleadoPorArea(int codigoArea){
-        Empleado[] em = daoEm.listEmpleadoPorArea(codigoArea);
-        return em;
+    public Vector<Empleado[]> listEmpleadoPorArea(){
+        Area[] ars = daoAr.listArea();
+        int numAreas = ars.length ;
+        Vector<Empleado[]> todosEms = new Vector<Empleado[]>();
+        for(int i=0; i<numAreas; i++){
+            Empleado[] em = daoEm.listEmpleadoPorArea(ars[i].getCodigoArea());
+            todosEms.addElement(em);
+        }
+        return todosEms;
     }
  
      
