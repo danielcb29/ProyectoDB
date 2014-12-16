@@ -90,9 +90,7 @@ public class ControlReporte {
                 break;
              
         }
-        return mesSalida;
-            
-                
+        return mesSalida;     
     }
     
 }
