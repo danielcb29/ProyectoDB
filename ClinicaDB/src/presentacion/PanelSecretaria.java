@@ -49,7 +49,7 @@ public class PanelSecretaria extends javax.swing.JFrame {
         btCerrarSe = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 350));
+        setPreferredSize(new java.awt.Dimension(720, 350));
         setResizable(false);
 
         lbTitulo.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
@@ -176,7 +176,7 @@ public class PanelSecretaria extends javax.swing.JFrame {
                 .addComponent(btEliminarPac)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btCerrarSe)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
