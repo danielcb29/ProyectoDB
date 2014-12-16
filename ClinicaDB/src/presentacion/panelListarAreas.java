@@ -6,6 +6,7 @@
 package presentacion;
 
 import java.util.Vector;
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -26,18 +27,27 @@ public class panelListarAreas extends javax.swing.JFrame {
         initComponents();
         int numAreas = misAreas.length;
         for(int i = 0 ; i < numAreas; i++){
-            JTabbedPane pestanaAux = new JTabbedPane();
+            //JTabbedPane pestanaAux = new JTabbedPane();
             JTable tablaAux = new JTable();
+            tablaAux.setEnabled(false);
+            String [] nombresColum = {"ID","Nombres", "Apellidos", "Salario", "Email", "Cargo", "Jefe", "Estado"};
             DefaultTableModel dfAreas = new DefaultTableModel();
-            tablaAux.setModel(dfAreas);
             dfAreas.setColumnIdentifiers(new Object[] {"ID","Nombres", "Apellidos", "Salario", "Email", "Cargo", "Jefe", "Estado"});
+            tablaAux.setModel(dfAreas);
+            
+            
+            JPanel panelArea = new JPanel();
             
             for(int j = 0 ; j < misEmpleados.get(i).length; j++){
-                
+                System.out.println(misEmpleados.get(i)[j].getIdentificacion());
                 dfAreas.addRow(new Object[]{misEmpleados.get(i)[j].getIdentificacion(),misEmpleados.get(i)[j].getNombres(),misEmpleados.get(i)[j].getApellidos(),misEmpleados.get(i)[j].getSalario(),misEmpleados.get(i)[j].getEmail(), misEmpleados.get(i)[j].getCargo(), misEmpleados.get(i)[j].getEstado()});
                 
             }
-            pestaniasPanel.addTab(misAreas[i].getNombre(), pestanaAux);
+            dfAreas.setColumnIdentifiers(nombresColum);
+            //tablaAux.setColumnModel(nombresColum);
+            panelArea.add(tablaAux);
+            pestaniasPanel.addTab(misAreas[i].getNombre(), panelArea);
+            //pestaniasPanel.addTab(misAreas[i].getNombre(), pestanaAux);
             
         }
         this.repaint();

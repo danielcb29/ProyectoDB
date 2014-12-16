@@ -32,6 +32,7 @@ CREATE TABLE Cama(
 	estado BOOLEAN NOT NULL,
 	descripcion TEXT NOT NULL,
 	codigoArea INT NOT NULL,
+	activa BOOLEAN NOT NULL,
 	CONSTRAINT fk_codigoArea FOREIGN KEY(codigoArea) REFERENCES Area(codigoArea) ON UPDATE CASCADE ON DELETE NO ACTION 
 ); 
 

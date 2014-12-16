@@ -6,8 +6,12 @@
 package presentacion;
 
 import almacenamiento.controlador.ControlArea;
+import almacenamiento.controlador.ControlEmpleado;
 import java.sql.Connection;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import proceso.Area;
+import proceso.Empleado;
 
 /**
  *
@@ -17,14 +21,18 @@ public class PanelGerente extends javax.swing.JFrame {
     VistaCrearArea vca;
     Connection conn;
     ControlArea ca;
+    ControlEmpleado controlEmp;
+    
     /**
      * Creates new form PanelGerente
      * @param conn conexion
      */
-    public PanelGerente(Connection conn) {
+    public PanelGerente(Connection conn,ControlEmpleado ce) {
         this.conn=conn;
         ca =  new ControlArea(conn);
+        controlEmp = ce;
         initComponents();
+        setResizable(false);
     }
 
     /**
@@ -42,7 +50,7 @@ public class PanelGerente extends javax.swing.JFrame {
         botonFacturaPaciente = new javax.swing.JButton();
         butonEmpleadosPorAreas = new javax.swing.JButton();
         botonCitas = new javax.swing.JButton();
-        botonNoSeSabeDaniel = new javax.swing.JButton();
+        botonAgenda = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         botonCrear = new javax.swing.JButton();
         botonEditar = new javax.swing.JButton();
@@ -80,9 +88,19 @@ public class PanelGerente extends javax.swing.JFrame {
             }
         });
 
-        botonCitas.setText("Citas");
+        botonCitas.setText("Numero de Citas Atendidas ");
+        botonCitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCitasActionPerformed(evt);
+            }
+        });
 
-        botonNoSeSabeDaniel.setText("Costos");
+        botonAgenda.setText("Agenda de un Medico");
+        botonAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -91,9 +109,9 @@ public class PanelGerente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botonFacturaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(botonBuscarHojasDeVida, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(botonNoSeSabeDaniel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonFacturaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonBuscarHojasDeVida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(butonEmpleadosPorAreas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -110,7 +128,7 @@ public class PanelGerente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonNoSeSabeDaniel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -202,7 +220,7 @@ public class PanelGerente extends javax.swing.JFrame {
                         .addComponent(labelBinvenido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelNombreGerente)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(labelReporte)
@@ -254,6 +272,11 @@ public class PanelGerente extends javax.swing.JFrame {
 
     private void butonEmpleadosPorAreasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonEmpleadosPorAreasActionPerformed
         // TODO add your handling code here:
+        Area[] areas = ca.listArea();
+        Vector<Empleado[]> empleados = controlEmp.listEmpleadoPorArea();
+        panelListarAreas empleadosXArea= new panelListarAreas(areas, empleados);
+        empleadosXArea.setVisible(true);
+        
     }//GEN-LAST:event_butonEmpleadosPorAreasActionPerformed
 
     private void botonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearActionPerformed
@@ -285,6 +308,20 @@ public class PanelGerente extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
 
+    private void botonCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCitasActionPerformed
+        // TODO add your handling code here:
+        panelNumeroCitas panelCantidadCitas = new panelNumeroCitas(conn);
+        panelCantidadCitas.setVisible(true);
+        
+    }//GEN-LAST:event_botonCitasActionPerformed
+
+    private void botonAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendaActionPerformed
+        // TODO add your handling code here:
+        PanelAgenda agendaMedico = new PanelAgenda(conn);
+        agendaMedico.setVisible(true);
+        
+    }//GEN-LAST:event_botonAgendaActionPerformed
+
     /**
      * @param args the command line arguments
      *//*
@@ -301,6 +338,7 @@ public class PanelGerente extends javax.swing.JFrame {
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAgenda;
     private javax.swing.JButton botonBuscarHojasDeVida;
     private javax.swing.JButton botonCerrarSesion;
     private javax.swing.JButton botonCitas;
@@ -308,7 +346,6 @@ public class PanelGerente extends javax.swing.JFrame {
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonFacturaPaciente;
-    private javax.swing.JButton botonNoSeSabeDaniel;
     private javax.swing.JButton butonEmpleadosPorAreas;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;

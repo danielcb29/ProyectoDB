@@ -219,7 +219,7 @@ public class Login extends javax.swing.JFrame {
                             break;
                         case "Gerente":
                             System.out.println("Gerente");
-                            pg = new PanelGerente(conn);
+                            pg = new PanelGerente(conn,ce);
                             pg.setVisible(true);
                             this.setEnabled(false);
                             this.dispose();
