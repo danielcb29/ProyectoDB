@@ -278,7 +278,7 @@ public class VistaCrearArea extends javax.swing.JFrame {
                 }
                 taDescripcion.setText(ar.getDescripcion());
             } else {
-                JOptionPane.showMessageDialog(this, "Esta area no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Esta área no existe.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (NumberFormatException e) {
@@ -327,27 +327,25 @@ public class VistaCrearArea extends javax.swing.JFrame {
                         menError = "Ha ocurrido un error en la base de datos. Por favor consulte al personal encargado.";
                         break;
                     case 3:
-                        result = ca.deleteArea(codigo);
+                        menj = "desactivada";
+                        int opc = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el usuario " + nombre + "?.\n Favor verificar los datos.");
+                        if (opc == 0) {
+                            result = ca.deleteArea(codigo);
+                            
+                            //Cerramos la ventana
+                            this.dispose();
+                        }
+                        
                         break;
 
                 }
                 if (result == -1 || result == -2) {
                     JOptionPane.showMessageDialog(this, menError, "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    //Se imprime el mensaje para informar el exito de la operacion
-                    if (tipo == 3) {//Eliminar
-                        int opc = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el usuario " + nombre + "?.\n Favor verificar los datos.");
-                        if (opc == 0) {
-                            JOptionPane.showMessageDialog(this, "El área " + nombre + " ha sido desactivada con éxito", "Mensaje de éxito", JOptionPane.INFORMATION_MESSAGE);
-                            //Cerramos la ventana
-                            this.dispose();
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "El área " + nombre + " ha sido " + menj + " con éxito", "Mensaje de éxito", JOptionPane.INFORMATION_MESSAGE);
-                        //Cerramos la ventana
-                        this.dispose();
-                    }
-
+                    //Se imprime el mensaje para informar el exito de la operacion                    
+                    JOptionPane.showMessageDialog(this, "El área " + nombre + " ha sido " + menj + " con éxito", "Mensaje de éxito", JOptionPane.INFORMATION_MESSAGE);
+                    //Cerramos la ventana
+                    this.dispose();
                 }
             }
 

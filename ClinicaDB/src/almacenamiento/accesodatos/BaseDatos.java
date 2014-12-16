@@ -18,9 +18,9 @@ public class BaseDatos {
      
      
      public BaseDatos(){
-      url = "jdbc:postgresql://localhost:5432/proyectodb";
-      usuario="alvaro";
-      password="juanito";
+      url = "jdbc:postgresql://localhost:5432/bdbrayan";
+      usuario="brayanrod";
+      password="bryan1112";
       
     }
     public Connection conectar(){
@@ -34,7 +34,6 @@ public class BaseDatos {
             } catch( Exception e ) {
                 System.out.println( "No se pudo cargar el driver." );
             }
-
             try{
                      //Crear el objeto de conexion a la base de datos
                      conexion = DriverManager.getConnection(url, usuario, password);

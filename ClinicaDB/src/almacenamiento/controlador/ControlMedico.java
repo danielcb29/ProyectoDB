@@ -25,8 +25,8 @@ public class ControlMedico {
      * **/
     public ControlMedico(Connection conn){
         daoMe=new DAOMedico(conn);
-        daoEm= new DAOEmpleado();
-        daoEm.connectDB();
+        daoEm= new DAOEmpleado(conn);
+        
     }
     public void connectDB(){
         daoMe.connectDB();

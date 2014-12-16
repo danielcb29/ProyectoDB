@@ -21,6 +21,7 @@ import proceso.Medico;
  * @author family
  */
 public class VistaEditarUsuario extends javax.swing.JFrame {
+
     ControlEmpleado ce;
     ControlMedico cm;
     ControlEnfermera cEnf;
@@ -30,17 +31,18 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form VistaEditarUsuario
+     *
      * @param controlEm control del empleado
      */
     public VistaEditarUsuario(ControlEmpleado controlEm, int tipo) {
-        this.tipo=tipo;
+        this.tipo = tipo;
         initComponents();
-        ce=controlEm;
-        conn=ce.getConn();
-        cm= new ControlMedico(conn);
+        ce = controlEm;
+        conn = ce.getConn();
+        cm = new ControlMedico(conn);
         ca = new ControlArea(conn);
-        cEnf= new ControlEnfermera(conn);
-        
+        cEnf = new ControlEnfermera(conn);
+
         this.setResizable(false);
         lbIdJ.setVisible(false);
         tfIdJ.setVisible(false);
@@ -55,7 +57,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
         lbHabs1.setVisible(false);
         lbHabs2.setVisible(false);
         jScrollPane1.setVisible(false);
-        if(tipo==2){//eliminar
+        if (tipo == 2) {//eliminar
             cbAJ.setEnabled(false);
             comboAnos.setEnabled(false);
             comboCargo.setEnabled(false);
@@ -73,6 +75,7 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
             tfSalario.setEnabled(false);
             tfTelefono.setEnabled(false);
             tfUniversidad.setEnabled(false);
+            bModificar.setText("Eliminar");
         }
     }
 
@@ -502,49 +505,49 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
 
         Empleado em;
         em = ce.readEmpleado(tfBuscarId.getText(), 2, 0);
-        if(em==null){
+        if (em == null) {
             JOptionPane.showMessageDialog(this, "No se encuentra el usuario en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             tfNombres.setText(em.getNombres());
             tfApellidos.setText(em.getApellidos());
             tfTelefono.setText(em.getTelefono());
             tfDireccion.setText(em.getDireccion());
-            tfSalario.setText(em.getSalario()+"");
+            tfSalario.setText(em.getSalario() + "");
             tfEmail.setText(em.getEmail());
             comboCargo.setSelectedItem(em.getCargo());
             tfContrasena.setText(em.getContrasena());
-            if(em.getJefe().equals("-1")){
+            if (em.getJefe().equals("-1")) {
                 cbAJ.setSelected(false);
-            }else{
+            } else {
                 cbAJ.setSelected(true);
                 tfIdJ.setText(em.getJefe());
             }
-            
-            if(em.getArea()!=null){
-                tfArea.setText(em.getArea().getCodigoArea()+"");
+
+            if (em.getArea() != null) {
+                tfArea.setText(em.getArea().getCodigoArea() + "");
             }
 
             boolean estado = em.getEstado();
-            if(!estado){
+            if (!estado) {
                 comboEstado.setSelectedIndex(1);
-            }else{
+            } else {
                 comboEstado.setSelectedIndex(0);
             }
-            System.out.println("cargo "+em.getCargo());
-            switch(em.getCargo()){
-                case "Medico": 
+            System.out.println("cargo " + em.getCargo());
+            switch (em.getCargo()) {
+                case "Medico":
                     System.out.println("Medico");
                     Medico me = cm.readMedico(em);
-                    tfNL.setText(me.getNumeroLicencia()+"");
+                    tfNL.setText(me.getNumeroLicencia() + "");
                     tfEspecialidad.setText(me.getEspecialidad());
                     tfUniversidad.setText(me.getUniversidad());
                     break;
                 case "Enfermera":
                     Enfermera enf = cEnf.readEnfermera(em);
                     comboAnos.setSelectedIndex(enf.getAnosExp());
-                    String impHabs="";
-                    for(int i=0; i<enf.getMisHabilidades().length; i++){
-                        impHabs+=enf.getMisHabilidades()[i]+"\n";
+                    String impHabs = "";
+                    for (int i = 0; i < enf.getMisHabilidades().length; i++) {
+                        impHabs += enf.getMisHabilidades()[i] + "\n";
                     }
                     taHabs.setText(impHabs);
                     break;
@@ -564,34 +567,53 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         int result;
         String menj;
-        int tipo=1;
-        if(tipo==2 ){
-     /*       menj = "eliminado";
-            result = ce.deleteEmpleado(tfBuscarId.getText());
-       */ }else{
-            menj= "editado";
-            String identificacion=tfBuscarId.getText();
-            String nombres=tfNombres.getText();
-            String apellidos=tfApellidos.getText();
-            String telefono=tfTelefono.getText();
-            String direccion=tfDireccion.getText();
-            String salario= tfSalario.getText();
-            String email= tfEmail.getText();
-            String contrasena=tfContrasena.getText();
+        String nombres = tfNombres.getText();
+        String identificacion = tfBuscarId.getText();        
+        if (tipo == 2) {
+            menj = "desactivado";
+            int opc = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el usuario " + nombres + "?.\n Favor verificar los datos.");
+            if (opc == 0) {
+                result = ce.deleteEmpleado(identificacion);
+
+                //Cerramos la ventana
+                this.dispose();
+
+                if (result == -1 || result == -2) {
+                    JOptionPane.showMessageDialog(this, "Posiblemente estás actualizando a un correo electrónico que ya existe. \n Intente digitando otro correo electrónico. \nSi el problema persiste ha ocurrido un error en la base de datos,consulta al personal encargado", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    if (result == -3) {//para campos vacíos de enfermera o médico
+                        JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        //Se imprime el mensaje para informar el exito de la operacion
+                        JOptionPane.showMessageDialog(this, "El usuario " + nombres + " ha sido " + menj + " con éxito", "Mensaje de éxito", JOptionPane.INFORMATION_MESSAGE);
+                        //Cerramos la ventana
+                        this.dispose();
+                    }
+                }
+            }
+
+        } else {
+            menj = "editado";
+            String apellidos = tfApellidos.getText();
+            String telefono = tfTelefono.getText();
+            String direccion = tfDireccion.getText();
+            String salario = tfSalario.getText();
+            String email = tfEmail.getText();
+            String contrasena = tfContrasena.getText();
             String codigoArea = tfArea.getText();
             String jefe;
-            if(cbAJ.isSelected()){
-                jefe=tfIdJ.getText();
-            }else{
-                jefe="-1";
+            if (cbAJ.isSelected()) {
+                jefe = tfIdJ.getText();
+            } else {
+                jefe = "-1";
             }
-            String numLic="";
-            String especialidad="";
+            String numLic = "";
+            String especialidad = "";
             String universidad = "";
-            int anosExperiencia=0;
+            int anosExperiencia = 0;
             String habs[] = null;
-            int cCargo =  comboCargo.getSelectedIndex();
-            switch(cCargo){
+            int cCargo = comboCargo.getSelectedIndex();
+            switch (cCargo) {
                 case 1://Medico
                     numLic = tfNL.getText();
                     especialidad = tfEspecialidad.getText();
@@ -603,80 +625,84 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
                     break;
             }
             String cargo = comboCargo.getSelectedItem().toString();
-            System.out.println("cargo"+cargo);
+            System.out.println("cargo" + cargo);
             boolean estado;
-            if(comboEstado.getSelectedIndex()==0){
-                estado=true;
-            }else{
-                estado=false;
+            if (comboEstado.getSelectedIndex() == 0) {
+                estado = true;
+            } else {
+                estado = false;
             }
-            
+
             boolean empty = validateInformation(identificacion, nombres, apellidos, telefono, direccion, salario, email, contrasena, jefe);
-            
-            if (empty){
+
+            if (empty) {
                 JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-            }else{
+            } else {
                 Area ar;
-                try{
-                    if(cCargo!=5) ar = ca.readArea(Integer.parseInt(codigoArea));
-                    else ar=null;
-                    
-            
-                    if(cCargo!=5 && (ar==null || !ar.getEstado())){
-                        JOptionPane.showMessageDialog(this, "Posiblemente estas ingresando un código de un área que no existe o fue desactivada.","Error",JOptionPane.ERROR_MESSAGE);
-                    }else{
-                        
-                        
+                try {
+                    if (cCargo != 5) {
+                        ar = ca.readArea(Integer.parseInt(codigoArea));
+                    } else {
+                        ar = null;
+                    }
+
+                    if (cCargo != 5 && (ar == null || !ar.getEstado())) {
+                        JOptionPane.showMessageDialog(this, "Posiblemente estas ingresando un código de un área que no existe o fue desactivada.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+
                         //Se instancia la clase controlador para hacer uso de ella
-                        switch(cCargo){
+                        switch (cCargo) {
                             case 1: //Medico
-                                if(especialidad.trim().length()!=0 || universidad.trim().length()!=0){
-                                    result= cm.updateMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado, Integer.parseInt(numLic), especialidad, universidad);
-                                    System.out.println("result: "+result);
-                                    if(result==0){//si el resultado es 0 es porque el médico no existe, entonces toca crearlo
+                                if (especialidad.trim().length() != 0 || universidad.trim().length() != 0) {
+                                    result = cm.updateMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado, Integer.parseInt(numLic), especialidad, universidad);
+                                    System.out.println("result: " + result);
+                                    if (result == 0) {//si el resultado es 0 es porque el médico no existe, entonces toca crearlo
                                         cm.createMedico(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado, Integer.parseInt(numLic), especialidad, universidad, 1);
                                         result = ce.updateEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado);
                                     }
-                                }
-                                else{
+                                } else {
                                     result = -3;
                                 }
                                 break;
                             case 2: //Enfermera
-                                if(habs.length!=0){
-                                    result= cEnf.createEnfermera(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, anosExperiencia, habs, 1);
+                                if (habs.length != 0) {
+                                    result = cEnf.updateEnfermera(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, anosExperiencia, habs);
+                                    System.out.println("result: " + result);
+                                    if (result == 0) {//si el resultado es 0 es porque el médico no existe, entonces toca crearlo
+                                        cEnf.createEnfermera(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true, anosExperiencia, habs, 1);
+                                        result = ce.updateEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado);
+                                    }
+                                } else {
+                                    result = -3;
                                 }
-                                else result =-3;
                                 break;
                             default:
                                 result = ce.updateEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, estado);
                         }
-                        
-                        if(result == -1 || result == -2){
-                            JOptionPane.showMessageDialog(this, "Posiblemente estás actualizando a un correo electrónico que ya existe. \n Intente digitando otro correo electrónico. \nSi el problema persiste ha ocurrido un error en la base de datos,consulta al personal encargado","Error",JOptionPane.ERROR_MESSAGE);
-                        }else{
-                            if(result== -3){//para campos vacíos de enfermera o médico
+                        if (result == -1 || result == -2) {
+                            JOptionPane.showMessageDialog(this, "Posiblemente estás actualizando a un correo electrónico que ya existe. \n Intente digitando otro correo electrónico. \nSi el problema persiste ha ocurrido un error en la base de datos,consulta al personal encargado", "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            if (result == -3) {//para campos vacíos de enfermera o médico
                                 JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-                            }else{
+                            } else {
                                 //Se imprime el mensaje para informar el exito de la operacion
-                                JOptionPane.showMessageDialog(this, "El usuario "+ nombres+" ha sido "+ menj+ " con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(this, "El usuario " + nombres + " ha sido " + menj + " con éxito", "Mensaje de éxito", JOptionPane.INFORMATION_MESSAGE);
                                 //Cerramos la ventana
                                 this.dispose();
                             }
                         }
-                
+
                     }
-                }catch(NumberFormatException ex){
-                    JOptionPane.showMessageDialog(this, "El código del área, el salario y número de licencia, en caso del médico, deben ser números enteros.","Error",JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "El código del área, el salario y número de licencia, en caso del médico, deben ser números enteros.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
-            
-        
+
 
     }//GEN-LAST:event_bModificarActionPerformed
-    public boolean validateInformation(String d1, String d2, String d3, String d4, String d5, String d6, String d7, String d8, String d9){
-        return (d1.trim().length()==0 || d2.trim().length()==0 || d3.trim().length()==0|| d4.trim().length()==0|| d5.trim().length()==0|| d6.trim().length()==0|| d7.trim().length()==0|| d8.trim().length()==0|| d9.trim().length()==0);
+    public boolean validateInformation(String d1, String d2, String d3, String d4, String d5, String d6, String d7, String d8, String d9) {
+        return (d1.trim().length() == 0 || d2.trim().length() == 0 || d3.trim().length() == 0 || d4.trim().length() == 0 || d5.trim().length() == 0 || d6.trim().length() == 0 || d7.trim().length() == 0 || d8.trim().length() == 0 || d9.trim().length() == 0);
     }
     private void tfDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDireccionActionPerformed
         // TODO add your handling code here:
@@ -695,62 +721,62 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfTelefonoActionPerformed
 
     private void comboCargoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboCargoItemStateChanged
-        switch(comboCargo.getSelectedIndex()){
+        switch (comboCargo.getSelectedIndex()) {
             case 1:
-            tfArea.setEditable(true);
-            lbAnos.setVisible(false);
-            comboAnos.setVisible(false);
-            lbNL.setVisible(true);
-            tfNL.setVisible(true);
-            lbEspecialidad.setVisible(true);
-            tfEspecialidad.setVisible(true);
-            lbUniversidad.setVisible(true);
-            tfUniversidad.setVisible(true);
-            lbHabs1.setVisible(false);
-            lbHabs2.setVisible(false);
-            jScrollPane1.setVisible(false);
-            break;
+                tfArea.setEditable(true);
+                lbAnos.setVisible(false);
+                comboAnos.setVisible(false);
+                lbNL.setVisible(true);
+                tfNL.setVisible(true);
+                lbEspecialidad.setVisible(true);
+                tfEspecialidad.setVisible(true);
+                lbUniversidad.setVisible(true);
+                tfUniversidad.setVisible(true);
+                lbHabs1.setVisible(false);
+                lbHabs2.setVisible(false);
+                jScrollPane1.setVisible(false);
+                break;
             case 2:
-            tfArea.setEditable(true);
-            lbAnos.setVisible(true);
-            comboAnos.setVisible(true);
-            lbNL.setVisible(false);
-            tfNL.setVisible(false);
-            lbEspecialidad.setVisible(false);
-            tfEspecialidad.setVisible(false);
-            lbUniversidad.setVisible(false);
-            tfUniversidad.setVisible(false);
-            lbHabs1.setVisible(true);
-            lbHabs2.setVisible(true);
-            jScrollPane1.setVisible(true);
-            break;
+                tfArea.setEditable(true);
+                lbAnos.setVisible(true);
+                comboAnos.setVisible(true);
+                lbNL.setVisible(false);
+                tfNL.setVisible(false);
+                lbEspecialidad.setVisible(false);
+                tfEspecialidad.setVisible(false);
+                lbUniversidad.setVisible(false);
+                tfUniversidad.setVisible(false);
+                lbHabs1.setVisible(true);
+                lbHabs2.setVisible(true);
+                jScrollPane1.setVisible(true);
+                break;
             case 5:
-            tfArea.setText("");
-            tfArea.setEditable(false);
-            lbAnos.setVisible(false);
-            comboAnos.setVisible(false);
-            lbNL.setVisible(false);
-            tfNL.setVisible(false);
-            lbEspecialidad.setVisible(false);
-            tfEspecialidad.setVisible(false);
-            lbUniversidad.setVisible(false);
-            tfUniversidad.setVisible(false);
-            lbHabs1.setVisible(false);
-            lbHabs2.setVisible(false);
-            jScrollPane1.setVisible(false);
+                tfArea.setText("");
+                tfArea.setEditable(false);
+                lbAnos.setVisible(false);
+                comboAnos.setVisible(false);
+                lbNL.setVisible(false);
+                tfNL.setVisible(false);
+                lbEspecialidad.setVisible(false);
+                tfEspecialidad.setVisible(false);
+                lbUniversidad.setVisible(false);
+                tfUniversidad.setVisible(false);
+                lbHabs1.setVisible(false);
+                lbHabs2.setVisible(false);
+                jScrollPane1.setVisible(false);
             default:
-            tfArea.setEditable(true);
-            lbAnos.setVisible(false);
-            comboAnos.setVisible(false);
-            lbNL.setVisible(false);
-            tfNL.setVisible(false);
-            lbEspecialidad.setVisible(false);
-            tfEspecialidad.setVisible(false);
-            lbUniversidad.setVisible(false);
-            tfUniversidad.setVisible(false);
-            lbHabs1.setVisible(false);
-            lbHabs2.setVisible(false);
-            jScrollPane1.setVisible(false);
+                tfArea.setEditable(true);
+                lbAnos.setVisible(false);
+                comboAnos.setVisible(false);
+                lbNL.setVisible(false);
+                tfNL.setVisible(false);
+                lbEspecialidad.setVisible(false);
+                tfEspecialidad.setVisible(false);
+                lbUniversidad.setVisible(false);
+                tfUniversidad.setVisible(false);
+                lbHabs1.setVisible(false);
+                lbHabs2.setVisible(false);
+                jScrollPane1.setVisible(false);
         }
     }//GEN-LAST:event_comboCargoItemStateChanged
 
@@ -771,10 +797,10 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfIdJActionPerformed
 
     private void cbAJItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAJItemStateChanged
-        if(cbAJ.isSelected()){
+        if (cbAJ.isSelected()) {
             lbIdJ.setVisible(true);
             tfIdJ.setVisible(true);
-        }else{
+        } else {
             lbIdJ.setVisible(false);
             tfIdJ.setVisible(false);
         }
@@ -797,44 +823,44 @@ public class VistaEditarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_tfUniversidadActionPerformed
 
     private void tfBuscarIdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarIdMouseClicked
-        tfBuscarId.setSelectionStart(0); 
-        tfBuscarId.setSelectionEnd(tfBuscarId.getText().length()); 
+        tfBuscarId.setSelectionStart(0);
+        tfBuscarId.setSelectionEnd(tfBuscarId.getText().length());
     }//GEN-LAST:event_tfBuscarIdMouseClicked
 
     /**
      * @param args the command line arguments
      */
-/*    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+    /*    public static void main(String args[]) {
+     /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+     */
     /*    try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+     for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+     if ("Nimbus".equals(info.getName())) {
+     javax.swing.UIManager.setLookAndFeel(info.getClassName());
+     break;
+     }
+     }
+     } catch (ClassNotFoundException ex) {
+     java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+     } catch (InstantiationException ex) {
+     java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+     } catch (IllegalAccessException ex) {
+     java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+     } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+     java.util.logging.Logger.getLogger(VistaEditarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+     }
+     //</editor-fold>
 
-        /* Create and display the form */
-   /*     java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaEditarUsuario(conn).setVisible(true);
-            }
-        });
-    }*/
+     /* Create and display the form */
+    /*     java.awt.EventQueue.invokeLater(new Runnable() {
+     public void run() {
+     new VistaEditarUsuario(conn).setVisible(true);
+     }
+     });
+     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bModificar;

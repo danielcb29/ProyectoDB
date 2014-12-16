@@ -27,6 +27,11 @@ public class DAOEmpleado {
         db=new BaseDatos();
         
     }//fin constructor
+    
+    public DAOEmpleado(Connection conex){
+        db=new BaseDatos();
+        conn=conex;
+    }//fin constructor
     /**
      * Metodo que permite realizar la conexion a la base de datos
      */
@@ -198,22 +203,7 @@ public class DAOEmpleado {
             statement.executeUpdate(sql_save4);
             statement.executeUpdate(sql_save5);
             statement.executeUpdate(sql_save6);
-            
-            ResultSet table ;
-            switch(em.getCargo()){
-                case "Medico":
-                    String sql_save12= "SELECT * FROM medico WHERE identificacion='"+identificacion+"'";
-                    table= statement.executeQuery(sql_save12);
-                    boolean thereIs=false;
-                    while(table.next()){
-                        thereIs=true;
-                    }
-                    if(thereIs){
-                        statement.executeUpdate(sql_save7);
-                    }else{
-                        String sql_save13 = "INSERT  ";
-                    }
-            }
+            statement.executeUpdate(sql_save7);
             
            
             statement.executeUpdate(sql_save8);
