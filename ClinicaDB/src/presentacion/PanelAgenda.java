@@ -9,6 +9,7 @@ import almacenamiento.controlador.ControlReporte;
 import java.sql.Connection;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import proceso.CitasReporte;
 
@@ -47,8 +48,8 @@ public class PanelAgenda extends javax.swing.JFrame {
         cbMes = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         tfYear = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        panel1 = new javax.swing.JPanel();
+        panelArea = new javax.swing.JScrollPane();
         tablaAgenda = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         btListar = new javax.swing.JButton();
@@ -71,7 +72,7 @@ public class PanelAgenda extends javax.swing.JFrame {
 
         jLabel4.setText("Año : ");
 
-        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        panel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
         tablaAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -82,17 +83,17 @@ public class PanelAgenda extends javax.swing.JFrame {
             }
         ));
         tablaAgenda.setEnabled(false);
-        jScrollPane1.setViewportView(tablaAgenda);
+        panelArea.setViewportView(tablaAgenda);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
+        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
+        panel1.setLayout(panel1Layout);
+        panel1Layout.setHorizontalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelArea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 508, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+        panel1Layout.setVerticalGroup(
+            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelArea, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
         );
 
         jButton1.setText("Salir");
@@ -121,7 +122,7 @@ public class PanelAgenda extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,7 +156,7 @@ public class PanelAgenda extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(tfYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -189,13 +190,23 @@ public class PanelAgenda extends javax.swing.JFrame {
         }else{
             Vector<CitasReporte> agenda = controlador.agendaMedico(medico, mes, year);
             DefaultTableModel modelo = new DefaultTableModel();
-            tablaAgenda.setModel(modelo);
+            
             int size = agenda.size();
+            String[][] stringAgenda = new String[size][5];
             for(int i=0;i<size;i++){
                 CitasReporte cita = agenda.get(i);
-                modelo.addRow(new Object[]{cita.getFecha(),cita.getHora(),cita.getIdPaciente(),cita.getNombrePaciente(),cita.getApellidosPaciente()});
+                stringAgenda[i][0]=cita.getFecha();
+                stringAgenda[i][1]=cita.getHora();
+                stringAgenda[i][2]=cita.getIdPaciente();
+                stringAgenda[i][3]=cita.getNombrePaciente();
+                stringAgenda[i][4]=cita.getApellidosPaciente();
+
             }
-            //this.repaint();
+            modelo.setDataVector(stringAgenda, new Object[]{"Fecha","Hora","ID Paciente","Nombre(s)","Apellido(s)"});
+            //JScrollPane panelArea = new JScrollPane(tablaAgenda);
+            tablaAgenda.setModel(modelo);
+            //panel1.add(panelArea);
+            this.repaint();
             //this.pack();
         }
         
@@ -244,8 +255,8 @@ public class PanelAgenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel panel1;
+    private javax.swing.JScrollPane panelArea;
     private javax.swing.JTable tablaAgenda;
     private javax.swing.JTextField tfCedula;
     private javax.swing.JTextField tfYear;
