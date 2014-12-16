@@ -34,10 +34,10 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
         this.conn = conn;
         initComponents();
         controladorCitas = new ControlCitas(conn);
-        lblDocumento.setVisible(false);
-        lblNum.setVisible(false);
-        cmbTipoD.setVisible(false);
-        txtNumD.setVisible(false);
+        //lblDocumento.setVisible(false);
+        //lblNum.setVisible(false);
+        //cmbTipoD.setVisible(false);
+        //txtNumD.setVisible(false);
         if (opcion == 2) {
             lbTitulo.setText("Cancelar cita");
             lblInfo.setText("Por favor busque la fecha de la cita que desea cancelar");
@@ -45,11 +45,11 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
             btAsignar.setText("Cancelar");
             lblFecha.setVisible(false);
             campFecha.setVisible(false);
-
+            /*
             lblDocumento.setVisible(true);
             lblNum.setVisible(true);
             cmbTipoD.setVisible(true);
-            txtNumD.setVisible(true);
+            txtNumD.setVisible(true);*/
         }
         campFecha.setDateFormatString("yyyy-MM-dd");
     }
@@ -109,7 +109,7 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
             }
         });
 
-        lblDocumento.setText("Documento");
+        lblDocumento.setText("Paciente");
 
         txtNumD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,8 +249,8 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
     private void btAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarActionPerformed
         
         if (tipo == 1) {
-            String idPac;
-            idPac = JOptionPane.showInputDialog(this, "Por favor ingrese la cedula del paciente", "Asignacion de citas", JOptionPane.INFORMATION_MESSAGE);
+            String idPac = cmbTipoD.getSelectedItem().toString() + txtNumD.getText();
+            //idPac = JOptionPane.showInputDialog(this, "Por favor ingrese la cedula del paciente", "Asignacion de citas", JOptionPane.INFORMATION_MESSAGE);
             String cita = contCitas.getSelectedValue().toString();
             ArrayList<ArrayList<String>> citasSiste = controladorCitas.getCitasSis();
             int indice, resultado;
