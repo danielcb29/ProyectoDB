@@ -49,6 +49,7 @@ public class PanelEnfermera extends javax.swing.JFrame {
         tituPaci = new javax.swing.JLabel();
         tituloCita = new javax.swing.JLabel();
         btAsignCama = new javax.swing.JButton();
+        btCerrarSe = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +91,11 @@ public class PanelEnfermera extends javax.swing.JFrame {
         });
 
         btElmPac.setText("Eliminar Paciente");
+        btElmPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btElmPacActionPerformed(evt);
+            }
+        });
 
         tituPaci.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
         tituPaci.setText("Gestion de Camas");
@@ -101,6 +107,13 @@ public class PanelEnfermera extends javax.swing.JFrame {
         btAsignCama.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAsignCamaActionPerformed(evt);
+            }
+        });
+
+        btCerrarSe.setText("Cerrar sesion");
+        btCerrarSe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCerrarSeActionPerformed(evt);
             }
         });
 
@@ -138,6 +151,10 @@ public class PanelEnfermera extends javax.swing.JFrame {
                         .addComponent(btElmPac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                         .addComponent(btAsigPac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(129, 129, 129))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btCerrarSe)
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +187,9 @@ public class PanelEnfermera extends javax.swing.JFrame {
                         .addComponent(btElimCama)))
                 .addGap(18, 18, 18)
                 .addComponent(btAsignCama)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(btCerrarSe)
+                .addContainerGap())
         );
 
         pack();
@@ -201,10 +220,20 @@ public class PanelEnfermera extends javax.swing.JFrame {
         vistaCamp.setVisible(true);
     }//GEN-LAST:event_btAsigPacActionPerformed
 
+    private void btCerrarSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarSeActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCerrarSeActionPerformed
+
+    private void btElmPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btElmPacActionPerformed
+        PanelElimPacCam ventPacCampEli = new PanelElimPacCam(conn);
+        ventPacCampEli.setVisible(true);
+    }//GEN-LAST:event_btElmPacActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAsigPac;
     private javax.swing.JButton btAsignCama;
+    private javax.swing.JToggleButton btCerrarSe;
     private javax.swing.JButton btCrearCama;
     private javax.swing.JButton btElimCama;
     private javax.swing.JButton btElmPac;

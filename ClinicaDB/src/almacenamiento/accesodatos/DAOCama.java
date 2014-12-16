@@ -41,7 +41,7 @@ public class DAOCama {
         int numRows=0;
         
         
-        sql_ar="INSERT INTO Cama VALUES ('"+ nuevaCama.getNumeroCama() +"', '"+ nuevaCama.isEstado()+ "', '"+ nuevaCama.getDescripcion() + "',"+ nuevaCama.getArea() + ",  ''true');";
+        sql_ar="INSERT INTO Cama VALUES ('"+ nuevaCama.getNumeroCama() +"', '"+ nuevaCama.isEstado()+ "', '"+ nuevaCama.getDescripcion() + "',"+ nuevaCama.getArea() + ",  'true');";
         System.out.println(sql_ar);
         try{
             Statement st = conn.createStatement();
