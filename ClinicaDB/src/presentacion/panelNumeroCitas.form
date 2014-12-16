@@ -132,23 +132,23 @@
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cedulaMedicoTF" max="32767" attributes="0"/>
+                          <Component id="tfCedula" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="comboMesesCitas" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="cbMes" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="anioTF" min="-2" pref="71" max="-2" attributes="0"/>
+                          <Component id="tfYear" min="-2" pref="71" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="65" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel5" max="32767" attributes="0"/>
-                      <Component id="numeroCitasTF" max="32767" attributes="0"/>
+                      <Component id="tfNumeroCitas" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
@@ -161,17 +161,17 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cedulaMedicoTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfCedula" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboMesesCitas" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="cbMes" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="anioTF" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="numeroCitasTF" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfNumeroCitas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -184,14 +184,14 @@
             <Property name="text" type="java.lang.String" value="Cedula Medico : "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="cedulaMedicoTF">
+        <Component class="javax.swing.JTextField" name="tfCedula">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Mes :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="comboMesesCitas">
+        <Component class="javax.swing.JComboBox" name="cbMes">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="12">
@@ -211,7 +211,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboMesesCitasActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbMesActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
@@ -219,17 +219,18 @@
             <Property name="text" type="java.lang.String" value="A&#xf1;o : "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="anioTF">
+        <Component class="javax.swing.JTextField" name="tfYear">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="anioTFActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfYearActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="numeroCitasTF">
+        <Component class="javax.swing.JTextField" name="tfNumeroCitas">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numeroCitasTFActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfNumeroCitasActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">

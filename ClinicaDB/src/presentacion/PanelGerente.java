@@ -67,7 +67,7 @@ public class PanelGerente extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
 
-        botonBuscarHojasDeVida.setText("Buscar Hojas de Vida");
+        botonBuscarHojasDeVida.setText("Buscar Historia Clinica");
         botonBuscarHojasDeVida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBuscarHojasDeVidaActionPerformed(evt);

@@ -76,11 +76,13 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
         labelInformacionGeneral = new javax.swing.JLabel();
         botonSalir = new javax.swing.JButton();
         botonLimpiar = new javax.swing.JButton();
+        cbTipoId = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         labelBusquedaHojasDeVida.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        labelBusquedaHojasDeVida.setText("BUSQUEDA HOJAS DE VIDA");
+        labelBusquedaHojasDeVida.setText("BUSQUEDA HISTORIA CLINICA");
 
         labelPaciente.setText("Paciente :");
 
@@ -202,7 +204,7 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
         );
 
         panelRegistros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        panelRegistros.setLayout(new java.awt.GridLayout());
+        panelRegistros.setLayout(new java.awt.GridLayout(1, 0));
 
         tablaResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -244,6 +246,10 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             }
         });
 
+        cbTipoId.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
+
+        jLabel1.setText("Numero:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,8 +268,12 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
                     .addComponent(labelRegistro)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelPaciente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -277,12 +287,15 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addComponent(labelBusquedaHojasDeVida)
-                .addGap(42, 42, 42)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPaciente)
-                    .addComponent(botonBuscar)
-                    .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                    .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonBuscar)
+                        .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelPaciente))
+                .addGap(18, 18, 18)
                 .addComponent(labelInformacionGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelInformacionGenerla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,7 +318,9 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se ha digitado los datos necesarios para la busqueda.", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             String cedula = tfCedulaPaciente.getText();
-            Paciente miPaciente = miGerente.buscarPaciente(cedula);
+            String tipo = cbTipoId.getSelectedItem().toString();
+            String identificacion = tipo+cedula;
+            Paciente miPaciente = miGerente.buscarPaciente(identificacion);
             String[] nombresColumnas = {"Identificacion","Nombres","Apellidos","Telefono","Direccion","Numero Social","Actividad Economica","Fecha de nacimiento","Estado"};
             Object[][] datos = {{miPaciente.getIdentificacion(), miPaciente.getNombres(), miPaciente.getApellidos(),miPaciente.getTelefono(), miPaciente.getDireccion(), miPaciente.getNumeroSocial(),miPaciente.getActEcon(), miPaciente.getFechaNac(), miPaciente.getEstado()}};
             cedulaPaciente.setText(miPaciente.getIdentificacion());
@@ -390,10 +405,12 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonLimpiar;
     private javax.swing.JButton botonSalir;
+    private javax.swing.JComboBox cbTipoId;
     private javax.swing.JLabel cedulaPaciente;
     private javax.swing.JLabel direccionPaciente;
     private javax.swing.JLabel estadoPaciente;
     private javax.swing.JLabel fechaNacimiento;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelActividadEconomica;
     private javax.swing.JLabel labelApellidos;

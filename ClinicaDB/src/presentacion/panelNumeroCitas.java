@@ -5,7 +5,9 @@
  */
 package presentacion;
 
+import almacenamiento.controlador.ControlReporte;
 import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,6 +16,7 @@ import java.sql.Connection;
 public class panelNumeroCitas extends javax.swing.JFrame {
     
     private Connection conn;
+    private ControlReporte controlador;
     /**
      * Creates new form panelNumeroCitas
      */
@@ -22,6 +25,7 @@ public class panelNumeroCitas extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         this.conn=conn;
+        controlador=new ControlReporte(conn);
     }
 
     /**
@@ -39,12 +43,12 @@ public class panelNumeroCitas extends javax.swing.JFrame {
         botonSalir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        cedulaMedicoTF = new javax.swing.JTextField();
+        tfCedula = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        comboMesesCitas = new javax.swing.JComboBox();
+        cbMes = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        anioTF = new javax.swing.JTextField();
-        numeroCitasTF = new javax.swing.JTextField();
+        tfYear = new javax.swing.JTextField();
+        tfNumeroCitas = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
 
         comboMeses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
@@ -79,25 +83,26 @@ public class panelNumeroCitas extends javax.swing.JFrame {
 
         jLabel3.setText("Mes :");
 
-        comboMesesCitas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-        comboMesesCitas.addActionListener(new java.awt.event.ActionListener() {
+        cbMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        cbMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboMesesCitasActionPerformed(evt);
+                cbMesActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Año : ");
 
-        anioTF.addActionListener(new java.awt.event.ActionListener() {
+        tfYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anioTFActionPerformed(evt);
+                tfYearActionPerformed(evt);
             }
         });
 
-        numeroCitasTF.setEditable(false);
-        numeroCitasTF.addActionListener(new java.awt.event.ActionListener() {
+        tfNumeroCitas.setEditable(false);
+        tfNumeroCitas.setEnabled(false);
+        tfNumeroCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numeroCitasTFActionPerformed(evt);
+                tfNumeroCitasActionPerformed(evt);
             }
         });
 
@@ -113,20 +118,20 @@ public class panelNumeroCitas extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cedulaMedicoTF))
+                        .addComponent(tfCedula))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboMesesCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(anioTF, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfYear, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(numeroCitasTF))
+                    .addComponent(tfNumeroCitas))
                 .addGap(52, 52, 52))
         );
         jPanel1Layout.setVerticalGroup(
@@ -136,15 +141,15 @@ public class panelNumeroCitas extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(cedulaMedicoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(comboMesesCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(anioTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numeroCitasTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfNumeroCitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -189,20 +194,35 @@ public class panelNumeroCitas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboMesesActionPerformed
 
-    private void comboMesesCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMesesCitasActionPerformed
+    private void cbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboMesesCitasActionPerformed
+    }//GEN-LAST:event_cbMesActionPerformed
 
-    private void anioTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anioTFActionPerformed
+    private void tfYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfYearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_anioTFActionPerformed
+    }//GEN-LAST:event_tfYearActionPerformed
 
-    private void numeroCitasTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroCitasTFActionPerformed
+    private void tfNumeroCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNumeroCitasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_numeroCitasTFActionPerformed
-
+    }//GEN-LAST:event_tfNumeroCitasActionPerformed
+    private boolean validarVacios(String d1,String d2,String d3){
+        boolean result = false;
+        if(d1.length()==0 || d2.length()==0 || d3.length()==0){
+            result=true;
+        }
+        return result;
+    }
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
         // TODO add your handling code here:
+        String mes = cbMes.getSelectedItem().toString();
+        String medico = tfCedula.getText();
+        String year = tfYear.getText();
+        if(validarVacios(mes, medico, year)){
+            JOptionPane.showMessageDialog(this, "Ha dejado un espacio en blanco , no se puede procesar", "Error, falto digitar algo", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int cantidad = controlador.numeroDeCitasMedico(medico, mes, year);
+            tfNumeroCitas.setText(cantidad+"");
+        }
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
@@ -245,18 +265,18 @@ public class panelNumeroCitas extends javax.swing.JFrame {
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField anioTF;
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonSalir;
-    private javax.swing.JTextField cedulaMedicoTF;
+    private javax.swing.JComboBox cbMes;
     private javax.swing.JComboBox comboMeses;
-    private javax.swing.JComboBox comboMesesCitas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField numeroCitasTF;
+    private javax.swing.JTextField tfCedula;
+    private javax.swing.JTextField tfNumeroCitas;
+    private javax.swing.JTextField tfYear;
     // End of variables declaration//GEN-END:variables
 }

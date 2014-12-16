@@ -141,7 +141,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="botonBuscarHojasDeVida">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar Hojas de Vida"/>
+            <Property name="text" type="java.lang.String" value="Buscar Historia Clinica"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonBuscarHojasDeVidaActionPerformed"/>

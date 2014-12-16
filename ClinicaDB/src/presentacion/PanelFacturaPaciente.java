@@ -86,6 +86,8 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         botonLimpiar = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
+        cbTipoId = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -290,6 +292,10 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
             }
         });
 
+        cbTipoId.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
+
+        jLabel1.setText("Numero:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -330,8 +336,12 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                                 .addComponent(labelPaciente)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(labelPacienteFac)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(34, 34, 34)
+                                    .addComponent(jLabel1)
+                                    .addGap(37, 37, 37)
+                                    .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(0, 23, Short.MAX_VALUE))
@@ -345,7 +355,9 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPacienteFac)
                     .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
+                    .addComponent(botonBuscar)
+                    .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInformacionGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -385,7 +397,9 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         }else{
             Double[] resultado = new Double[2];
             String cedula = tfCedulaPaciente.getText();
-            Paciente miPaciente = miGerente.buscarPaciente(cedula);
+            String tipo = cbTipoId.getSelectedItem().toString();
+            String identificacion = tipo+cedula;
+            Paciente miPaciente = miGerente.buscarPaciente(identificacion);
             cedulaPaciente.setText(miPaciente.getIdentificacion());
             nombrePaciente.setText( miPaciente.getNombres());
             apellidosPaciente.setText( miPaciente.getApellidos());
@@ -511,11 +525,13 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JComboBox cbTipoId;
     private javax.swing.JLabel cedulaPaciente;
     private javax.swing.JComboBox comboMeses;
     private javax.swing.JLabel direccionPaciente;
     private javax.swing.JLabel estadoPaciente;
     private javax.swing.JLabel fechaNacimiento;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelActividadEconomica;

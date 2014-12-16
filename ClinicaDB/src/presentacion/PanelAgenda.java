@@ -5,7 +5,12 @@
  */
 package presentacion;
 
+import almacenamiento.controlador.ControlReporte;
 import java.sql.Connection;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import proceso.CitasReporte;
 
 /**
  *
@@ -14,6 +19,7 @@ import java.sql.Connection;
 public class PanelAgenda extends javax.swing.JFrame {
     
     private Connection conn;
+    private ControlReporte controlador;
     /**
      * Creates new form PanelAgenda
      */
@@ -22,6 +28,7 @@ public class PanelAgenda extends javax.swing.JFrame {
         initComponents();
         setResizable(false);
         this.conn=conn;
+        controlador=new ControlReporte(conn);
     }
 
     /**
@@ -35,16 +42,16 @@ public class PanelAgenda extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        cedulaMedicoTF = new javax.swing.JTextField();
+        tfCedula = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        comboMeses = new javax.swing.JComboBox();
+        cbMes = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        aniosTF = new javax.swing.JTextField();
+        tfYear = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaAgenda = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btListar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,10 +62,10 @@ public class PanelAgenda extends javax.swing.JFrame {
 
         jLabel3.setText("Mes : ");
 
-        comboMeses.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-        comboMeses.addActionListener(new java.awt.event.ActionListener() {
+        cbMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        cbMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboMesesActionPerformed(evt);
+                cbMesActionPerformed(evt);
             }
         });
 
@@ -74,6 +81,7 @@ public class PanelAgenda extends javax.swing.JFrame {
                 "Fecha", "Hora", "ID Paciente", "Nombre(s)", "Apellido(s)"
             }
         ));
+        tablaAgenda.setEnabled(false);
         jScrollPane1.setViewportView(tablaAgenda);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -94,10 +102,10 @@ public class PanelAgenda extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Listar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btListar.setText("Listar");
+        btListar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btListarActionPerformed(evt);
             }
         });
 
@@ -117,18 +125,18 @@ public class PanelAgenda extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cedulaMedicoTF, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(aniosTF, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tfYear, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btListar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
@@ -141,34 +149,57 @@ public class PanelAgenda extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(cedulaMedicoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(comboMeses, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMes, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(aniosTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btListar))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboMesesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMesesActionPerformed
+    private void cbMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboMesesActionPerformed
+    }//GEN-LAST:event_cbMesActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private boolean validarVacios(String d1,String d2,String d3){
+        boolean result = false;
+        if(d1.length()==0 || d2.length()==0 || d3.length()==0){
+            result=true;
+        }
+        return result;
+    }
+    private void btListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btListarActionPerformed
+        String medico = tfCedula.getText();
+        String year = tfYear.getText();
+        String mes = cbMes.getSelectedItem().toString();
+        if(validarVacios(mes, medico, year)){
+            JOptionPane.showMessageDialog(this, "Ha dejado un espacio en blanco , no se puede procesar", "Error, falto digitar algo", JOptionPane.WARNING_MESSAGE);
+        }else{
+            Vector<CitasReporte> agenda = controlador.agendaMedico(medico, mes, year);
+            DefaultTableModel modelo = new DefaultTableModel();
+            tablaAgenda.setModel(modelo);
+            int size = agenda.size();
+            for(int i=0;i<size;i++){
+                CitasReporte cita = agenda.get(i);
+                modelo.addRow(new Object[]{cita.getFecha(),cita.getHora(),cita.getIdPaciente(),cita.getNombrePaciente(),cita.getApellidosPaciente()});
+            }
+            this.repaint();
+            this.pack();
+        }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btListarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,11 +237,9 @@ public class PanelAgenda extends javax.swing.JFrame {
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField aniosTF;
-    private javax.swing.JTextField cedulaMedicoTF;
-    private javax.swing.JComboBox comboMeses;
+    private javax.swing.JButton btListar;
+    private javax.swing.JComboBox cbMes;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -218,5 +247,7 @@ public class PanelAgenda extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaAgenda;
+    private javax.swing.JTextField tfCedula;
+    private javax.swing.JTextField tfYear;
     // End of variables declaration//GEN-END:variables
 }
