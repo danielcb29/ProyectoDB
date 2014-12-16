@@ -33,7 +33,7 @@ public class DAOReportes {
      * @return vector con citas en dicho mes y año
      */
     public Vector<CitasReporte> agendaMedico(String idMedico, String mes, String year){
-        String sql = "select fecha,hora,idpaciente, nombres,apellidos from cita,persona where idpaciente=identificacion and estado=true and (select extract(year from fecha)) = '2014' and (select extract(month from fecha)) = '01' and idMedico='1';";
+        String sql = "select fecha,hora,idpaciente, nombres,apellidos from cita,persona where idpaciente=identificacion and estado=true and (select extract(year from fecha)) = '"+year+"' and (select extract(month from fecha)) = '"+mes+"' and idMedico='"+idMedico+"';";
         System.out.println("consultando en la bd");
         Vector<CitasReporte> agenda = new Vector<CitasReporte>();   
         try {
