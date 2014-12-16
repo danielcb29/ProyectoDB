@@ -193,8 +193,8 @@ public class DAOHistoria {
     
     public Double[] consultarCostoAnio(String cedula , String anio) {
 
-        String sqlCostosFormula = "SELECT SUM(costo) FROM formula F,Medicamentos M WHERE M.codigoMedicamento=F.idMedicamento AND (F.fechaAsignacion >= '01-01-"+anio+"'AND F.fechaAsignacion <= '31-12-"+anio+"') AND F.numHistoria = (SELECT numHistoria FROM HistoriaClinica WHERE idPaciente = '"+cedula+"');";
-        String sqlCostosCitas = "SELECT SUM(precio) FROM registrohc WHERE (fecha >= '01-01-"+anio+"'AND fecha <= '31-12-"+anio+"') AND numHistoria=(SELECT numHistoria  FROM HistoriaClinica WHERE idPaciente = '" + cedula + "');";
+        String sqlCostosFormula = "SELECT SUM(costo) FROM formula F,Medicamentos M WHERE M.codigoMedicamento=F.idMedicamento AND (select extract (year from F.fechaasignacion))='"+anio+"' AND F.numHistoria = (SELECT numHistoria FROM HistoriaClinica WHERE idPaciente = '"+cedula+"');";
+        String sqlCostosCitas = "SELECT SUM(precio) FROM registrohc WHERE (select (extract year from fecha))='"+anio+"' AND numHistoria=(SELECT numHistoria  FROM HistoriaClinica WHERE idPaciente = '" + cedula + "');";
         Double[] resultado = new Double[2];
         System.out.println("consulta Paciente " + sqlCostosFormula+"\n "+sqlCostosCitas);
         try {
@@ -202,17 +202,17 @@ public class DAOHistoria {
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
             ResultSet table = sentence.executeQuery(sqlCostosFormula);
-            if(table.getRow()!=0){
+            //if(table.getRow()!=0){
                 while (table.next()) {
-                    resultado[0] = Double.parseDouble(table.getString(1));
-
+                    resultado[0] = table.getDouble(1);
+                    System.out.println("RESULTADO DESDE DAO0:"+resultado[0]);
                 }
                 ResultSet table2 = sentence.executeQuery(sqlCostosCitas);
                 while (table2.next()) {
-                    resultado[1] = Double.parseDouble(table2.getString(1));
-
+                    resultado[1] = table2.getDouble(1);
+                    System.out.println("RESULTADO DESDE DAO1:"+resultado[1]);
                 }
-            }
+            
             return resultado;
             
         } catch (SQLException ex) {
@@ -223,8 +223,8 @@ public class DAOHistoria {
     
     public Double[] consultarCostoAnioMes(String cedula , String anio, String mes) {
      
-        String sqlCostosFormula = "SELECT SUM(costo) FROM formula AS F, Medicamentos AS M WHERE M.codigoMedicamento=F.idMedicamento AND (F.fechaAsignacion >= '01-"+mes+"-"+anio+"'AND F.fechaAsignacion <= '31-"+mes+"-"+anio+"') AND F.numHistoria = (SELECT numHistoria FROM HistoriaClinica WHERE idPaciente = '"+cedula+"');";
-        String sqlCostosCitas = "SELECT SUM(precio) FROM registrohc WHERE (fecha >= '01-"+mes+"-"+anio+"'AND fecha <= '31-"+mes+"-"+anio+"') AND numHistoria=(SELECT numHistoria  FROM HistoriaClinica WHERE idPaciente = '" + cedula + "');";
+        String sqlCostosFormula = "SELECT SUM(costo) FROM formula AS F, Medicamentos AS M WHERE M.codigoMedicamento=F.idMedicamento AND (select (extract year from F.fechaasignacion))='"+anio+"' AND (select (extract month from F.fechaasignacion))='"+mes+"' AND F.numHistoria = (SELECT numHistoria FROM HistoriaClinica WHERE idPaciente = '"+cedula+"');";
+        String sqlCostosCitas = "SELECT SUM(precio) FROM registrohc WHERE (select extract(year from fecha))='"+anio+"' AND (select extract(month from fecha))='"+mes+"' AND numHistoria=(SELECT numHistoria  FROM HistoriaClinica WHERE idPaciente = '" + cedula + "');";
         Double[] resultado = new Double[2];
         System.out.println("consulta Paciente " + sqlCostosFormula+"\n "+sqlCostosCitas);
         SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");

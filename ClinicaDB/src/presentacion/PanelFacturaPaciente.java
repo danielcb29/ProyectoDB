@@ -83,7 +83,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         labelResultados = new javax.swing.JLabel();
         panelResultados = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbCosto = new javax.swing.JTable();
         botonLimpiar = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
         cbTipoId = new javax.swing.JComboBox();
@@ -257,7 +257,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
 
         panelResultados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbCosto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -265,7 +265,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                 "Costos por Formula", "Costos por Cita"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbCosto);
 
         javax.swing.GroupLayout panelResultadosLayout = new javax.swing.GroupLayout(panelResultados);
         panelResultados.setLayout(panelResultadosLayout);
@@ -445,7 +445,11 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
             DefaultTableModel dfRegistros = new DefaultTableModel();
             dfRegistros.setColumnIdentifiers(new Object[] {"Costos por Formula", "Costos por Citas"});
             dfRegistros.addRow(new Object[]{resultado[0],resultado[1]});
-            }            
+            System.out.println("----resultado0:"+resultado[0]);
+            System.out.println("----resultado1:"+resultado[1]);
+            tbCosto.setModel(dfRegistros);
+            tbCosto.setEnabled(false);
+        }            
             repaint();
             pack();
       
@@ -533,7 +537,6 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel fechaNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelActividadEconomica;
     private javax.swing.JLabel labelAnio;
     private javax.swing.JLabel labelAnioMes;
@@ -557,6 +560,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel panelResultados;
     private javax.swing.JRadioButton radioButonAnio;
     private javax.swing.JRadioButton radioButonMes;
+    private javax.swing.JTable tbCosto;
     private javax.swing.JLabel telefonoPaciente;
     private javax.swing.JTextField tfAnio;
     private javax.swing.JTextField tfAnioMes;

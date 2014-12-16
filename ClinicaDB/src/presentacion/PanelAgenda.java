@@ -195,8 +195,8 @@ public class PanelAgenda extends javax.swing.JFrame {
                 CitasReporte cita = agenda.get(i);
                 modelo.addRow(new Object[]{cita.getFecha(),cita.getHora(),cita.getIdPaciente(),cita.getNombrePaciente(),cita.getApellidosPaciente()});
             }
-            this.repaint();
-            this.pack();
+            //this.repaint();
+            //this.pack();
         }
         
     }//GEN-LAST:event_btListarActionPerformed
