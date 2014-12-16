@@ -55,6 +55,10 @@ public class PanelAsigCamas extends javax.swing.JFrame {
         btCancelar = new javax.swing.JButton();
         lblFecAsig = new javax.swing.JLabel();
         fechaAsig = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        cbTipo = new javax.swing.JComboBox();
+        jLabel2 = new javax.swing.JLabel();
+        tfNum = new javax.swing.JTextField();
 
         lblFecNac.setText("Fecha Nacimiento: ");
 
@@ -93,6 +97,12 @@ public class PanelAsigCamas extends javax.swing.JFrame {
         fechaAsig.setRequestFocusEnabled(false);
         fechaAsig.setVerifyInputWhenFocusTarget(false);
 
+        jLabel1.setText("Paciente:");
+
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
+
+        jLabel2.setText("Numero:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,13 +127,27 @@ public class PanelAsigCamas extends javax.swing.JFrame {
                                 .addComponent(lblLogo)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblFecAsig)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fechaAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblFecAsig)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaAsig, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tfNum, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,30 +165,38 @@ public class PanelAsigCamas extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fechaAsig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFecAsig))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btAsignar)
                     .addComponent(btCancelar))
-                .addGap(30, 30, 30))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAsignarActionPerformed
-        String cedulaPac;
-        cedulaPac = JOptionPane.showInputDialog(this, "Por favor ingrese la cedula del paciente a asignar", "Asignar cama", JOptionPane.INFORMATION_MESSAGE);
+        String cedulaPac = cbTipo.getSelectedItem().toString() + tfNum.getText();
+        //cedulaPac = JOptionPane.showInputDialog(this, "Por favor ingrese la cedula del paciente a asignar", "Asignar cama", JOptionPane.INFORMATION_MESSAGE);
         int resultado;
         Date fechaAsigCa;
         fechaAsigCa = fechaAsig.getDate();
         resultado = controlCama.asignarPaciente(camasDisp[listCamas.getSelectedIndex()].getNumeroCama(), cedulaPac, fechaAsigCa);
         
         if(resultado>0){
-            JOptionPane.showMessageDialog(this, "Cama asignada", "Exito", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Cama asignada", "Exito", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(this, "No fue posible asignar la cama, contacte con el adminitrador del sistema, o revise la informacion del paciente", "Error", JOptionPane.ERROR_MESSAGE);
@@ -180,7 +212,10 @@ public class PanelAsigCamas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAsignar;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JComboBox cbTipo;
     private com.toedter.calendar.JDateChooser fechaAsig;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblDescripcion;
@@ -189,5 +224,6 @@ public class PanelAsigCamas extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JList listCamas;
+    private javax.swing.JTextField tfNum;
     // End of variables declaration//GEN-END:variables
 }
