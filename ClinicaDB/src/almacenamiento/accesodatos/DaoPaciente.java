@@ -84,10 +84,7 @@ public class DaoPaciente {
         HistoriaClinica historia = new HistoriaClinica();
         
         String sql_selectPersona;
-        String sql_selectPaciente;
-        sql_selectPersona="SELECT * FROM persona WHERE persona.identificacion= '"+document+"';";
-        sql_selectPaciente="SELECT * FROM paciente WHERE paciente.identificacion= '"+document+"';";
-        System.out.println("consulta Paciente " + sql_selectPersona+" "+sql_selectPaciente);
+        sql_selectPersona="SELECT * FROM persona NATURAL JOIN paciente WHERE identificacion='"+document+"';";
          try{
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
@@ -100,14 +97,10 @@ public class DaoPaciente {
                 pacienteCon.setApellidos(table1.getString(3));
                 pacienteCon.setTelefono(table1.getString(4));
                 pacienteCon.setDireccion(table1.getString(5));       
-            }
-            ResultSet table2 = sentence.executeQuery(sql_selectPaciente);
-            while(table2.next()){
-                
-                pacienteCon.setNumeroSocial(table2.getString(2));
-                pacienteCon.setActEcon(table2.getString(3));
-                pacienteCon.setFechaNac(format.parse(table2.getString(4)));
-                pacienteCon.setEstado(table2.getBoolean(5));
+                pacienteCon.setNumeroSocial(table1.getString(6));
+                pacienteCon.setActEcon(table1.getString(7));
+                pacienteCon.setFechaNac(format.parse(table1.getString(8)));
+                pacienteCon.setEstado(table1.getBoolean(9));
      
             }
             if(pacienteCon.getNombres()==null){
