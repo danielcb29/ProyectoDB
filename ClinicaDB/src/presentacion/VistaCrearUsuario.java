@@ -398,7 +398,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbHabs2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
@@ -510,7 +510,7 @@ public class VistaCrearUsuario extends javax.swing.JFrame {
                             result = ce.createEmpleado(identificacion, nombres, apellidos, telefono, direccion, Integer.parseInt(salario), email, cargo, contrasena, jefe, ar, true);
                     }
                     if(result == -1 || result == -2){
-                        JOptionPane.showMessageDialog(this, "Posiblemente estas ingresando a una persona que ya existe \nIntenta ingresar a una persona diferente (identificacion y/o correo electrónico diferente)\nSi el problema persiste ha ocurrido un error en la base de datos,consulta al personal encargado","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Posiblemente estas ingresando a una persona que ya existe \nIntenta ingresar a una persona diferente (identificacion diferente)\nSi el problema persiste ha ocurrido un error en la base de datos,consulta al personal encargado","Error",JOptionPane.ERROR_MESSAGE);
                     }else{
                         if(result== -3){//para campos vacíos de enfermera o médico
                             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
