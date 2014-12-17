@@ -70,7 +70,15 @@ public class DAOEmpleado {
             System.out.println("antes createStatement de createEmpleado");
             Statement st = conn.createStatement();
             System.out.println("antes executeUpdate de createEmpleado");
-            st.executeUpdate(sql_per);
+            Empleado emInterno = readEmpleado(em.getEmail(),1);
+            
+            String nombre= emInterno.getNombres();
+            System.out.println("nombre"+nombre);
+            if(nombre== null){
+                st.executeUpdate(sql_per);
+            }else{
+                return -2;
+            }
             numRows = st.executeUpdate(sql_em);
             
             System.out.println("numRowsDAO: " + numRows);
