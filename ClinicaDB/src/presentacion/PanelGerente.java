@@ -59,7 +59,6 @@ public class PanelGerente extends javax.swing.JFrame {
         labelGestionDeArea = new javax.swing.JLabel();
         labelPanelGerente = new javax.swing.JLabel();
         labelBinvenido = new javax.swing.JLabel();
-        labelNombreGerente = new javax.swing.JLabel();
         botonCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -192,8 +191,6 @@ public class PanelGerente extends javax.swing.JFrame {
 
         labelBinvenido.setText("Bienvenido ");
 
-        labelNombreGerente.setText("nombreGerente");
-
         botonCerrarSesion.setForeground(new java.awt.Color(153, 153, 153));
         botonCerrarSesion.setText("Cerrar Sesion");
         botonCerrarSesion.setBorderPainted(false);
@@ -211,13 +208,9 @@ public class PanelGerente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelBinvenido))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelNombreGerente))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
@@ -230,8 +223,13 @@ public class PanelGerente extends javax.swing.JFrame {
                 .addComponent(botonCerrarSesion))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelPanelGerente)
-                .addGap(70, 70, 70))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelPanelGerente)
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelBinvenido)
+                        .addGap(231, 231, 231))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,9 +239,7 @@ public class PanelGerente extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(labelPanelGerente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelBinvenido)
-                    .addComponent(labelNombreGerente))
+                .addComponent(labelBinvenido)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelReporte)
@@ -350,7 +346,6 @@ public class PanelGerente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelBinvenido;
     private javax.swing.JLabel labelGestionDeArea;
-    private javax.swing.JLabel labelNombreGerente;
     private javax.swing.JLabel labelPanelGerente;
     private javax.swing.JLabel labelReporte;
     // End of variables declaration//GEN-END:variables

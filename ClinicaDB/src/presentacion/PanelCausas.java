@@ -45,7 +45,7 @@ public class PanelCausas extends javax.swing.JFrame {
             mostrarCausas();
             if(tipo==2){
                 //Editar
-                lbTtitulo.setText("Registro de Causas: Editar");
+                lbTtitulo.setText("Edicion de Causas");
                 lbDescrip.setText("Este modulo le permite editar causas en el sistema");
                 btProceso.setText("Editar");
                 lbEstado.setVisible(false);
@@ -53,7 +53,7 @@ public class PanelCausas extends javax.swing.JFrame {
             }else{
                 if(tipo==3){
                     //Eliminar
-                    lbTtitulo.setText("Registro de Causas: Eliminar");
+                    lbTtitulo.setText("Eliminacion de Causas");
                     lbDescrip.setText("Este modulo le eliminar causas en el sistema");
                     btProceso.setText("Eliminar");
                     lbEstado.setVisible(false);

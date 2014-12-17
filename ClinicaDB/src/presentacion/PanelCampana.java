@@ -56,15 +56,17 @@ public class PanelCampana extends javax.swing.JFrame {
             mostrarCampanas();
             if(tipo==2){
                 //editar
-                lbTitulo.setText("Gestion de Campañas: Editar");
+                lbTitulo.setText("Edicion de Campañas");
                 lbMensaje.setText("Este modulo le permite realizar la gestion de campañas, para esta caso : editar");
                 lbEstado.setVisible(false);
                 cbEstado.setVisible(false);
                 chbCambiarFecha.setEnabled(false);
                 btAccion.setText("Editar");
+                fechaNueva = new Date();
+                lbNewHoy.setText(fechaNueva.toString());
             }else{
                 //eliminar
-                lbTitulo.setText("Gestion de Campañas: Eliminar");
+                lbTitulo.setText("Eliminacion de Campañas");
                 lbMensaje.setText("Este modulo le permite realizar la gestion de campañas, para esta caso : eliminar");
                 tfNombre.setEnabled(false);
                 taObjetivo.setEnabled(false);
@@ -252,7 +254,7 @@ public class PanelCampana extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btAccion))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,8 +280,7 @@ public class PanelCampana extends javax.swing.JFrame {
         taObjetivo.setText(objetivo);
         lbFecha.setText(fecha);
         
-        fechaNueva = new Date();
-        lbNewHoy.setText(fechaNueva.toString());
+        
         
         boolean estado = seleccionada.getEstado();
         if(tipo==2 && estado==false){
