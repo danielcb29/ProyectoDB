@@ -49,6 +49,7 @@ public class PanelElimModificarPaciente extends javax.swing.JFrame {
         }else{
             oper= "modificar";
         }
+        this.setResizable(false);
     }
 
     /**

@@ -24,65 +24,55 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbTitle" min="-2" max="-2" attributes="0"/>
                           <Component id="lbInfo" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="lbLogo" min="-2" pref="59" max="-2" attributes="0"/>
+                      <EmptySpace pref="45" max="32767" attributes="0"/>
+                      <Component id="lbLogo" min="-2" pref="78" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="tfBuscar" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbNombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="comboEstado" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
-                                  <Component id="tfCodigo" pref="248" max="32767" attributes="0"/>
-                                  <Component id="tfNombre" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="tfBuscar" min="-2" pref="241" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btBuscar" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btBuscar" min="-2" pref="105" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lbCodigo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="tfCodigo" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="lbDescripcion" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="spDescripcion" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btAccion" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" pref="667" max="-2" attributes="0"/>
+                              <Component id="btCancelar" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                              <Component id="lbBuscar" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+                              <Component id="spDescripcion" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lbNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="tfNombre" max="32767" attributes="0"/>
+                          <Component id="comboEstado" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="btAccion" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btCancelar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,56 +81,51 @@
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="lbTitle" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="lbInfo" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="lbLogo" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lbLogo" min="-2" pref="110" max="-2" attributes="0"/>
+                  </Group>
               </Group>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="21" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lbBuscar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tfBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="btBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lbDescripcion" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <Component id="spDescripcion" min="-2" pref="150" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="btBuscar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="lbNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="lbDescripcion" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btAccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="spDescripcion" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btAccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -149,7 +134,7 @@
     <Component class="javax.swing.JLabel" name="lbTitle">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Cantarell" size="18" style="1"/>
+          <Font name="Cantarell" size="36" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Crear &#xc1;rea"/>
       </Properties>
@@ -162,11 +147,6 @@
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
     <Component class="javax.swing.JLabel" name="lbLogo">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbBuscar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar:"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfBuscar">
       <Properties>
@@ -187,7 +167,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbCodigo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="C&#xf3;digo: "/>
+        <Property name="text" type="java.lang.String" value="C&#xf3;digo : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfCodigo">
@@ -196,7 +176,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lbNombre">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre: "/>
+        <Property name="text" type="java.lang.String" value="Nombre : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbEstado">

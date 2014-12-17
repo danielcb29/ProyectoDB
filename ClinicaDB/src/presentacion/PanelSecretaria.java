@@ -23,6 +23,7 @@ public class PanelSecretaria extends javax.swing.JFrame {
     public PanelSecretaria(Connection connPad) {
         conn = connPad;
         initComponents();
+        this.setResizable(false);
         
     }
 

@@ -23,53 +23,78 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="lbLogo" min="-2" pref="61" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbTelefono" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbNombres" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNomUsuario" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbCargo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="comboCargo" max="32767" attributes="0"/>
-                          <Component id="tfNombres" alignment="0" pref="204" max="32767" attributes="0"/>
-                          <Component id="tfSalario" max="32767" attributes="0"/>
-                          <Component id="tfTelefono" pref="204" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Component id="cbAJ" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbNL" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbArea" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="lbBuscar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="tfNL" max="32767" attributes="0"/>
-                          <Component id="tfArea" max="32767" attributes="0"/>
-                          <Component id="comboEstado" pref="210" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="tfBuscarId" min="-2" pref="524" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbHabs1" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbHabs2" min="-2" pref="119" max="-2" attributes="0"/>
+                          <Component id="jSeparator1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbInfo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbTitulo" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="lbLogo" min="-2" pref="61" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="lbNombres" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                  <Component id="lbTelefono" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="lbCargo" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblNomUsuario" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="cbAJ" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lbNL" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbArea" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbHabs1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbHabs2" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="comboCargo" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="tfNL" max="32767" attributes="0"/>
+                                              <Component id="tfArea" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="comboEstado" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane1" pref="178" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="tfSalario" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="tfNombres" alignment="0" pref="176" max="32767" attributes="0"/>
+                                              <Component id="tfTelefono" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="412" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="366" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
@@ -79,64 +104,44 @@
                               <Component id="lbDireccion" min="-2" max="-2" attributes="0"/>
                               <Component id="lbApellidos" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tfContrasena" alignment="1" min="-2" pref="204" max="-2" attributes="0"/>
-                              <Component id="tfEmail" alignment="1" min="-2" pref="204" max="-2" attributes="0"/>
-                              <Component id="tfDireccion" alignment="1" min="-2" pref="204" max="-2" attributes="0"/>
-                              <Component id="tfApellidos" alignment="1" min="-2" pref="204" max="-2" attributes="0"/>
+                          <EmptySpace pref="76" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="tfDireccion" alignment="1" min="-2" pref="177" max="-2" attributes="0"/>
+                              <Component id="tfApellidos" min="-2" pref="177" max="-2" attributes="0"/>
+                              <Component id="tfEmail" alignment="1" min="-2" pref="177" max="-2" attributes="0"/>
+                              <Component id="tfContrasena" alignment="1" min="-2" pref="177" max="-2" attributes="0"/>
+                              <Component id="btBuscar" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace pref="23" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lbIdJ" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbAnos" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbUniversidad" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tfUniversidad" min="-2" pref="204" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="comboAnos" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfIdJ" min="-2" pref="204" max="-2" attributes="0"/>
-                                  <Component id="tfEspecialidad" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="bModificar" min="-2" pref="106" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btCancelar" min="-2" pref="103" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lbIdJ" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbAnos" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbUniversidad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="tfEspecialidad" pref="177" max="32767" attributes="0"/>
+                                      <Component id="comboAnos" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfIdJ" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="tfUniversidad" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="bModificar" min="-2" pref="106" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Component id="btCancelar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="lbEspecialidad" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="19" max="32767" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
-                                  <Component id="lbBuscar" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="lbTitulo" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="lbInfo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="tfBuscarId" pref="537" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btBuscar" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="lbEspecialidad" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="288" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -145,100 +150,99 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lbLogo" min="-2" pref="75" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbNombres" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfNombres" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfSalario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNomUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbCargo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboCargo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblConvocatoria1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfIdJ" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbIdJ" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbAJ" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="tfArea" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbArea" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbAnos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboAnos" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboEstado" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbNL" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfNL" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbUniversidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfUniversidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="lbHabs1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="lbHabs2" min="-2" pref="51" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="lbTitulo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbInfo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bModificar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                          <Component id="btCancelar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbLogo" min="-2" pref="75" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbTitulo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lbInfo" min="-2" pref="57" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lbBuscar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfBuscarId" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="btBuscar" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="tfBuscarId" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="btBuscar" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="lbNombres" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="tfNombres" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbApellidos" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="529" max="32767" attributes="0"/>
+                  <Component id="tfApellidos" min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfSalario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblNomUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboCargo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblConvocatoria1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfContrasena" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tfIdJ" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbIdJ" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbAJ" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tfArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbAnos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboAnos" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="comboEstado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbNL" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfNL" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbUniversidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfUniversidad" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lbHabs1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lbHabs2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jScrollPane1" min="-2" pref="108" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="bModificar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="btCancelar" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -302,7 +306,7 @@
     <Component class="javax.swing.JLabel" name="lbTitulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Cantarell" size="18" style="1"/>
+          <Font name="Cantarell" size="36" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Editar Usuario"/>
       </Properties>
@@ -626,5 +630,7 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JSeparator" name="jSeparator1">
+    </Component>
   </SubComponents>
 </Form>

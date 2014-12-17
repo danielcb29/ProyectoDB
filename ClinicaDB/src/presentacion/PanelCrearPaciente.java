@@ -27,6 +27,7 @@ public class PanelCrearPaciente extends javax.swing.JFrame {
         conn = connPadre;
         controladorPaciente = new ControlPaciente(conn);
         initComponents();
+        this.setResizable(false);
     }
 
     /**
