@@ -44,15 +44,19 @@ public class ControlCitas {
     }
     /**
      * Metodo que permite listar las citas registradas en la base de datos
+     * @param fecha
      * @return arreglo de citas
      */
-    public String[][] listarCita(String fecha){
-        ArrayList<ArrayList <String>> resultado = dao.listCita(fecha);
-        String[][] resultadoAr = new String[resultado.size()][resultado.get(1).size()];
-        for(int i= 0; i<resultado.size(); i++){
-            resultadoAr[i] = resultado.get(i).toArray(resultadoAr[i]);
-        }
-        return resultadoAr;
+    public ArrayList<ArrayList <String>> listarCita(String fecha){
+        return dao.listCita(fecha);
+    }
+
+    public ArrayList<ArrayList<String>> getCitasSis() {
+        return dao.getCitasSistema();
+    }
+
+    public String[] listarCitasU(String documento) {
+        return dao.listCitasU(documento);
     }
     
 }

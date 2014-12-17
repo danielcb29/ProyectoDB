@@ -87,9 +87,13 @@ public class ControlArea {
 
         return result;
     }
-/**
-    public int  deleteUser(String text) {
-        return daoUser.deleteUser(text);
+    /**
+    * borrar un usuario de la tabla.
+    * @param cod el codigo del area que se quiere borrar.
+    * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
+    */
+    public int  deleteArea(int cod) {
+        return daoAr.deleteArea(cod);
     }
     
     

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Skip to content
  This repository
 Explore
@@ -14,6 +15,9 @@ brayanrodbajobrayanrodbajo 10 hours ago sql completo (Daniel y Brayan)
 2 contributors brayanrodbajoDaniel Correa
 219 lines (203 sloc)  9.589 kb RawBlameHistory  
 --Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martienez , Brayan Rodriguez
+=======
+--Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martinez , Brayan Rodriguez
+>>>>>>> daniel
 DROP TABLE IF EXISTS Causas_Registro;
 DROP TABLE IF EXISTS RegistroHC;
 DROP TABLE IF EXISTS Pacientes_Campana;
@@ -231,4 +235,7 @@ INSERT INTO empleado VALUES ('789', 10, 'alv@aol.com', 'Enfermera', 'alv',  NULL
 INSERT INTO enfermera VALUES ('789', 1);
 INSERT INTO Habilidades_Enfermera VALUES ('789', 'muchas habilidades');
 INSERT INTO Habilidades_Enfermera VALUES ('789', 'mas habilidades');
+<<<<<<< HEAD
 
+=======
+>>>>>>> daniel

@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -84,10 +84,7 @@ public class DaoPaciente {
         HistoriaClinica historia = new HistoriaClinica();
         
         String sql_selectPersona;
-        String sql_selectPaciente;
-        sql_selectPersona="SELECT * FROM persona WHERE persona.identificacion= '"+document+"';";
-        sql_selectPaciente="SELECT * FROM paciente WHERE paciente.identificacion= '"+document+"';";
-        System.out.println("consulta Paciente " + sql_selectPersona+" "+sql_selectPaciente);
+        sql_selectPersona="SELECT * FROM persona NATURAL JOIN paciente WHERE identificacion='"+document+"';";
          try{
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
@@ -100,14 +97,10 @@ public class DaoPaciente {
                 pacienteCon.setApellidos(table1.getString(3));
                 pacienteCon.setTelefono(table1.getString(4));
                 pacienteCon.setDireccion(table1.getString(5));       
-            }
-            ResultSet table2 = sentence.executeQuery(sql_selectPaciente);
-            while(table2.next()){
-                
-                pacienteCon.setNumeroSocial(table2.getString(2));
-                pacienteCon.setActEcon(table2.getString(3));
-                pacienteCon.setFechaNac(format.parse(table2.getString(4)));
-                pacienteCon.setEstado(table2.getBoolean(5));
+                pacienteCon.setNumeroSocial(table1.getString(6));
+                pacienteCon.setActEcon(table1.getString(7));
+                pacienteCon.setFechaNac(format.parse(table1.getString(8)));
+                pacienteCon.setEstado(table1.getBoolean(9));
      
             }
             if(pacienteCon.getNombres()==null){
@@ -141,6 +134,7 @@ public class DaoPaciente {
       
         
         try{
+            System.out.println(sql3);
                 Statement sentencia = conn.createStatement();
 
                 sentencia.executeUpdate(sql1);
@@ -214,7 +208,7 @@ public class DaoPaciente {
     
      public int eliminarPaciente(String identificacion) {
         String sql1;
-	sql1 = "UPDATE Persona SET estado='false' WHERE identificacion='" + identificacion + "';";
+	sql1 = "UPDATE Paciente SET estado='false' WHERE identificacion='" + identificacion + "';";
         try{
                 Statement sentencia = conn.createStatement();
 
@@ -252,7 +246,7 @@ public class DaoPaciente {
         fecha = format.parse("2010-05-02");
         Paciente ejemPaciente = new Paciente("4425", "Alvaro", "Martinez", "55524878", "cl 57#32a-24", "44512", "Est", fecha, true );
         fecha = format.parse("2011-05-02");
-        Paciente ejemPaciente1 = new Paciente("4427", "Daniel", "Kant", "55524878", "cr 57#32a-24", "44512", "Est", fecha, true );
+        Paciente ejemPaciente1 = new Paciente("4427", "Alvaro", "Kant", "55524878", "cr 57#32a-24", "44512", "Est", fecha, true );
 
         System.out.println(crearPaciente(ejemPaciente));
         System.out.println(crearPaciente(ejemPaciente1));

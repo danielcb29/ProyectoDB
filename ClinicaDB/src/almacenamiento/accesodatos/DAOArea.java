@@ -74,12 +74,13 @@ public class DAOArea {
         * @return null si hay error en la consulta a la base de datos. Objeto tipo Area si el objeto del area que se consulto existe. 
         */
     public Area readArea(int cod){
-        Area ar= new Area();
+        Area ar;
         String sql_select;
         sql_select="SELECT codigoArea, nombre, descripcion, estado FROM  area WHERE codigoArea=" + cod ;        
         
         
         try{
+            ar = new Area();
             System.out.println("consultando en la bd");
             Statement statement = conn.createStatement();
             
@@ -114,9 +115,9 @@ public class DAOArea {
      */
     public int updateArea(Area ar, int cod){
         String sql_save1,  sql_save2,  sql_save3;
-	sql_save1="UPDATE area SET nombre="+ar.getNombre()+" WHERE codigoArea=" + cod+ "";
-        sql_save2="UPDATE area SET descripcion="+ar.getDescripcion()+" WHERE codigoArea=" + cod+ "";
-        sql_save3="UPDATE area SET estado="+ar.getEstado()+" WHERE codigoArea=" + cod+ "";
+	sql_save1="UPDATE area SET nombre='"+ar.getNombre()+"' WHERE codigoArea=" + cod;
+        sql_save2="UPDATE area SET descripcion='"+ar.getDescripcion()+"' WHERE codigoArea=" + cod;
+        sql_save3="UPDATE area SET estado="+ar.getEstado()+" WHERE codigoArea=" + cod;
         
         try{
             Statement statement = conn.createStatement();
@@ -184,12 +185,13 @@ public class DAOArea {
     }
    /**
     * borrar un usuario de la tabla.
-    * @param codigoArea el codigoArea del area que se quiere borrar.
+    * @param codigoArea el codigo del area que se quiere borrar.
+    * @return 1 si el proceso ocurrio bien durante todo el metodo, -3 si el usuario entregado tiene un perfil inexistente, -2 si hay algun error de sql y -1 si hay cualquier otro error.
     */
     public int deleteArea(int codigoArea){	
         String sql_save;
 
-        sql_save="UPDATE area SET estado=false WHERE codigoArea='" + codigoArea + "'";
+        sql_save="UPDATE area SET estado=false WHERE codigoArea=" + codigoArea ;
         
         try{
             Statement statement = conn.createStatement();
@@ -203,9 +205,9 @@ public class DAOArea {
         }
         catch(Exception e){ 
             System.out.println(e);
-            
+            return -2;
         }
-        return -2;
+        
         
     }
     /**

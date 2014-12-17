@@ -4,8 +4,11 @@
  */
 package clinicadb;
 
-import almacenamiento.accesodatos.BaseDatos;
+import almacenamiento.accesodatos.*;
 import java.sql.Connection;
+import java.text.ParseException;
+import presentacion.PanelEnfermera;
+import presentacion.PanelSecretaria;
 
 /**
  *
@@ -29,8 +32,13 @@ public class ClinicaDB {
     }
     /**
      * @param args the command line arguments
-     *//*
-    public static void main(String[] args) {
+     */
+    public static void main(String[] args) throws ParseException {
+        
+        BaseDatos conect = new BaseDatos();
+        PanelSecretaria ventanaEnfermera = new PanelSecretaria(conect.getConnetion());
+        ventanaEnfermera.setVisible(true);
+        
         // TODO code application logic here
-    }*/
+    }
 }

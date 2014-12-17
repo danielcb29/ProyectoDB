@@ -185,21 +185,21 @@ public class VistaAdmin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay Usuarios para editar","", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            veu = new VistaEditarUsuario(ce);
+            veu = new VistaEditarUsuario(ce, 1);
             veu.setVisible(true);
         }
     }//GEN-LAST:event_btEditarUsuarioActionPerformed
 
     private void btEliminarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEliminarUsuarioActionPerformed
         // TODO add your handling code here:
-     /*   if(objUserController.countUsers()== 0){
+        if(ce.listEmpleado().length== 0){
             JOptionPane.showMessageDialog(null, "No hay Usuarios para eliminar","", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
             //System.out.println("Por ahora no se ha implementado :)");
-            objVistaEditarUsuario = new VistaEditarUsuario(objUserController, objConvController,2);
-            objVistaEditarUsuario.setVisible(true);
-        }*/
+            veu = new VistaEditarUsuario(ce,2);
+            veu.setVisible(true);
+        }
     }//GEN-LAST:event_btEliminarUsuarioActionPerformed
 
     private void btSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalirActionPerformed

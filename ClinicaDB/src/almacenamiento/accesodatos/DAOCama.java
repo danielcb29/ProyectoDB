@@ -41,7 +41,7 @@ public class DAOCama {
         int numRows=0;
         
         
-        sql_ar="INSERT INTO Cama VALUES ('"+ nuevaCama.getNumeroCama() +"', '"+ nuevaCama.isEstado()+ "', '"+ nuevaCama.getDescripcion() + "',"+ nuevaCama.getArea() + ",  ''true');";
+        sql_ar="INSERT INTO Cama VALUES ('"+ nuevaCama.getNumeroCama() +"', '"+ nuevaCama.isEstado()+ "', '"+ nuevaCama.getDescripcion() + "',"+ nuevaCama.getArea() + ",  'true');";
         System.out.println(sql_ar);
         try{
             Statement st = conn.createStatement();
@@ -62,7 +62,7 @@ public class DAOCama {
         return -1;
     }
 
-   /* public Cama leerCama(String identificacion, boolean tipo) {
+    public Cama leerCama(String identificacion, boolean tipo) {
         Cama camaEdit= new Cama();
         String sql_select;
         sql_select="SELECT * FROM cama WHERE numeroCama= '" +identificacion+"';";        
@@ -230,6 +230,6 @@ public class DAOCama {
             System.out.println(e);
         }
         return -1;
-    }*/
+    }
     
 }

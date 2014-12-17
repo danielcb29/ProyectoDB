@@ -1,4 +1,4 @@
---Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martienez , Brayan Rodriguez
+--Proyecto Base de datos, Clinica DB : Daniel Correa , Alvaro Martinez , Brayan Rodriguez, Camilo Narvaez
 DROP TABLE IF EXISTS Causas_Registro;
 DROP TABLE IF EXISTS RegistroHC;
 DROP TABLE IF EXISTS Pacientes_Campana;
@@ -32,6 +32,7 @@ CREATE TABLE Cama(
 	estado BOOLEAN NOT NULL,
 	descripcion TEXT NOT NULL,
 	codigoArea INT NOT NULL,
+	activa BOOLEAN NOT NULL,
 	CONSTRAINT fk_codigoArea FOREIGN KEY(codigoArea) REFERENCES Area(codigoArea) ON UPDATE CASCADE ON DELETE NO ACTION 
 ); 
 
@@ -167,7 +168,7 @@ CREATE TABLE Campana(
 	codigoCampana VARCHAR(35) NOT NULL PRIMARY KEY,
 	fecha timestamp NOT NULL,
 	nombre VARCHAR(30) NOT NULL UNIQUE,
-	objetivo VARCHAR(99) NOT NULL,
+	objetivo TEXT NOT NULL,
 	idResponsable VARCHAR(35) NOT NULL,
 	estado BOOL NOT NULL,
 	CONSTRAINT fk_idResp FOREIGN KEY(idResponsable) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION

@@ -16,6 +16,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import proceso.Causa;
+import proceso.Empleado;
 import proceso.HistoriaClinica;
 import proceso.Medico;
 import proceso.Paciente;
@@ -30,11 +31,14 @@ public class DAOHistoria {
     private BaseDatos db;
     private Connection conn;
     private DaoPaciente daoPac;
+    
 
     public DAOHistoria(Connection conn) {
         db = new BaseDatos();
         this.conn = conn;
         daoPac = new DaoPaciente(conn);
+        
+        
     }
 
     /**
@@ -146,9 +150,11 @@ public class DAOHistoria {
      * @param idHistoria numero de registro a obtener historia
      * @return registros en un vector
      */
-    public Vector<Registro> leerRegistrosHistoria(String idHistoria) {
+    
+    //==========================EDITADO POR CAMILO ======================================================= 
+    public Vector<Registro> leerRegistrosHistoria(String cedula) {
 
-        String sqlRegistro = "SELECT * FROM registrohc WHERE numhistoria='" + idHistoria + "';";
+        String sqlRegistro = "SELECT * FROM registrohc WHERE numhistoria=(SELECT numHistoria  FROM HistoriaClinica WHERE idPaciente = '" + cedula + "');";
         Vector<Registro> registros = new Vector<Registro>();
         SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
         try {
@@ -156,27 +162,29 @@ public class DAOHistoria {
             System.out.println("consultando en la bd");
             Statement sentence = conn.createStatement();
             ResultSet table = sentence.executeQuery(sqlRegistro);
-
+            System.out.println("antes del while");
             while (table.next()) {
                 Registro dbReg = new Registro();
                 String codigoRegistro = table.getString(1);
                 String numHistoria = table.getString(2);
                 String idMedico = table.getString(3);
-                //Medico medico = new Medico();
+                //Medico medico = daoMed.readMedico(null)
                 Date fecha;
                 fecha = format.parse(table.getString(4));
                 double precio = table.getDouble(5);
-
+                System.out.println("Registros de paciente PREVIO: "+codigoRegistro+" "+numHistoria+" "+fecha+" "+precio+" "+idMedico);
                 Vector<Causa> causasRegistro = causasRegistro(codigoRegistro);
                 
+                dbReg.setCodigo(codigoRegistro);
+                dbReg.setNumHistori(numHistoria);
                 dbReg.setCausasPaciente(causasRegistro);
                 dbReg.setFecha(fecha);
                 dbReg.setPrecio(precio);
                 dbReg.setIdMedico(idMedico);
-                
+                System.out.println("Registros de paciente: "+codigoRegistro+" "+numHistoria+" "+fecha+" "+precio+" "+idMedico);
                 registros.add(dbReg);
             }
-            
+            System.out.println("Afuera del while");
             return registros;
             
         } catch (SQLException ex) {
@@ -186,6 +194,71 @@ public class DAOHistoria {
         }
         return null;
     }
+    
+    public Double[] consultarCostoAnio(String cedula , String anio) {
+
+        String sqlCostosFormula = "SELECT SUM(costo) FROM formula F,Medicamentos M WHERE M.codigoMedicamento=F.idMedicamento AND (select extract (year from F.fechaasignacion))='"+anio+"' AND F.numHistoria = (SELECT numHistoria FROM HistoriaClinica WHERE idPaciente = '"+cedula+"');";
+        String sqlCostosCitas = "SELECT SUM(precio) FROM registrohc WHERE (select extract (year from fecha))='"+anio+"' AND numHistoria=(SELECT numHistoria  FROM HistoriaClinica WHERE idPaciente = '" + cedula + "');";
+        Double[] resultado = new Double[2];
+        System.out.println("consulta Paciente " + sqlCostosFormula+"\n "+sqlCostosCitas);
+        try {
+
+            System.out.println("consultando en la bd");
+            Statement sentence = conn.createStatement();
+            ResultSet table = sentence.executeQuery(sqlCostosFormula);
+            //if(table.getRow()!=0){
+                while (table.next()) {
+                    resultado[0] = table.getDouble(1);
+                    System.out.println("RESULTADO DESDE DAO0:"+resultado[0]);
+                }
+                ResultSet table2 = sentence.executeQuery(sqlCostosCitas);
+                while (table2.next()) {
+                    resultado[1] = table2.getDouble(1);
+                    System.out.println("RESULTADO DESDE DAO1:"+resultado[1]);
+                }
+            
+            return resultado;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOHistoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Double[] consultarCostoAnioMes(String cedula , String anio, String mes) {
+     
+        String sqlCostosFormula = "SELECT SUM(costo) FROM formula AS F, Medicamentos AS M WHERE M.codigoMedicamento=F.idMedicamento AND (select extract (year from F.fechaasignacion))='"+anio+"' AND (select extract (month from F.fechaasignacion))='"+mes+"' AND F.numHistoria = (SELECT numHistoria FROM HistoriaClinica WHERE idPaciente = '"+cedula+"');";
+        String sqlCostosCitas = "SELECT SUM(precio) FROM registrohc WHERE (select extract(year from fecha))='"+anio+"' AND (select extract(month from fecha))='"+mes+"' AND numHistoria=(SELECT numHistoria  FROM HistoriaClinica WHERE idPaciente = '" + cedula + "');";
+        Double[] resultado = new Double[2];
+        System.out.println("consulta Paciente " + sqlCostosFormula+"\n "+sqlCostosCitas);
+        SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+        try {
+
+            System.out.println("consultando en la bd");
+            Statement sentence = conn.createStatement();
+            ResultSet table = sentence.executeQuery(sqlCostosFormula);
+            
+            //if(table.getRow()!=0){
+                while (table.next()) {
+                    resultado[0] = table.getDouble(1);
+
+                }
+                ResultSet table2 = sentence.executeQuery(sqlCostosCitas);
+                while (table2.next()) {
+                    resultado[1] = table2.getDouble(1);
+
+                }
+            //}
+            
+            return resultado;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOHistoria.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    //=========================================================================================================
     /**
      * Metodo que permite obtener las causas de un registro dado 
      * @param codigoRegistro codigo del registro a obtener causas

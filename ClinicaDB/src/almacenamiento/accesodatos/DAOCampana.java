@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import proceso.Campana;
+import proceso.Empleado;
 import proceso.Medico;
 
 /**
@@ -24,9 +25,14 @@ public class DAOCampana {
 
     private BaseDatos db;
     private Connection conn;
+    private DAOMedico daoMedico;
+    private DAOEmpleado daoEmpleado;
 
     public DAOCampana(Connection conn) {
         db = new BaseDatos();
+        daoMedico=new DAOMedico(conn);
+        daoEmpleado=new DAOEmpleado();
+        
         this.conn = conn;
     }
 
@@ -64,6 +70,7 @@ public class DAOCampana {
             int j = 0;
 
             SimpleDateFormat format = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
+            daoEmpleado.connectDB();
             while (table.next()) {
 
                 campanas[j].setCodigoCampana(table.getString(1));
@@ -80,12 +87,15 @@ public class DAOCampana {
 
                 //Medico 
                 String idMedico = table.getString(6);
-                //Medico responsable = daoMedico.leerMedico(idMedico);
-                //campanas[j].setResponsable(responsable);
+                
+                Empleado empleado = daoEmpleado.readEmpleado(idMedico, 0);
+                Medico responsable = daoMedico.readMedico(empleado);
+                campanas[j].setResponsable(responsable);
 
                 j++;
                 System.out.println("ok");
             }
+            daoEmpleado.closeConectionDB();
 
             return campanas;
         } catch (SQLException e) {
@@ -280,5 +290,88 @@ public class DAOCampana {
             
         }
         return -1;
+    }
+
+    public int asignarPacCam(String ident, String codigoCampana) {
+        String sql_save;
+        int numRows = 0;
+
+        sql_save = "INSERT INTO pacientes_campana VALUES ('"+ident+"', '"+codigoCampana+"');";
+        try {
+            Statement sentencia = conn.createStatement();
+
+            numRows = sentencia.executeUpdate(sql_save);
+            System.out.println("numRowsDAO: " + numRows);
+            return numRows;
+
+        } catch (SQLException e) {
+
+            System.out.println(e);
+            return -1;
+        } catch (Exception e) {
+
+            System.out.println(e);
+        }
+        return -2; 
+    }
+
+    public String[] listarUsuarioCamp(String codigoCampana) {
+            
+    
+            String sql_select, sql_count;
+        
+            sql_select = "SELECT idpaciente FROM pacientes_campana WHERE idCampana ='"+codigoCampana+"';";
+            sql_count = "SELECT COUNT(*) FROM pacientes_campana WHERE idCampana ='"+codigoCampana+"';";
+
+
+
+        try {
+            System.out.println("consultando en la bd");
+            Statement sentence = conn.createStatement();
+            ResultSet tablaTam = sentence.executeQuery(sql_count);
+            tablaTam.next();
+            int tamano = tablaTam.getInt(1);
+            ResultSet table = sentence.executeQuery(sql_select);
+
+            System.out.println(tamano);
+            String usuarioCamp[] = new String[tamano];
+            
+            int j = 0;
+
+            while (table.next()) {
+                
+                usuarioCamp[j] = table.getString(1);
+                j++;
+                System.out.println("ok");
+            }
+
+            return usuarioCamp;
+        } catch (SQLException e) {
+            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;    }
+
+    public int eliminarPacCamp(String docum, String codCamp) {
+        String sql1;
+	sql1 = "DELETE FROM pacientes_campana WHERE idpaciente='"+docum+"' AND idcampana ='"+codCamp+"';";
+                System.out.println(sql1);
+
+        try{
+                Statement sentencia = conn.createStatement();
+
+                sentencia.executeUpdate(sql1);
+
+                return 1;
+            }
+        catch(SQLException e){
+            System.out.println(e); 
+            return -2;
+            }
+        catch(Exception e){ 
+            System.out.println(e);
+            return -1;
+        }
     }
 }

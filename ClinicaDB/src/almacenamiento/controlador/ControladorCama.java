@@ -36,7 +36,7 @@ public class ControladorCama {
      * @param identificacion de la causa
      * @return paciente leido
      */
- /*   public Cama leerCama(String identificacion, boolean tipo){
+    public Cama leerCama(String identificacion, boolean tipo){
         Cama resultado = dao.leerCama(identificacion, tipo);
         return resultado;
     }
@@ -46,7 +46,7 @@ public class ControladorCama {
      * @param modCama informacion de la cama modificada
      * @return numero de confirmacion , 1 ok , -1 error , -2 sql error
      */
-   /* public int actualizarCama(String identificacion , Cama modCama){
+    public int actualizarCama(String identificacion , Cama modCama){
         int resultado;
         resultado = dao.modificarCama(identificacion, modCama);
         return resultado;
@@ -56,7 +56,7 @@ public class ControladorCama {
      * @param numeroCama identificacion  de la cama a eliminar
      * @return 1 si se pudo desactivar -1 si no se pudo
      */
- /*   public int eliminarCama(String numeroCama){
+    public int eliminarCama(String numeroCama){
         int resultado = dao.eliminarCama(numeroCama);
         return resultado;
     }
@@ -64,7 +64,7 @@ public class ControladorCama {
      * Metodo que permite listar los pacientes registrados en la base de datos
      * @return arreglo de pacientes
      */
-  /*  public Cama[] listarCamas(Boolean tipo){
+    public Cama[] listarCamas(Boolean tipo){
         Cama[] resultado;
         resultado = dao.listCama(tipo);
         return resultado;
@@ -74,6 +74,6 @@ public class ControladorCama {
         int resultado;
         resultado = dao.asignarCama(numeroCama, cedulaPac, fechaAsig);
         return resultado;    
-    }*/
+    }
     
 }

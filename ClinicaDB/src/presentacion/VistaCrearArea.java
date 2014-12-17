@@ -16,40 +16,59 @@ import proceso.Area;
  * @author family
  */
 public class VistaCrearArea extends javax.swing.JFrame {
-    
+
     int tipo;
     ControlArea ca;
     Connection conn;
 
     /**
      * Creates new form VistaCrearConvocatoria
+     *
      * @param conex
      * @param tip
      */
     public VistaCrearArea(Connection conex, int tip) {
-        
+
         initComponents();
-        conn=conex;
-        tipo=tip;
+        conn = conex;
+        tipo = tip;
         ca = new ControlArea(conn);
-        switch(tipo){
+        this.setResizable(false);
+        switch (tipo) {
             case 1://crear
+
                 lbBuscar.setVisible(false);
                 tfBuscar.setVisible(false);
                 btBuscar.setVisible(false);
                 lbEstado.setVisible(false);
                 comboEstado.setVisible(false);
+                tfCodigo.setEditable(true);
+                tfNombre.setEditable(true);
+                taDescripcion.setEditable(true);
+                comboEstado.setEditable(true);
                 btAccion.setText("Crear");
                 break;
             case 2://editar
                 tfCodigo.setEditable(false);
+                lbBuscar.setVisible(true);
+                tfBuscar.setVisible(true);
+                btBuscar.setVisible(true);
+                lbEstado.setVisible(true);
+                comboEstado.setVisible(true);
+                tfNombre.setEditable(true);
+                taDescripcion.setEditable(true);
+                comboEstado.setEditable(true);
+                lbTitle.setText("Editar Area");
                 btAccion.setText("Editar");
+                break;
             case 3://eliminar
                 tfCodigo.setEditable(false);
                 tfNombre.setEditable(false);
                 taDescripcion.setEditable(false);
-                comboEstado.setEditable(false);
+                comboEstado.setEnabled(false);
+                lbTitle.setText("Eliminar Area");
                 btAccion.setText("Eliminar");
+                break;
         }
     }
 
@@ -245,25 +264,31 @@ public class VistaCrearArea extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
         // TODO add your handling code here:
-        try{
+        try {
             int cod = Integer.parseInt(tfBuscar.getText());
             Area ar = ca.readArea(cod);
-            tfCodigo.setText(ar.getCodigoArea()+"");
-            tfNombre.setText(ar.getNombre());
-            if(ar.getEstado()){
-                comboEstado.setSelectedIndex(0);
-            }else{
-                comboEstado.setSelectedIndex(1);
+            String nombre = ar.getNombre();
+            if (nombre != null) {
+                tfCodigo.setText(ar.getCodigoArea() + "");
+                tfNombre.setText(nombre);
+                if (ar.getEstado()) {
+                    comboEstado.setSelectedIndex(0);
+                } else {
+                    comboEstado.setSelectedIndex(1);
+                }
+                taDescripcion.setText(ar.getDescripcion());
+            } else {
+                JOptionPane.showMessageDialog(this, "Esta área no existe.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            taDescripcion.setText(ar.getDescripcion());
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "El código del área debe ser número entero.","Error",JOptionPane.ERROR_MESSAGE);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El código del área debe ser número entero.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void tfBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfBuscarMouseClicked
-        tfBuscar.setSelectionStart(0); 
-        tfBuscar.setSelectionEnd(tfBuscar.getText().length()); 
+        tfBuscar.setSelectionStart(0);
+        tfBuscar.setSelectionEnd(tfBuscar.getText().length());
     }//GEN-LAST:event_tfBuscarMouseClicked
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -272,74 +297,75 @@ public class VistaCrearArea extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btAccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAccionActionPerformed
-        try{
-            String menj="";
+        try {
+            String menj = "";
             int codigo = Integer.parseInt(tfCodigo.getText());
             String nombre = tfNombre.getText();
             String descripcion = taDescripcion.getText();
             boolean estado;
-            if(comboEstado.getSelectedIndex()==0){
-                estado= true;
-            }else{
-                estado=false;
+            if (comboEstado.getSelectedIndex() == 0) {
+                estado = true;
+            } else {
+                estado = false;
             }
-            boolean empty =validateInformation(nombre, descripcion);
-            int result=0;
-            if(empty){
-                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear el usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-            }else{
-                String menError="";
-                switch(tipo){
+            boolean empty = validateInformation(nombre, descripcion);
+            int result = 0;
+            if (empty) {
+                JOptionPane.showMessageDialog(null, "Debe llenar todos los campos para crear/editar el área.", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                String menError = "";
+                switch (tipo) {
                     case 1://crear
-                        result=ca.createArea(codigo, nombre, descripcion, estado);
-                        menj="creada";
-                        menError="Posiblemente estás creando un área que ya existe \nIntenta ingresar un área con código diferente \nSi el problema persiste ha ocurrido un error en la base de datos, consulta al personal encargado";
+                        result = ca.createArea(codigo, nombre, descripcion, estado);
+                        menj = "creada";
+                        menError = "Posiblemente estás creando un área que ya existe \nIntenta ingresar un área con código diferente \nSi el problema persiste ha ocurrido un error en la base de datos, consulta al personal encargado";
                         break;
                     case 2://editar
-                        result=ca.updateArea(codigo, nombre, descripcion, estado);
-                        menj="editada";
+                        result = ca.updateArea(codigo, nombre, descripcion, estado);
+                        System.out.println("rowcount " + result);
+                        menj = "editada";
                         menError = "Ha ocurrido un error en la base de datos. Por favor consulte al personal encargado.";
                         break;
                     case 3:
-
-                }
-                if(result == -1 || result == -2){
-                    JOptionPane.showMessageDialog(this, menError,"Error",JOptionPane.ERROR_MESSAGE);
-                }else{
-                    //Se imprime el mensaje para informar el exito de la operacion
-                    if(tipo==3){//Eliminar
-                        int opc =JOptionPane.showConfirmDialog(this, "¿Desea eliminar el usuario "+nombre+ "?.\n Favor verificar los datos.");
-                        if(opc==1){
-                            JOptionPane.showMessageDialog(this, "El área "+ nombre+" ha sido "+ menj+ " con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
+                        menj = "desactivada";
+                        int opc = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el usuario " + nombre + "?.\n Favor verificar los datos.");
+                        if (opc == 0) {
+                            result = ca.deleteArea(codigo);
+                            
                             //Cerramos la ventana
                             this.dispose();
                         }
-                    }else{
-                        JOptionPane.showMessageDialog(this, "El área "+ nombre+" ha sido "+ menj+ " con éxito", "Mensaje de éxito",JOptionPane.INFORMATION_MESSAGE);
-                        //Cerramos la ventana
-                        this.dispose();
-                    }
-                    
-                    
+                        
+                        break;
+
+                }
+                if (result == -1 || result == -2) {
+                    JOptionPane.showMessageDialog(this, menError, "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    //Se imprime el mensaje para informar el exito de la operacion                    
+                    JOptionPane.showMessageDialog(this, "El área " + nombre + " ha sido " + menj + " con éxito", "Mensaje de éxito", JOptionPane.INFORMATION_MESSAGE);
+                    //Cerramos la ventana
+                    this.dispose();
                 }
             }
-            
-        }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "El código del área debe ser número entero.","Error",JOptionPane.ERROR_MESSAGE);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El código del área debe ser número entero.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btAccionActionPerformed
-    public boolean validateInformation(String d1, String d2){
-        return (d1.trim().length()==0 || d2.trim().length()==0 );
+    public boolean validateInformation(String d1, String d2) {
+        return (d1.trim().length() == 0 || d2.trim().length() == 0);
     }
+
     /**
      * @param args the command line arguments
-     */
+     *//*
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         *//*
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -359,15 +385,15 @@ public class VistaCrearArea extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form *//*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                BaseDatos bd= new BaseDatos();
+                BaseDatos bd = new BaseDatos();
                 Connection conn = bd.getConnetion();
                 new VistaCrearArea(conn, 1).setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAccion;

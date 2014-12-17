@@ -184,14 +184,12 @@ public class DAOMedico {
             }
             System.out.println(numRows);
             Medico me[]= new Medico[numRows];
-            for(int i=0; i<numRows; i++){
-                me[i]=new Medico();
-            }
+       
             ResultSet table2= statement.executeQuery(sql_select);
             int j=0;
             
             while(table2.next()){
-                
+                me[j]=new Medico();
                 me[j].setIdentificacion(table2.getString(1));
                 
                 me[j].setNombres(table2.getString(2));
@@ -240,7 +238,7 @@ public class DAOMedico {
                 me[j].setEspecialidad(table2.getString(14));
                 
                 me[j].setUniversidad(table2.getString(15));
-               
+                j++;
                 System.out.println("ok");
                 
             }

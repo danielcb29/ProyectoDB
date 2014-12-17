@@ -7,6 +7,7 @@ package presentacion;
 import almacenamiento.controlador.*;
 import proceso.*;
 import java.sql.Connection;
+import java.util.Vector;
 
 import javax.swing.JOptionPane;
 /**
@@ -24,7 +25,9 @@ public class Login extends javax.swing.JFrame {
     private VistaAdmin va;
     private PanelBodega pb;
     private PanelMedico pm;
-    
+    private PanelEnfermera pEnf;
+    private PanelGerente pg;
+    private PanelSecretaria pSec;
     /**
      * Creates new form GestionUsuario
      */
@@ -63,11 +66,14 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         tfCon = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        lbCE.setText("Correo electrónico");
+        lbCE.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbCE.setForeground(new java.awt.Color(153, 153, 153));
+        lbCE.setText("Correo electrónico:");
 
         tfCE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,13 +88,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        lbCon.setText("Contraseña");
-
-        lbLogo.setIcon(new javax.swing.ImageIcon("/home/family/Proyectos/ProyectoDB/ClinicaDB/src/presentacion/logo2.png")); // NOI18N
+        lbCon.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbCon.setForeground(new java.awt.Color(153, 153, 153));
+        lbCon.setText("Contraseña:");
 
         lbEISC.setText("Escuela de Ingeniería de Sistemas y Computación");
 
         jLabel2.setText("Universidad del Valle");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setText("LOGIN");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,56 +105,66 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 173, Short.MAX_VALUE)
-                .addComponent(lbEISC)
-                .addGap(172, 172, 172))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tfCE, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(tfCon))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(125, 125, 125))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbEISC)
+                        .addGap(56, 56, 56))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(296, 296, 296)
-                        .addComponent(btIngresar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(316, 316, 316)
-                        .addComponent(lbLogo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(279, 279, 279)
-                        .addComponent(lbCE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
+                        .addGap(119, 119, 119)
                         .addComponent(lbCon))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(269, 269, 269)
-                        .addComponent(jLabel2)))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(56, 56, 56)
+                                .addComponent(jLabel1)
+                                .addGap(112, 112, 112)
+                                .addComponent(lbLogo))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tfCon, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                                .addComponent(tfCE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(137, 137, 137)
+                        .addComponent(btIngresar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(lbCE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbCE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbCE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(tfCE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbCon)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfCon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btIngresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addComponent(lbEISC)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(41, 41, 41))
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -175,6 +194,15 @@ public class Login extends javax.swing.JFrame {
                     switch(cargo){
                         case "Administrador":
                             System.out.println("admin");
+                            Vector<Empleado[]> todosEms =ce.listEmpleadoPorArea();
+                            for(int i= 0; i<todosEms.size(); i++){
+                                Empleado[] emInterno = todosEms.get(i);
+                                //System.out.println(emInterno[0].getArea().getNombre());
+                                for(int j=0;j<emInterno.length;j++){
+                                    System.out.println(emInterno[j].getEmail());
+                                }
+                                
+                            }
                             va=new VistaAdmin(ce);
                             va.setVisible(true);
                             this.setEnabled(false);
@@ -193,6 +221,8 @@ public class Login extends javax.swing.JFrame {
                             System.out.println("Medico");
                             Enfermera enf1 = cEnf.readEnfermera(em);
                             System.out.println("dentro de la vista1" + enf1.getNombres());
+                            pEnf= new PanelEnfermera(conn);
+                            pEnf.setVisible(true);
                             this.setEnabled(false);
                             this.dispose();
                             break;
@@ -200,6 +230,20 @@ public class Login extends javax.swing.JFrame {
                             System.out.println("Bodeguero");
                             pb = new PanelBodega(conn, em.getNombres());
                             pb.setVisible(true);
+                            this.setEnabled(false);
+                            this.dispose();
+                            break;
+                        case "Gerente":
+                            System.out.println("Gerente");
+                            pg = new PanelGerente(conn,ce);
+                            pg.setVisible(true);
+                            this.setEnabled(false);
+                            this.dispose();
+                            break;
+                        case "Secretaria":
+                            System.out.println("Secretaria");
+                            pSec = new PanelSecretaria(conn);
+                            pSec.setVisible(true);
                             this.setEnabled(false);
                             this.dispose();
                             break;
@@ -253,6 +297,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btIngresar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbCE;

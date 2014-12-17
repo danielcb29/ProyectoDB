@@ -14,7 +14,20 @@ public class Cama {
     private String numeroCama;
     private boolean estado;
     private String descripcion;
-    private Area area;
+    private int area;
+    private boolean activa;
+
+    public Cama(String numeroCama, boolean estado, String descripcion, int area, boolean activa) {
+        this.numeroCama = numeroCama;
+        this.estado = estado;
+        this.descripcion = descripcion;
+        this.area = area;
+        this.activa = activa;
+    }
+
+    public Cama() {
+       
+    }
 
     /**
      * @return the numeroCama
@@ -61,16 +74,25 @@ public class Cama {
     /**
      * @return the descripcion
      */
-    public Area getArea() {
+    public int getArea() {
         return area;
     }
 
     /**
      * @param descripcion the descripcion to set
      */
-    public void setArea(Area area) {
+    public void setArea(int area) {
         this.area = area;
     }
+
+    public boolean isActiva() {
+        return activa;
+    }
+
+    public void setActiva(boolean activa) {
+        this.activa = activa;
+    }
+    
     
     public String toString(){
         

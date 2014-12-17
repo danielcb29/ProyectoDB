@@ -27,6 +27,11 @@ public class DAOEmpleado {
         db=new BaseDatos();
         
     }//fin constructor
+    
+    public DAOEmpleado(Connection conex){
+        db=new BaseDatos();
+        conn=conex;
+    }//fin constructor
     /**
      * Metodo que permite realizar la conexion a la base de datos
      */
@@ -65,7 +70,15 @@ public class DAOEmpleado {
             System.out.println("antes createStatement de createEmpleado");
             Statement st = conn.createStatement();
             System.out.println("antes executeUpdate de createEmpleado");
-            st.executeUpdate(sql_per);
+            Empleado emInterno = readEmpleado(em.getEmail(),1);
+            
+            String nombre= emInterno.getNombres();
+            System.out.println("nombre"+nombre);
+            if(nombre== null){
+                st.executeUpdate(sql_per);
+            }else{
+                return -2;
+            }
             numRows = st.executeUpdate(sql_em);
             
             System.out.println("numRowsDAO: " + numRows);
@@ -198,22 +211,7 @@ public class DAOEmpleado {
             statement.executeUpdate(sql_save4);
             statement.executeUpdate(sql_save5);
             statement.executeUpdate(sql_save6);
-            
-            ResultSet table ;
-            switch(em.getCargo()){
-                case "Medico":
-                    String sql_save12= "SELECT * FROM medico WHERE identificacion='"+identificacion+"'";
-                    table= statement.executeQuery(sql_save12);
-                    boolean thereIs=false;
-                    while(table.next()){
-                        thereIs=true;
-                    }
-                    if(thereIs){
-                        statement.executeUpdate(sql_save7);
-                    }else{
-                        String sql_save13 = "INSERT  ";
-                    }
-            }
+            statement.executeUpdate(sql_save7);
             
            
             statement.executeUpdate(sql_save8);
@@ -387,13 +385,13 @@ public class DAOEmpleado {
         return null;
     }
    /**
-    * borrar un usuario de la tabla.
-    * @param cedula la cedula del usuario que se quiere borrar.
+    * borrar un empleado de la tabla.
+    * @param identificacion la cedula del usuario que se quiere borrar.
     */
- /**   public int deleteUser(String cedula){	
+    public int deleteEmpleado(String identificacion){	
         String sql_save;
 
-        sql_save="UPDATE usuario SET estado=false WHERE cedula='" + cedula + "'";
+        sql_save="UPDATE empleado SET estado=false WHERE identificacion='" + identificacion + "'";
         
         try{
             Statement statement = conn.createStatement();
