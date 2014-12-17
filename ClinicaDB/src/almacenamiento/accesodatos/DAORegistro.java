@@ -92,5 +92,26 @@ public class DAORegistro {
         }
         return -1;
     }
+    /**
+     * Permite consultar la cantidad de campañas a las cuales esta asignado un paciente
+     * @param identificacion identificacion del paciente 
+     * @return numero de campañas al cual esta asginado
+     */
+    public int consultarCantidadCampanas(String identificacion) {
+        String sql = "select count(*) from pacientes_campana where idpaciente='"+identificacion+"';";
+        try {
+            
+            Statement sentencia = conn.createStatement();
+            ResultSet table = sentencia.executeQuery(sql);
+            int cantidad=0;
+            while(table.next()){
+                cantidad= table.getInt(1);
+            } 
+            return cantidad;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAORegistro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
     
 }
