@@ -34,10 +34,10 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
         this.conn = conn;
         initComponents();
         controladorCitas = new ControlCitas(conn);
-        lblDocumento.setVisible(false);
+        /*lblDocumento.setVisible(false);
         lblNum.setVisible(false);
         cmbTipoD.setVisible(false);
-        txtNumD.setVisible(false);
+        txtNumD.setVisible(false);*/
         if (opcion == 2) {
             lbTitulo.setText("Cancelar cita");
             lblInfo.setText("Por favor busque la fecha de la cita que desea cancelar");
@@ -45,11 +45,11 @@ public class PanelCRUDCitas extends javax.swing.JFrame {
             btAsignar.setText("Cancelar");
             lblFecha.setVisible(false);
             campFecha.setVisible(false);
-
+            /*
             lblDocumento.setVisible(true);
             lblNum.setVisible(true);
             cmbTipoD.setVisible(true);
-            txtNumD.setVisible(true);
+            txtNumD.setVisible(true);*/
         }
         campFecha.setDateFormatString("yyyy-MM-dd");
     }

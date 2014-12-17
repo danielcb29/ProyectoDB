@@ -168,7 +168,7 @@ CREATE TABLE Campana(
 	codigoCampana VARCHAR(35) NOT NULL PRIMARY KEY,
 	fecha timestamp NOT NULL,
 	nombre VARCHAR(30) NOT NULL UNIQUE,
-	objetivo VARCHAR(99) NOT NULL,
+	objetivo TEXT NOT NULL,
 	idResponsable VARCHAR(35) NOT NULL,
 	estado BOOL NOT NULL,
 	CONSTRAINT fk_idResp FOREIGN KEY(idResponsable) REFERENCES Medico(identificacion) ON UPDATE CASCADE ON DELETE NO ACTION
