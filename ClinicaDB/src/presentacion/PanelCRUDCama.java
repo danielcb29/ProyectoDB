@@ -83,7 +83,6 @@ public class PanelCRUDCama extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblLogo = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblDescripcion = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -103,8 +102,6 @@ public class PanelCRUDCama extends javax.swing.JFrame {
         cmbActiva = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/logo2.png"))); // NOI18N
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lblTitulo.setText("Crear Cama");
@@ -197,21 +194,17 @@ public class PanelCRUDCama extends javax.swing.JFrame {
                                 .addComponent(lblTitulo)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(lblDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLogo)))
+                        .addGap(65, 65, 65)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblTitulo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDescripcion))
-                    .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addComponent(lblTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDescripcion)
+                .addGap(25, 25, 25)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -376,7 +369,6 @@ public class PanelCRUDCama extends javax.swing.JFrame {
     private javax.swing.JLabel lblCamaDescr;
     private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNumCama;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtNumCama;

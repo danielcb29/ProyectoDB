@@ -57,7 +57,7 @@ public class PanelPacCampa extends javax.swing.JFrame {
         txtNum = new javax.swing.JTextField();
         btAceptar = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lblTitulo.setText("<html>Asignacion de pacientes a campañas<html>");

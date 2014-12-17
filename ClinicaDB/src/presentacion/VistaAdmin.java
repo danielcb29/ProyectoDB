@@ -42,7 +42,6 @@ public class VistaAdmin extends javax.swing.JFrame {
 
         lbBienvenido = new javax.swing.JLabel();
         btSalir = new javax.swing.JButton();
-        lbLogo = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lbSubGu = new javax.swing.JLabel();
         lbGU = new javax.swing.JLabel();
@@ -127,17 +126,11 @@ public class VistaAdmin extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(lbBienvenido)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lbLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(38, 38, 38)
                 .addComponent(lbBienvenido)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbGU)
@@ -153,7 +146,7 @@ public class VistaAdmin extends javax.swing.JFrame {
                 .addComponent(btEliminarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -204,7 +197,6 @@ public class VistaAdmin extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbBienvenido;
     private javax.swing.JLabel lbGU;
-    private javax.swing.JLabel lbLogo;
     private javax.swing.JLabel lbSubGu;
     // End of variables declaration//GEN-END:variables
 }
