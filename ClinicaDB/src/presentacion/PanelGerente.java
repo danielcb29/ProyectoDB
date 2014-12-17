@@ -6,8 +6,12 @@
 package presentacion;
 
 import almacenamiento.controlador.ControlArea;
+import almacenamiento.controlador.ControlEmpleado;
 import java.sql.Connection;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import proceso.Area;
+import proceso.Empleado;
 
 /**
  *
@@ -17,14 +21,18 @@ public class PanelGerente extends javax.swing.JFrame {
     VistaCrearArea vca;
     Connection conn;
     ControlArea ca;
+    ControlEmpleado controlEmp;
+    
     /**
      * Creates new form PanelGerente
      * @param conn conexion
      */
-    public PanelGerente(Connection conn) {
+    public PanelGerente(Connection conn,ControlEmpleado ce) {
         this.conn=conn;
         ca =  new ControlArea(conn);
+        controlEmp = ce;
         initComponents();
+        setResizable(false);
     }
 
     /**
@@ -42,7 +50,7 @@ public class PanelGerente extends javax.swing.JFrame {
         botonFacturaPaciente = new javax.swing.JButton();
         butonEmpleadosPorAreas = new javax.swing.JButton();
         botonCitas = new javax.swing.JButton();
-        botonNoSeSabeDaniel = new javax.swing.JButton();
+        botonAgenda = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         botonCrear = new javax.swing.JButton();
         botonEditar = new javax.swing.JButton();
@@ -52,13 +60,14 @@ public class PanelGerente extends javax.swing.JFrame {
         labelPanelGerente = new javax.swing.JLabel();
         labelBinvenido = new javax.swing.JLabel();
         labelNombreGerente = new javax.swing.JLabel();
+        botonCerrarSesion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
 
-        botonBuscarHojasDeVida.setText("Buscar Hojas de Vida");
+        botonBuscarHojasDeVida.setText("Buscar Historia Clinica");
         botonBuscarHojasDeVida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBuscarHojasDeVidaActionPerformed(evt);
@@ -79,9 +88,19 @@ public class PanelGerente extends javax.swing.JFrame {
             }
         });
 
-        botonCitas.setText("Citas");
+        botonCitas.setText("Numero de Citas Atendidas ");
+        botonCitas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCitasActionPerformed(evt);
+            }
+        });
 
-        botonNoSeSabeDaniel.setText("Costos");
+        botonAgenda.setText("Agenda de un Medico");
+        botonAgenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,9 +109,9 @@ public class PanelGerente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(botonFacturaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(botonBuscarHojasDeVida, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(botonNoSeSabeDaniel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonFacturaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonBuscarHojasDeVida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonCitas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(butonEmpleadosPorAreas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -109,7 +128,7 @@ public class PanelGerente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botonNoSeSabeDaniel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -144,9 +163,9 @@ public class PanelGerente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(botonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(botonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +176,7 @@ public class PanelGerente extends javax.swing.JFrame {
                 .addComponent(botonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         labelReporte.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -175,58 +194,74 @@ public class PanelGerente extends javax.swing.JFrame {
 
         labelNombreGerente.setText("nombreGerente");
 
+        botonCerrarSesion.setForeground(new java.awt.Color(153, 153, 153));
+        botonCerrarSesion.setText("Cerrar Sesion");
+        botonCerrarSesion.setBorderPainted(false);
+        botonCerrarSesion.setContentAreaFilled(false);
+        botonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCerrarSesionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelBinvenido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelNombreGerente))
-                            .addComponent(labelPanelGerente)))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addComponent(labelBinvenido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelNombreGerente)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(labelReporte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelGestionDeArea)
                 .addGap(61, 61, 61))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelPanelGerente)
+                .addGap(90, 90, 90))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(botonCerrarSesion))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
+                .addComponent(botonCerrarSesion)
+                .addGap(15, 15, 15)
                 .addComponent(labelPanelGerente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelBinvenido)
                     .addComponent(labelNombreGerente))
-                .addGap(38, 38, 38)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelReporte)
                     .addComponent(labelGestionDeArea))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonBuscarHojasDeVidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarHojasDeVidaActionPerformed
-        PanelBusquedaHojasDeVida pbh = new PanelBusquedaHojasDeVida();
+        PanelBusquedaHojasDeVida pbh = new PanelBusquedaHojasDeVida(conn);
         pbh.setVisible(true);
     }//GEN-LAST:event_botonBuscarHojasDeVidaActionPerformed
 
@@ -237,6 +272,11 @@ public class PanelGerente extends javax.swing.JFrame {
 
     private void butonEmpleadosPorAreasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonEmpleadosPorAreasActionPerformed
         // TODO add your handling code here:
+        Area[] areas = ca.listArea();
+        Vector<Empleado[]> empleados = controlEmp.listEmpleadoPorArea();
+        panelListarAreas empleadosXArea= new panelListarAreas(areas, empleados);
+        empleadosXArea.setVisible(true);
+        
     }//GEN-LAST:event_butonEmpleadosPorAreasActionPerformed
 
     private void botonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearActionPerformed
@@ -264,6 +304,24 @@ public class PanelGerente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonEditarActionPerformed
 
+    private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_botonCerrarSesionActionPerformed
+
+    private void botonCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCitasActionPerformed
+        // TODO add your handling code here:
+        panelNumeroCitas panelCantidadCitas = new panelNumeroCitas(conn);
+        panelCantidadCitas.setVisible(true);
+        
+    }//GEN-LAST:event_botonCitasActionPerformed
+
+    private void botonAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendaActionPerformed
+        // TODO add your handling code here:
+        PanelAgenda agendaMedico = new PanelAgenda(conn);
+        agendaMedico.setVisible(true);
+        
+    }//GEN-LAST:event_botonAgendaActionPerformed
+
     /**
      * @param args the command line arguments
      *//*
@@ -280,13 +338,14 @@ public class PanelGerente extends javax.swing.JFrame {
     }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAgenda;
     private javax.swing.JButton botonBuscarHojasDeVida;
+    private javax.swing.JButton botonCerrarSesion;
     private javax.swing.JButton botonCitas;
     private javax.swing.JButton botonCrear;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonFacturaPaciente;
-    private javax.swing.JButton botonNoSeSabeDaniel;
     private javax.swing.JButton butonEmpleadosPorAreas;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;

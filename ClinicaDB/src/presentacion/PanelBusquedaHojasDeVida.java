@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import proceso.HistoriaClinica;
 import proceso.Paciente;
 import proceso.Registro;
 
@@ -26,15 +27,18 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
     ControlGerente miGerente;
     ControlHistoria miControlHistoria;
     BaseDatos miBD;
+    Connection con;
     /**
      * Creates new form PanelBusquedaHojasDeVida
      */
-    public PanelBusquedaHojasDeVida() {
+    public PanelBusquedaHojasDeVida(Connection conn) {
         initComponents();
-        miBD = new BaseDatos();
-        Connection con = miBD.conectar();
+        //miBD = new BaseDatos();
+        //Connection con = miBD.conectar();
+        con=conn;
         miGerente = new ControlGerente(con);
         miControlHistoria = new ControlHistoria(con);
+        setResizable(false);
     }
 
     /**
@@ -76,11 +80,13 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
         labelInformacionGeneral = new javax.swing.JLabel();
         botonSalir = new javax.swing.JButton();
         botonLimpiar = new javax.swing.JButton();
+        cbTipoId = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         labelBusquedaHojasDeVida.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        labelBusquedaHojasDeVida.setText("BUSQUEDA HOJAS DE VIDA");
+        labelBusquedaHojasDeVida.setText("BUSQUEDA HISTORIA CLINICA");
 
         labelPaciente.setText("Paciente :");
 
@@ -202,7 +208,7 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
         );
 
         panelRegistros.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
-        panelRegistros.setLayout(new java.awt.GridLayout());
+        panelRegistros.setLayout(new java.awt.GridLayout(1, 0));
 
         tablaResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -244,6 +250,10 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             }
         });
 
+        cbTipoId.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
+
+        jLabel1.setText("Numero:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,8 +272,12 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
                     .addComponent(labelRegistro)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelPaciente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -277,12 +291,16 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addComponent(labelBusquedaHojasDeVida)
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPaciente)
-                    .addComponent(botonBuscar)
-                    .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonBuscar)
+                        .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
+                        .addComponent(labelPaciente)))
+                .addGap(18, 18, 18)
                 .addComponent(labelInformacionGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelInformacionGenerla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -305,7 +323,9 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se ha digitado los datos necesarios para la busqueda.", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             String cedula = tfCedulaPaciente.getText();
-            Paciente miPaciente = miGerente.buscarPaciente(cedula);
+            String tipo = cbTipoId.getSelectedItem().toString();
+            String identificacion = tipo+cedula;
+            Paciente miPaciente = miGerente.buscarPaciente(identificacion);
             String[] nombresColumnas = {"Identificacion","Nombres","Apellidos","Telefono","Direccion","Numero Social","Actividad Economica","Fecha de nacimiento","Estado"};
             Object[][] datos = {{miPaciente.getIdentificacion(), miPaciente.getNombres(), miPaciente.getApellidos(),miPaciente.getTelefono(), miPaciente.getDireccion(), miPaciente.getNumeroSocial(),miPaciente.getActEcon(), miPaciente.getFechaNac(), miPaciente.getEstado()}};
             cedulaPaciente.setText(miPaciente.getIdentificacion());
@@ -321,15 +341,16 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
             }else{
                 estadoPaciente.setText("false");
             }
-            
-            Vector<Registro> registrosPaciente = miControlHistoria.consultarRegistros(cedula);
-            System.out.println(registrosPaciente.isEmpty());
-
+            System.out.println("Antes de traer registros");
+            Vector<Registro> registrosPaciente = miControlHistoria.consultarRegistros(identificacion);
+            //System.out.println("hay registros?"+registrosPaciente.isEmpty());
+            //HistoriaClinica hc= miControlHistoria.buscarHistoriaCompleta(cedula);
+            //Vector<Registro> registrosPaciente = hc.getRegistrosConsultasPacientes();
             DefaultTableModel dfRegistros = new DefaultTableModel();
             tablaResultados.setModel(dfRegistros);
-            dfRegistros.setColumnIdentifiers(new Object[] {"Codigo", "Numero Historia", "ID Medico", "Fecha", "Precio", "Causas"});
+            dfRegistros.setColumnIdentifiers(new Object[] { "ID Medico", "Fecha", "Precio", "Causas"});
             for(int i = 0 ; i < registrosPaciente.size(); i++){
-                dfRegistros.addRow(new Object[]{registrosPaciente.get(i).getCodigo(),registrosPaciente.get(i).getnumHistoria(),registrosPaciente.get(i).getIdMedico(),registrosPaciente.get(i).getFecha(),registrosPaciente.get(i).getPrecio(), registrosPaciente.get(i).getCausas()});
+                dfRegistros.addRow(new Object[]{registrosPaciente.get(i).getIdMedico(),registrosPaciente.get(i).getFecha(),registrosPaciente.get(i).getPrecio(), registrosPaciente.get(i).getCausas()});
             }
             
             repaint();
@@ -342,7 +363,7 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCedulaPacienteActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        this.hide(); 
+        this.dispose(); 
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
@@ -351,13 +372,13 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     */
+     *//*
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         *//*
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -376,13 +397,13 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form *//*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PanelBusquedaHojasDeVida().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel actividadEconomicaPaciente;
@@ -390,10 +411,12 @@ public class PanelBusquedaHojasDeVida extends javax.swing.JFrame {
     private javax.swing.JButton botonBuscar;
     private javax.swing.JButton botonLimpiar;
     private javax.swing.JButton botonSalir;
+    private javax.swing.JComboBox cbTipoId;
     private javax.swing.JLabel cedulaPaciente;
     private javax.swing.JLabel direccionPaciente;
     private javax.swing.JLabel estadoPaciente;
     private javax.swing.JLabel fechaNacimiento;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelActividadEconomica;
     private javax.swing.JLabel labelApellidos;

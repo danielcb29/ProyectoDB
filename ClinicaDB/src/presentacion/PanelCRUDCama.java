@@ -135,6 +135,11 @@ public class PanelCRUDCama extends javax.swing.JFrame {
         });
 
         btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
 
         btBuscarCam.setText("Buscar");
         btBuscarCam.addActionListener(new java.awt.event.ActionListener() {
@@ -347,6 +352,11 @@ public class PanelCRUDCama extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btCrearCamActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     
     private boolean validarInfo(String numeroCama, String descripcion){

@@ -250,6 +250,7 @@ public class DAOCitas {
             return -1;
         }
     }
+     
     
     /**
      * cerrar la conexion con la base de datos.

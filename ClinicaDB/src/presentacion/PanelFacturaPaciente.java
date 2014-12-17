@@ -32,7 +32,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         Connection con = miBD.conectar();
         miGerente = new ControlGerente(con);
         miControlHistoria = new ControlHistoria(con);
-        
+        setResizable(false);
     }
 
     /**
@@ -83,9 +83,11 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         labelResultados = new javax.swing.JLabel();
         panelResultados = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbCosto = new javax.swing.JTable();
         botonLimpiar = new javax.swing.JButton();
         botonSalir = new javax.swing.JButton();
+        cbTipoId = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -255,7 +257,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
 
         panelResultados.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbCosto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -263,7 +265,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                 "Costos por Formula", "Costos por Cita"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbCosto);
 
         javax.swing.GroupLayout panelResultadosLayout = new javax.swing.GroupLayout(panelResultados);
         panelResultados.setLayout(panelResultadosLayout);
@@ -289,6 +291,10 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                 botonSalirActionPerformed(evt);
             }
         });
+
+        cbTipoId.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "C.C", "T.I", "C.E", "R.C" }));
+
+        jLabel1.setText("Numero:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -330,8 +336,12 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                                 .addComponent(labelPaciente)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(labelPacienteFac)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(34, 34, 34)
+                                    .addComponent(jLabel1)
+                                    .addGap(37, 37, 37)
+                                    .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(botonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(0, 23, Short.MAX_VALUE))
@@ -345,7 +355,9 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPacienteFac)
                     .addComponent(tfCedulaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonBuscar))
+                    .addComponent(botonBuscar)
+                    .addComponent(cbTipoId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInformacionGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -385,7 +397,9 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         }else{
             Double[] resultado = new Double[2];
             String cedula = tfCedulaPaciente.getText();
-            Paciente miPaciente = miGerente.buscarPaciente(cedula);
+            String tipo = cbTipoId.getSelectedItem().toString();
+            String identificacion = tipo+cedula;
+            Paciente miPaciente = miGerente.buscarPaciente(identificacion);
             cedulaPaciente.setText(miPaciente.getIdentificacion());
             nombrePaciente.setText( miPaciente.getNombres());
             apellidosPaciente.setText( miPaciente.getApellidos());
@@ -404,7 +418,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                 
                 String anio = tfAnio.getText();
                 System.out.println("consultara anio");
-                resultado = miControlHistoria.contularCostosAnio(cedula,anio);
+                resultado = miControlHistoria.contularCostosAnio(identificacion,anio);
             }else{
                 if(radioButonMes.isSelected()){
                     String anio = tfAnioMes.getText();
@@ -422,7 +436,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
                     if(mes.equals("Noviembre")){ mes = "11";}
                     if(mes.equals("Diciembre")){ mes = "12";}
                     System.out.println("consultara mes");
-                    resultado = miControlHistoria.contularCostosAnioMes(cedula, anio,  mes);
+                    resultado = miControlHistoria.contularCostosAnioMes(identificacion, anio,  mes);
                     
                 }
                     
@@ -431,7 +445,11 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
             DefaultTableModel dfRegistros = new DefaultTableModel();
             dfRegistros.setColumnIdentifiers(new Object[] {"Costos por Formula", "Costos por Citas"});
             dfRegistros.addRow(new Object[]{resultado[0],resultado[1]});
-            }            
+            System.out.println("----resultado0:"+resultado[0]);
+            System.out.println("----resultado1:"+resultado[1]);
+            tbCosto.setModel(dfRegistros);
+            tbCosto.setEnabled(false);
+        }            
             repaint();
             pack();
       
@@ -459,6 +477,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_botonSalirActionPerformed
 
     private void tfAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAnioActionPerformed
@@ -467,13 +486,13 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
 
     /**
      * @param args the command line arguments
-     */
+     *//*
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+         *//*
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -493,13 +512,13 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form *//*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PanelFacturaPaciente().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel actividadEconomicaPaciente;
@@ -510,13 +529,14 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JComboBox cbTipoId;
     private javax.swing.JLabel cedulaPaciente;
     private javax.swing.JComboBox comboMeses;
     private javax.swing.JLabel direccionPaciente;
     private javax.swing.JLabel estadoPaciente;
     private javax.swing.JLabel fechaNacimiento;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelActividadEconomica;
     private javax.swing.JLabel labelAnio;
     private javax.swing.JLabel labelAnioMes;
@@ -540,6 +560,7 @@ public class PanelFacturaPaciente extends javax.swing.JFrame {
     private javax.swing.JPanel panelResultados;
     private javax.swing.JRadioButton radioButonAnio;
     private javax.swing.JRadioButton radioButonMes;
+    private javax.swing.JTable tbCosto;
     private javax.swing.JLabel telefonoPaciente;
     private javax.swing.JTextField tfAnio;
     private javax.swing.JTextField tfAnioMes;

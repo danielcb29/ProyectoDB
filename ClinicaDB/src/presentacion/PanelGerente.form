@@ -28,26 +28,21 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="labelBinvenido" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="labelNombreGerente" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="labelPanelGerente" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
+                      <Component id="labelBinvenido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelNombreGerente" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
@@ -56,29 +51,40 @@
               <Component id="labelGestionDeArea" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="labelPanelGerente" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="botonCerrarSesion" min="-2" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="botonCerrarSesion" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               <Component id="labelPanelGerente" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelBinvenido" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="labelNombreGerente" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelReporte" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="labelGestionDeArea" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Component id="jPanel2" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jPanel2" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace pref="16" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -104,9 +110,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="botonFacturaPaciente" pref="197" max="32767" attributes="0"/>
-                      <Component id="botonBuscarHojasDeVida" pref="197" max="32767" attributes="0"/>
-                      <Component id="botonNoSeSabeDaniel" max="32767" attributes="0"/>
+                      <Component id="botonFacturaPaciente" max="32767" attributes="0"/>
+                      <Component id="botonBuscarHojasDeVida" max="32767" attributes="0"/>
+                      <Component id="botonAgenda" max="32767" attributes="0"/>
                       <Component id="botonCitas" max="32767" attributes="0"/>
                       <Component id="butonEmpleadosPorAreas" max="32767" attributes="0"/>
                   </Group>
@@ -126,7 +132,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="botonCitas" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="botonNoSeSabeDaniel" min="-2" pref="51" max="-2" attributes="0"/>
+                  <Component id="botonAgenda" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -135,7 +141,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="botonBuscarHojasDeVida">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar Hojas de Vida"/>
+            <Property name="text" type="java.lang.String" value="Buscar Historia Clinica"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonBuscarHojasDeVidaActionPerformed"/>
@@ -159,13 +165,19 @@
         </Component>
         <Component class="javax.swing.JButton" name="botonCitas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Citas"/>
+            <Property name="text" type="java.lang.String" value="Numero de Citas Atendidas "/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCitasActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="botonNoSeSabeDaniel">
+        <Component class="javax.swing.JButton" name="botonAgenda">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Costos"/>
+            <Property name="text" type="java.lang.String" value="Agenda de un Medico"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAgendaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -187,10 +199,10 @@
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="botonEliminar" pref="197" max="32767" attributes="0"/>
-                      <Component id="botonEditar" pref="197" max="32767" attributes="0"/>
+                      <Component id="botonEditar" max="32767" attributes="0"/>
                       <Component id="botonCrear" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -203,7 +215,7 @@
                   <Component id="botonEditar" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="botonEliminar" min="-2" pref="51" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -274,6 +286,19 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="nombreGerente"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="botonCerrarSesion">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="99" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
+        <Property name="contentAreaFilled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCerrarSesionActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

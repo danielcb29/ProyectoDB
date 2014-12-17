@@ -76,9 +76,10 @@ public class Registro {
     public String getCausas() {
         String respuesta = "";
         for(int i = 0 ; i < causasPaciente.size() ; i++){
-            respuesta += causasPaciente.get(i) + ", ";
+            respuesta += causasPaciente.get(i).getNombre() + ", ";
         }
-        return respuesta.substring(0, respuesta.length()-2);
+        //return respuesta.substring(0, respuesta.length()-2);
+        return respuesta;
     }
     
     
